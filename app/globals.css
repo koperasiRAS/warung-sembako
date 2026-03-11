@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0D9488;
+  --primary-dark: #0F766E;
+  --secondary: #F97316;
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --cash: #10B981;
+  --bank: #3B82F6;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Receipt print styles */
+@media print {
+  @page {
+    size: 58mm auto;
+    margin: 0;
+  }
+
+  body {
+    background: white !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .receipt-container {
+    width: 58mm !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    padding: 4px !important;
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch-friendly buttons */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Barcode scanner input */
+.barcode-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
