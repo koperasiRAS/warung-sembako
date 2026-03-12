@@ -66,13 +66,13 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-full w-64 bg-white border-r border-slate-200 z-50
+          fixed top-0 left-0 h-[100dvh] w-64 bg-white border-r border-slate-200 z-50
           transform transition-transform duration-200 ease-in-out
           lg:translate-x-0
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full overflow-hidden">
           {/* Logo */}
           <div className="p-6 border-b border-slate-100 flex items-center justify-center">
             <img 
@@ -83,7 +83,7 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-1">
+          <nav className="flex-1 overflow-y-auto p-4 space-y-1 pb-24">
             {navItems
               .filter(item => item.roles.includes(role))
               .map((item) => {
@@ -109,8 +109,8 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
             })}
           </nav>
 
-          {/* Logout */}
-          <div className="p-4 border-t border-slate-100">
+          {/* Logout - fixed at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100 bg-white">
             <button
               onClick={handleLogout}
               className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition"
