@@ -27,7 +27,7 @@ export function ThermalReceipt({
   cashReceived = 0,
   change = 0,
   storeName = 'WARUNG SEMBAKO BY RAS',
-  storeAddress = 'Jl. Contoh No. 123',
+  storeAddress = 'Jl. Boulevard Grand Depok City',
 }: ReceiptProps) {
   const formatCurrency = (amount: number) => {
     return Math.round(amount).toLocaleString('id-ID');
@@ -160,11 +160,10 @@ export function ThermalReceiptPrint(props: ReceiptProps) {
 
 const receiptStyles = {
   container: {
-    width: '58mm',
-    padding: '4px',
-    fontFamily: '"Courier New", monospace',
-    fontSize: '10px',
-    lineHeight: '1.2',
+    width: '100%',
+    padding: '0',
+    fontFamily: 'Arial, Helvetica, sans-serif',
+    WebkitFontSmoothing: 'none',
     color: '#000',
     backgroundColor: '#fff',
   },
@@ -173,21 +172,26 @@ const receiptStyles = {
     paddingBottom: '4px',
   },
   storeName: {
-    fontSize: '12px',
+    fontSize: '16px',
     fontWeight: 'bold' as const,
     margin: 0,
     padding: 0,
+    color: '#000',
   },
   storeAddress: {
-    fontSize: '9px',
+    fontSize: '12px',
+    fontWeight: 'bold' as const,
     margin: '2px 0 0 0',
+    color: '#000',
   },
   divider: {
-    borderBottom: '1px dashed #000',
+    borderBottom: '2px dashed #000',
     margin: '4px 0',
   },
   info: {
-    fontSize: '9px',
+    fontSize: '12px',
+    fontWeight: 'bold' as const,
+    color: '#000',
   },
   infoRow: {
     display: 'flex',
@@ -195,16 +199,19 @@ const receiptStyles = {
     marginBottom: '2px',
   },
   mono: {
-    fontFamily: 'monospace',
+    fontFamily: 'Arial, Helvetica, sans-serif',
   },
   itemsHeader: {
     display: 'flex',
-    fontSize: '9px',
+    fontSize: '12px',
     fontWeight: 'bold' as const,
     marginBottom: '2px',
+    color: '#000',
   },
   items: {
-    fontSize: '9px',
+    fontSize: '12px',
+    fontWeight: 'bold' as const,
+    color: '#000',
   },
   itemRow: {
     display: 'flex',
@@ -214,54 +221,60 @@ const receiptStyles = {
     display: 'flex',
     justifyContent: 'space-between',
     fontWeight: 'bold' as const,
-    fontSize: '11px',
+    fontSize: '15px',
     marginTop: '4px',
+    color: '#000',
   },
   totalLabel: {
-    fontSize: '11px',
+    fontSize: '15px',
   },
   totalValue: {
-    fontSize: '11px',
+    fontSize: '15px',
   },
   paymentInfo: {
-    fontSize: '9px',
+    fontSize: '12px',
+    fontWeight: 'bold' as const,
     marginTop: '4px',
+    color: '#000',
   },
   footer: {
     textAlign: 'center' as const,
-    fontSize: '10px',
+    fontSize: '14px',
     fontWeight: 'bold' as const,
     paddingTop: '4px',
+    color: '#000',
   },
   footerSub: {
-    fontSize: '8px',
-    fontWeight: 'normal' as const,
+    fontSize: '12px',
+    fontWeight: 'bold' as const,
     marginTop: '2px',
+    color: '#000',
   },
 };
 
 const printStyles = `
   @media print {
     @page {
-      size: 58mm auto;
       margin: 0;
     }
 
     body {
       margin: 0;
       padding: 0;
+      background: #fff;
     }
 
     .print-only {
       display: block !important;
-      width: 58mm;
-      position: absolute;
-      top: 0;
-      left: 0;
+      width: 100%;
+      margin: 0;
+      padding: 2mm;
+      box-sizing: border-box;
     }
 
     .print-only * {
       visibility: visible;
+      color: #000 !important;
     }
 
     /* Hide everything else */

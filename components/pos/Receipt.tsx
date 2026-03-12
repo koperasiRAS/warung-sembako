@@ -29,13 +29,13 @@ export function Receipt({ transaction, items, cashierName }: ReceiptProps) {
   };
 
   return (
-    <div className="bg-white p-4 text-slate-900 text-xs font-mono" style={{ width: '58mm' }}>
-      <div className="text-center border-b-2 border-dashed border-slate-300 pb-3 mb-3">
-        <h1 className="font-bold text-sm">WARUNG SEMBAKO BY RAS</h1>
-        <p className="text-xs mt-1">Jl. Contoh No. 123</p>
+    <div className="bg-white p-2 text-black text-sm font-sans font-bold" style={{ width: '100%', maxWidth: '58mm', WebkitFontSmoothing: 'none' }}>
+      <div className="text-center border-b-2 border-dashed border-black pb-3 mb-3">
+        <h1 className="font-extrabold text-base">WARUNG SEMBAKO BY RAS</h1>
+        <p className="text-sm mt-1">Jl. Boulevard Grand Depok City</p>
       </div>
 
-      <div className="border-b border-slate-300 pb-2 mb-3">
+      <div className="border-b-2 border-dashed border-black pb-2 mb-3">
         <p>DATE: {formatDate(transaction.created_at)}</p>
         <p>TRX: {transaction.id.slice(0, 12)}</p>
         <p>CASHIER: {cashierName}</p>
@@ -81,7 +81,6 @@ export function ReceiptPrint({ transaction, items, cashierName }: ReceiptProps) 
       <style>{`
         @media print {
           @page {
-            size: 58mm auto;
             margin: 0;
           }
           body * {
