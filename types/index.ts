@@ -1,21 +1,4 @@
-export type UserRole = 'owner' | 'cashier';
-
-export interface Profile {
-  id: string;
-  email: string;
-  full_name: string | null;
-  role: UserRole;
-  created_at: string;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  description: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
+// Product types
 export interface Product {
   id: string;
   name: string;
@@ -31,6 +14,24 @@ export interface Product {
   category?: Category;
 }
 
+// Category types
+export interface Category {
+  id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// Cart types
+export interface CartItem {
+  product_id: string;
+  product_name: string;
+  price: number;
+  quantity: number;
+}
+
+// Transaction types
 export interface Transaction {
   id: string;
   total: number;
@@ -39,19 +40,19 @@ export interface Transaction {
   status: 'completed' | 'voided';
   created_at: string;
   cashier?: Profile;
-  items?: TransactionItem[];
 }
 
 export interface TransactionItem {
   id: string;
   transaction_id: string;
   product_id: string;
+  product_name?: string;
   qty: number;
   price: number;
   created_at: string;
-  product?: Product;
 }
 
+// Expense types
 export interface Expense {
   id: string;
   title: string;
@@ -61,6 +62,16 @@ export interface Expense {
   created_at: string;
 }
 
+// User/Profile types
+export interface Profile {
+  id: string;
+  email: string;
+  full_name: string | null;
+  role: 'owner' | 'cashier';
+  created_at: string;
+}
+
+// Balance types
 export interface DailyBalance {
   id: string;
   date: string;
@@ -71,15 +82,26 @@ export interface DailyBalance {
   updated_at: string;
 }
 
+// Dashboard stats types
 export interface DashboardStats {
   todaySales: number;
   todayTransactions: number;
   cashBalance: number;
   bankBalance: number;
   lowStockProducts: Product[];
+  salesData: { date: string; value: number }[];
 }
 
-export interface CartItem {
-  product: Product;
-  qty: number;
+// API Response types
+export interface ApiResponse<T> {
+  data?: T;
+  error?: string;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }

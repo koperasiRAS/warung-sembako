@@ -29,7 +29,7 @@ body {
 /* Receipt print styles */
 @media print {
   @page {
-    size: 58mm auto;
+    size: 48mm 210mm;
     margin: 0;
   }
 
@@ -37,6 +37,8 @@ body {
     background: white !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    margin: 0;
+    padding: 0;
   }
 
   .no-print {
@@ -48,10 +50,14 @@ body {
   }
 
   .receipt-container {
-    width: 58mm !important;
+    width: 48mm !important;
+    max-width: 48mm !important;
     font-size: 11px !important;
     line-height: 1.2 !important;
     padding: 4px !important;
+    margin: 0 auto !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 }
 

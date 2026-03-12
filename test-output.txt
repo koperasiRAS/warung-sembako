@@ -1,0 +1,44 @@
+﻿=== STEP 1: AUTHENTICATION & RLS TEST ===
+✅ Login successful. Session created.
+
+Testing RLS access for authenticated user:
+❌ Table 'categories' returned error: permission denied for schema public
+❌ Table 'products' returned error: permission denied for schema public
+❌ Table 'expenses' returned error: permission denied for schema public
+❌ Table 'transactions' returned error: permission denied for schema public
+❌ Table 'transaction_items' returned error: permission denied for schema public
+❌ Table 'daily_balances' returned error: permission denied for schema public
+❌ Table 'profiles' returned error: permission denied for schema public
+
+=== STEP 2: DATABASE MIGRATION VERIFICATION ===
+Fetching OpenAPI spec to verify schema...
+✅ Table 'categories' exists.
+✅ Table 'products' exists.
+✅ Table 'expenses' exists.
+✅ Table 'transactions' exists.
+✅ Table 'transaction_items' exists.
+✅ Table 'profiles' exists.
+✅ Table 'daily_balances' exists.
+
+Checking required columns:
+
+Table 'products':
+  ✅ Column 'id' exists.
+  ✅ Column 'name' exists.
+  ✅ Column 'price' exists.
+  ✅ Column 'stock' exists.
+  ✅ Column 'barcode' exists.
+  ✅ Column 'category_id' exists.
+
+Table 'transactions':
+  ✅ Column 'id' exists.
+  ✅ Column 'total' exists.
+  ✅ Column 'payment_method' exists.
+  ✅ Column 'cashier_id' exists.
+  ✅ Column 'created_at' exists.
+
+Table 'transaction_items':
+  ✅ Column 'transaction_id' exists.
+  ✅ Column 'product_id' exists.
+  ✅ Column 'qty' exists.
+  ✅ Column 'price' exists.

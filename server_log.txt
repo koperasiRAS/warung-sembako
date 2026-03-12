@@ -1,0 +1,1997 @@
+
+> warung-sembako-pos@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+  ▲ Next.js 14.2.18
+  - Local:        http://localhost:3002
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1810ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.7s (450 modules)
+ GET / 404 in 2848ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 3s (579 modules)
+ GET /login 200 in 3472ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 3s (733 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /dashboard 200 in 602ms
+ ○ Compiling /products ...
+ ✓ Compiled /products in 1129ms (760 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ○ Compiling /pos ...
+ ✓ Compiled /pos in 1921ms (786 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /pos 200 in 2862ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 677ms (789 modules)
+ GET /dashnoard 404 in 920ms
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /dashboard 200 in 2502ms
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /dashboard 200 in 357ms
+ ○ Compiling /categories ...
+ ✓ Compiled /categories in 613ms (798 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ✓ Compiled in 436ms (365 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ✓ Compiled in 483ms (787 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ✓ Compiled in 170ms (328 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ✓ Compiled in 124ms (320 modules)
+ ⨯ SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadManifest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-manifest.js:36:25)
+    at DevServer.getNextFontManifest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:744:47)
+    at DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:571:43)
+    at async DevServer.renderPageComponent (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:1897:24)
+    at async DevServer.renderToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:1949:32)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:817:17)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:350:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  page: '/categories'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1081ms (903 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /categories 200 in 426ms
+ ✓ Compiled in 190ms (500 modules)
+ ✓ Compiled /categories in 344ms (963 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ ✓ Compiled in 166ms (534 modules)
+ ✓ Compiled in 131ms (534 modules)
+ ✓ Compiled /_not-found in 145ms (960 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /categories 200 in 366ms
+ ✓ Compiled in 125ms (536 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/6e46380e7df22cb7.webpack.hot-update.json 404 in 22ms
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /categories 200 in 261ms
+ ✓ Compiled in 130ms (536 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /_next/static/webpack/33859280374ed961.webpack.hot-update.json 404 in 188ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /categories 200 in 528ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ GET / 404 in 60ms
+ GET /_next/static/css/app/layout.css?v=1773241644745 404 in 59ms
+ GET /_next/static/chunks/main-app.js?v=1773241644745 404 in 66ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 62ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 2.6s (442 modules)
+ GET /login 200 in 3070ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1698ms (964 modules)
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ✓ Compiled /_error in 468ms (966 modules)
+ GET /_next/static/chunks/app-pages-internals.js 500 in 9022ms
+ GET /_next/static/chunks/app/login/page.js 500 in 9021ms
+ GET /_next/static/chunks/main-app.js?v=1773241934793 500 in 9027ms
+ GET /_next/static/css/app/layout.css?v=1773241934793 500 in 9036ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ GET /login? 200 in 372ms
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\login\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\login\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\login\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\login\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\login\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\login\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\login\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\login\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/css/app/layout.css?v=1773241964005 500 in 64ms
+ GET /_next/static/chunks/main-app.js?v=1773241964005 500 in 58ms
+ GET /_next/static/chunks/app-pages-internals.js 500 in 56ms
+ GET /_next/static/chunks/app/login/page.js 500 in 54ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1864ms (1019 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /dashboard 200 in 4292ms
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\dashboard\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\dashboard\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\dashboard\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\dashboard\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\dashboard\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\dashboard\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\dashboard\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\dashboard\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/css/app/layout.css?v=1773241995748 500 in 65ms
+ GET /_next/static/chunks/main-app.js?v=1773241995748 500 in 72ms
+ GET /_next/static/chunks/app-pages-internals.js 500 in 72ms
+ GET /_next/static/chunks/app/(admin)/layout.js 500 in 69ms
+ ○ Compiling /products ...
+ ✓ Compiled /products in 1041ms (1024 modules)
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
+ GET /products 200 in 1852ms
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/css/app/layout.css?v=1773242015802 500 in 36ms
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3314
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js:1:3355)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2077:30)
+    at async pipe.req.req (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:2043:30)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/chunks/main-app.js?v=1773242015802 500 in 53ms
+ GET /_next/static/chunks/app-pages-internals.js 500 in 50ms
+ GET /_next/static/chunks/app/(admin)/layout.js 500 in 50ms
+ ⨯ Error: Cannot find module './819.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\categories\page.js:9:4791
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\categories\page.js:9:4844)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:1897:24)
+    at async DevServer.renderToResponseImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:1949:32)
+    at async DevServer.pipeImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:921:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\base-server.js:817:17)
+    at async C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:350:24)
+    at async requestHandlerImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/categories'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\(admin)\\products\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /categories 500 in 91ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 5.3s (550 modules)
+ ✓ Compiled in 145ms (550 modules)
+ ✓ Compiled in 1593ms (987 modules)
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+ ✓ Compiled in 769ms (987 modules)
+ ✓ Compiled in 354ms (987 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 2.5s (550 modules)
+ ✓ Compiled in 3s (987 modules)
+ ✓ Compiled in 220ms (550 modules)
+ ✓ Compiled in 215ms (550 modules)
+ ✓ Compiled in 255ms (550 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 5.4s (987 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 457ms (550 modules)
+ ✓ Compiled in 219ms (550 modules)
+ ✓ Compiled in 1204ms (987 modules)
+ ✓ Compiled in 373ms (987 modules)
+ ✓ Compiled in 200ms (550 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 256ms (550 modules)
+ ✓ Compiled in 1241ms (987 modules)
+ ✓ Compiled in 569ms (550 modules)
+ ✓ Compiled in 439ms (550 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 285ms (550 modules)
+ ✓ Compiled in 3.4s (989 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/(admin)/products/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/(admin)/products/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/(admin)/products/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/categories/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/categories/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/categories/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\categories\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\2.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\2.pack.gz'
+ ✓ Compiled in 811ms (989 modules)
+ ✓ Compiled in 1441ms (976 modules)
+ ✓ Compiled in 515ms (990 modules)
+ ✓ Compiled in 578ms (990 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/(admin)/products/page' in C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/(admin)/products/page' in 'C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/(admin)/products/page (expected C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\(admin)\products\page.js)
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ⨯ ./app/(admin)/products/ProductsClient.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4mC:\Users\ACER\Downloads\Warung Sembako\app\(admin)\products\ProductsClient.tsx[0m:282:1]
+ [2m282[0m |   };
+ [2m283[0m | 
+ [2m284[0m |   return (
+ [2m285[0m |     <div className="p-4 lg:p-8">
+     : [31;1m     ^^^[0m
+ [2m286[0m |       {/* Header */}
+ [2m287[0m |       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+ [2m288[0m |         <div>
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/(admin)/products/ProductsClient.tsx
+ ✓ Compiled in 800ms (551 modules)
+ ✓ Compiled in 1604ms (990 modules)
+ ✓ Compiled in 563ms (551 modules)
+ ✓ Compiled in 1548ms (990 modules)
+ ✓ Compiled in 307ms (551 modules)
+ ✓ Compiled in 378ms (551 modules)
+ ✓ Compiled in 362ms (551 modules)
+ ✓ Compiled in 278ms (551 modules)
+ ✓ Compiled in 283ms (551 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 1128ms (990 modules)
+ ✓ Compiled in 1079ms (976 modules)
+ ✓ Compiled in 384ms (551 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 1117ms (990 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 4.4s (551 modules)
+ ✓ Compiled in 2.1s (990 modules)
+ ✓ Compiled in 851ms (990 modules)
+ ✓ Compiled in 969ms (996 modules)
+ ✓ Compiled in 1155ms (982 modules)
+ ✓ Compiled in 850ms (982 modules)
+ ✓ Compiled in 347ms (554 modules)
+ ✓ Compiled in 421ms (554 modules)
+ ✓ Compiled in 1235ms (982 modules)
+ ✓ Compiled in 366ms (554 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\3.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\3.pack.gz'
+ ✓ Compiled in 813ms (996 modules)
+ ✓ Compiled in 1264ms (982 modules)
+ ✓ Compiled in 457ms (554 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 341ms (554 modules)
+ ✓ Compiled in 284ms (554 modules)
+ ✓ Compiled in 437ms (554 modules)
+ ✓ Compiled in 299ms (554 modules)
+ ✓ Compiled in 1036ms (996 modules)
+   Reload env: .env.local
+ ✓ Compiled in 5.1s (996 modules)
+ ✓ Compiled in 1018ms (554 modules)
+ ✓ Compiled in 550ms (554 modules)
+ ✓ Compiled in 556ms (554 modules)
+ ✓ Compiled in 600ms (554 modules)
+ ✓ Compiled in 349ms (554 modules)
+ ✓ Compiled in 329ms (554 modules)
+ ✓ Compiled in 372ms (554 modules)
+ ✓ Compiled in 363ms (554 modules)
+ ✓ Compiled in 2.7s (554 modules)
+ ✓ Compiled in 1454ms (996 modules)
+ ✓ Compiled in 5.1s (554 modules)
+ ✓ Compiled in 482ms (554 modules)
+ ✓ Compiled in 3.6s (996 modules)
+ ✓ Compiled in 1728ms (982 modules)
+ ✓ Compiled in 501ms (554 modules)
+ ✓ Compiled in 840ms (554 modules)
+ ✓ Compiled in 1124ms (996 modules)
+ ✓ Compiled in 391ms (554 modules)
+ ✓ Compiled in 1421ms (996 modules)
+ ✓ Compiled in 475ms (553 modules)
+ ✓ Compiled in 777ms (995 modules)
+ ✓ Compiled in 677ms (995 modules)
+ ✓ Compiled in 285ms (553 modules)
+ ✓ Compiled in 496ms (995 modules)
+ ✓ Compiled in 293ms (553 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: invalid stored block lengths
+ ✓ Compiled in 1728ms (995 modules)
+ ✓ Compiled in 326ms (553 modules)
+ ✓ Compiled in 334ms (553 modules)
+ ✓ Compiled in 365ms (553 modules)
+ ✓ Compiled in 380ms (553 modules)
+ ✓ Compiled in 360ms (553 modules)
+ ✓ Compiled in 326ms (553 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\4.pack.gz_' -> 'C:\Users\ACER\Downloads\Warung Sembako\.next\cache\webpack\client-development\4.pack.gz'
+ ✓ Compiled in 368ms (553 modules)
+ ✓ Compiled in 343ms (553 modules)
+ ✓ Compiled in 335ms (553 modules)
+ ✓ Compiled in 350ms (553 modules)
+ ✓ Compiled in 320ms (553 modules)
+ ✓ Compiled in 439ms (553 modules)
+ ✓ Compiled in 340ms (553 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.8s (998 modules)
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET / 500 in 3232ms
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js
+- C:\Users\ACER\Downloads\Warung Sembako\.next\server\app\_not-found\page.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\build\utils.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\ACER\Downloads\Warung Sembako\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (C:\Users\ACER\Downloads\Warung Sembako\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\ACER\Downloads\Warung Sembako\node_modules\next\dist\server\next-server.js:709:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\ACER\\Downloads\\Warung Sembako\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/chunks/fallback/main.js 500 in 73ms
+ GET /_next/static/chunks/fallback/webpack.js 500 in 71ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 69ms
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 68ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 67ms
+ ✓ Compiled in 2.5s (553 modules)

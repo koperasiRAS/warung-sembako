@@ -39,12 +39,12 @@ export default function LoginPage() {
         .single();
 
       if (profile?.role === 'owner') {
-        router.push('/dashboard');
+        router.push('/pos'); // Owner also defaults to POS 
       } else {
         router.push('/pos');
       }
     } else {
-      router.push('/dashboard');
+      router.push('/pos'); // Fallback to POS
     }
 
     router.refresh();
@@ -57,11 +57,10 @@ export default function LoginPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
-              <Store className="w-8 h-8 text-white" />
+            <div className="flex justify-center mb-4">
+               <img src="/logo-ras.png" alt="Warung Sembako by RAS" className="h-20 sm:h-24 w-auto object-contain" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-800">Warung Sembako</h1>
-            <p className="text-slate-500 mt-1">Point of Sale System</p>
+            <p className="text-slate-500 mt-2 font-medium">Sistem Kasir Pintar</p>
           </div>
 
           {/* Login Form */}
@@ -89,7 +88,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition"
-                placeholder="Enter your password"
+                placeholder="Masukkan kata sandi"
                 required
               />
             </div>
@@ -108,10 +107,10 @@ export default function LoginPage() {
               {loading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Signing in...
+                  Masuk...
                 </>
               ) : (
-                'Sign In'
+                'Masuk'
               )}
             </button>
           </form>

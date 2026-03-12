@@ -8,24 +8,34 @@ import {
   Tags,
   Receipt,
   Wallet,
-  TrendingUp,
   LogOut,
   Menu,
   X,
+  Archive,
+  TrendingUp,
+  ShoppingCart,
+  Users,
+  Clock,
+  BookUser,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 
 const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/products', label: 'Products', icon: Package },
-  { href: '/categories', label: 'Categories', icon: Tags },
-  { href: '/transactions', label: 'Transactions', icon: Receipt },
-  { href: '/expenses', label: 'Expenses', icon: Wallet },
-  { href: '/reports', label: 'Reports', icon: TrendingUp },
+  { href: '/pos', label: 'Kasir (POS)', icon: ShoppingCart, roles: ['owner', 'cashier'] },
+  { href: '/dashboard', label: 'Beranda Admin', icon: LayoutDashboard, roles: ['owner', 'cashier'] },
+  { href: '/products', label: 'Produk', icon: Package, roles: ['owner'] },
+  { href: '/inventory', label: 'Restock / Gudang', icon: Archive, roles: ['owner', 'cashier'] },
+  { href: '/categories', label: 'Kategori', icon: Tags, roles: ['owner'] },
+  { href: '/transactions', label: 'Transaksi', icon: Receipt, roles: ['owner', 'cashier'] },
+  { href: '/debts', label: 'Buku Utang', icon: BookUser, roles: ['owner', 'cashier'] },
+  { href: '/expenses', label: 'Pengeluaran', icon: Wallet, roles: ['owner'] },
+  { href: '/shifts', label: 'Laporan Shift', icon: Clock, roles: ['owner'] },
+  { href: '/reports', label: 'Laporan', icon: TrendingUp, roles: ['owner', 'cashier'] },
+  { href: '/cashiers', label: 'Manajemen Kasir', icon: Users, roles: ['owner'] },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ role = 'owner' }: { role?: string }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const supabase = createClient();
@@ -64,21 +74,19 @@ export default function Sidebar() {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="p-6 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">WS</span>
-              </div>
-              <div>
-                <h1 className="font-bold text-slate-800">Warung Sembako</h1>
-                <p className="text-xs text-slate-500">POS System</p>
-              </div>
-            </div>
+          <div className="p-6 border-b border-slate-100 flex items-center justify-center">
+            <img 
+              src="/logo-ras.png" 
+              alt="Warung Sembako by RAS" 
+              className="h-14 sm:h-16 w-auto object-contain"
+            />
           </div>
 
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-1">
-            {navItems.map((item) => {
+            {navItems
+              .filter(item => item.roles.includes(role))
+              .map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -101,18 +109,6 @@ export default function Sidebar() {
             })}
           </nav>
 
-          {/* POS Button */}
-          <div className="p-4 border-t border-slate-100">
-            <Link
-              href="/pos"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-3 bg-secondary hover:bg-secondary-dark text-white font-medium rounded-lg transition"
-            >
-              <Receipt className="w-5 h-5" />
-              Open POS
-            </Link>
-          </div>
-
           {/* Logout */}
           <div className="p-4 border-t border-slate-100">
             <button
@@ -120,7 +116,7 @@ export default function Sidebar() {
               className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition"
             >
               <LogOut className="w-5 h-5" />
-              <span className="font-medium">Logout</span>
+              <span className="font-medium">Keluar</span>
             </button>
           </div>
         </div>
