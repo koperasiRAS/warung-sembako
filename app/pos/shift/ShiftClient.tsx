@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
-import { LogOut, Calculator, ArrowLeft, Loader2, Printer, CheckCircle2 } from 'lucide-react';
+import { LogOut, Calculator, ArrowLeft, Loader2, Printer, CheckCircle2, Clock } from 'lucide-react';
 import Link from 'next/link';
 
 interface ShiftData {
@@ -17,12 +17,14 @@ interface ShiftData {
   transactionCount: number;
 }
 
-export default function ShiftClient({ initialData, openShiftId }: { initialData: ShiftData; openShiftId?: string | null }) {
+export default function ShiftClient({ initialData, openShiftId, reason }: { initialData: ShiftData; openShiftId?: string | null; reason?: string }) {
   const router = useRouter();
   const supabase = createClient();
   const [actualCash, setActualCash] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isOpening, setIsOpening] = useState(reason === 'no_shift');
+  const [isOpeningSubmitting, setIsOpeningSubmitting] = useState(false);
 
   // Format currency
   const formatCurrency = (amount: number) => {
@@ -41,6 +43,25 @@ export default function ShiftClient({ initialData, openShiftId }: { initialData:
     await supabase.auth.signOut();
     router.push('/login');
     router.refresh();
+  };
+
+  const handleOpenShift = async () => {
+    setIsOpeningSubmitting(true);
+    try {
+      const { data, error } = await supabase.rpc('ensure_open_shift', {
+        p_cashier_id: initialData.cashierId,
+      });
+      if (error || !data?.[0]?.id) {
+        throw error || new Error('Gagal membuka shift');
+      }
+      toast.success('Shift berhasil dibuka!');
+      router.push('/pos');
+    } catch (e: any) {
+      console.error('Failed to open shift:', e);
+      toast.error('Gagal membuka shift: ' + (e.message || 'Unknown error'));
+    } finally {
+      setIsOpeningSubmitting(false);
+    }
   };
 
   const handleFinishShift = async () => {
@@ -80,6 +101,37 @@ export default function ShiftClient({ initialData, openShiftId }: { initialData:
       setIsSubmitting(false);
     }
   };
+
+  // Show "Buka Shift Baru" screen when user has no open shift
+  if (isOpening) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center max-w-sm w-full">
+          <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Clock className="w-8 h-8" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">Shift Sudah Ditutup</h2>
+          <p className="text-slate-500 mb-6">
+            Shift sebelumnya sudah ditutup. Silakan buka shift baru untuk mulai berjualan lagi.
+          </p>
+          <button
+            onClick={handleOpenShift}
+            disabled={isOpeningSubmitting}
+            className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {isOpeningSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
+            Buka Shift Baru
+          </button>
+          <button
+            onClick={handleLogout}
+            className="w-full mt-3 py-2.5 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition"
+          >
+            Keluar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (isSuccess) {
     return (

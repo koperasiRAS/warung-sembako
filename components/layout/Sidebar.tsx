@@ -70,6 +70,11 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
         { event: 'INSERT', schema: 'public', table: 'expenses' },
         () => { router.refresh(); }
       )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'shifts' },
+        () => { router.refresh(); }
+      )
       .subscribe();
 
     return () => {

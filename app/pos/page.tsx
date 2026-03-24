@@ -40,12 +40,20 @@ export default async function POSPage() {
 
   const profile = await getProfile(user.id);
 
-  // Ensure an open shift exists for this cashier (DB-backed, idempotent)
+  // Check if there's an open shift for this cashier — redirect if none
   const supabase = await createClient();
-  const { data: openShift } = await supabase.rpc('ensure_open_shift', {
-    p_cashier_id: user.id,
-  });
-  const shiftId: string | null = openShift?.[0]?.id || null;
+  const { data: openShiftRows } = await supabase
+    .from('shifts')
+    .select('id')
+    .eq('cashier_id', user.id)
+    .eq('status', 'open')
+    .limit(1);
+
+  if (!openShiftRows || openShiftRows.length === 0) {
+    redirect('/pos/shift?reason=no_shift');
+  }
+
+  const shiftId = openShiftRows[0].id;
 
   const [products, categories] = await Promise.all([
     getProducts(),

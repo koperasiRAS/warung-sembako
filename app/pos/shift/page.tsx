@@ -4,13 +4,16 @@ import ShiftClient from './ShiftClient';
 
 export const dynamic = 'force-dynamic';
 
-export default function ShiftPage() {
-  // It's a server component but we will defer heavy fetching inside the client for real-time feel
-  // or do it here. Doing it here is more secure.
-  return <ShiftPageContent />;
+export default async function ShiftPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ reason?: string }>;
+}) {
+  const params = await searchParams;
+  return <ShiftPageContent reason={params.reason} />;
 }
 
-async function ShiftPageContent() {
+async function ShiftPageContent({ reason }: { reason?: string }) {
   const user = await getUser();
 
   if (!user) {
@@ -65,5 +68,5 @@ async function ShiftPageContent() {
   });
   const openShiftId: string | null = openShift?.[0]?.id || null;
 
-  return <ShiftClient initialData={shiftData} openShiftId={openShiftId} />;
+  return <ShiftClient initialData={shiftData} openShiftId={openShiftId} reason={reason} />;
 }
