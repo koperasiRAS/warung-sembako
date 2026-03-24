@@ -102,11 +102,13 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     }
   };
 
-  // Show "Buka Shift Baru" screen when user has no open shift
+  // Show "Buka Shift Baru" screen when user has no open shift — NON-DISMISSIBLE
   if (isOpening) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center max-w-sm w-full">
+        {/* Non-dismissible backdrop — clicking outside does nothing */}
+        <div className="absolute inset-0 cursor-default" />
+        <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 text-center max-w-sm w-full relative z-10">
           <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <Clock className="w-8 h-8" />
           </div>
@@ -121,12 +123,6 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
           >
             {isOpeningSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
             Buka Shift Baru
-          </button>
-          <button
-            onClick={handleLogout}
-            className="w-full mt-3 py-2.5 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition"
-          >
-            Keluar
           </button>
         </div>
       </div>

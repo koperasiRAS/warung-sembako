@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { Clock, Calculator, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
 
 interface Shift {
@@ -18,6 +20,23 @@ interface Shift {
 
 export default function ShiftsClient({ initialShifts }: { initialShifts: Shift[] }) {
   const [shifts] = useState<Shift[]>(initialShifts);
+  const router = useRouter();
+
+  // Realtime: refresh when shifts table changes (new shift closed, etc.)
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel('shifts-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'shifts' },
+        () => { router.refresh(); }
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {

@@ -62,11 +62,14 @@ async function ShiftPageContent({ reason }: { reason?: string }) {
     transactionCount,
   };
 
-  // Get the open shift ID from DB so we can UPDATE it (not INSERT) on close
-  const { data: openShift } = await supabase.rpc('ensure_open_shift', {
-    p_cashier_id: user.id,
-  });
-  const openShiftId: string | null = openShift?.[0]?.id || null;
+  // Only query existing open shift — do NOT create one here (that happens only when user clicks "Buka Shift Baru")
+  const { data: existingShift } = await supabase
+    .from('shifts')
+    .select('id')
+    .eq('cashier_id', user.id)
+    .eq('status', 'open')
+    .limit(1);
+  const openShiftId: string | null = existingShift?.[0]?.id || null;
 
   return <ShiftClient initialData={shiftData} openShiftId={openShiftId} reason={reason} />;
 }

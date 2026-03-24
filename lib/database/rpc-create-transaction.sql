@@ -64,11 +64,24 @@ BEGIN
     INSERT INTO transaction_items (transaction_id, product_id, qty, price)
     VALUES (v_transaction_id, v_product_id, v_qty, v_price);
 
-    -- Update product stock
-    UPDATE products
-    SET stock = stock - v_qty,
-        updated_at = NOW()
-    WHERE id = v_product_id;
+    -- Check stock availability before deducting
+    DECLARE
+      v_current_stock INTEGER;
+    BEGIN
+      SELECT stock INTO v_current_stock FROM products WHERE id = v_product_id;
+      IF v_current_stock IS NULL THEN
+        RAISE EXCEPTION 'Product with ID % not found', v_product_id;
+      END IF;
+      IF v_current_stock < v_qty THEN
+        RAISE EXCEPTION 'Insufficient stock for product %: available=%, requested=%', v_product_id, v_current_stock, v_qty;
+      END IF;
+
+      -- Update product stock
+      UPDATE products
+      SET stock = stock - v_qty,
+          updated_at = NOW()
+      WHERE id = v_product_id;
+    END;
   END LOOP;
 
   -- Update daily balance

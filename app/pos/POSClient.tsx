@@ -276,6 +276,17 @@ export default function POSClient({
 
   // Process payment - using atomic RPC for transaction integrity
   const handlePayment = async () => {
+    // Client-side stock validation
+    for (const item of cart) {
+      const product = products.find((p) => p.id === item.product_id);
+      if (!product || item.qty > product.stock) {
+        toast.error(
+          `Stok ${item.product_name} tidak mencukupi! Tersisa: ${product?.stock || 0}`
+        );
+        return;
+      }
+    }
+
     if (cart.length === 0) return;
 
     if (paymentMethod === 'cash' && change < 0) {
@@ -311,6 +322,15 @@ export default function POSClient({
       );
 
       if (rpcError) {
+        // Handle stock-related RPC errors
+        if (
+          rpcError.message?.includes('Insufficient stock') ||
+          rpcError.message?.includes('stock')
+        ) {
+          toast.error('Stok tidak mencukupi. Silakan kurangi jumlah di keranjang.');
+          setLoading(false);
+          return;
+        }
         console.error('RPC Error:', rpcError);
         throw new Error(rpcError.message);
       }
