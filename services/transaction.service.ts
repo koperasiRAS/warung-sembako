@@ -74,7 +74,7 @@ export const transactionService = {
 
   async createTransaction(params: {
     items: CartItem[];
-    payment_method: 'cash' | 'qris' | 'transfer';
+    payment_method: 'cash' | 'qris' | 'transfer' | 'hutang';
     cashier_id: string;
   }): Promise<Transaction> {
     const supabase = createClient();
@@ -116,7 +116,8 @@ export const transactionService = {
       });
 
       if (stockError) {
-        console.error('Failed to update stock:', stockError);
+        console.error('Failed to update stock for product', item.product_id, ':', stockError);
+        throw new Error('Gagal update stock produk. Transaksi tidak dapat diproses.');
       }
     }
 

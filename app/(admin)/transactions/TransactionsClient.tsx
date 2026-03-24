@@ -49,6 +49,7 @@ export default function TransactionsClient({
       cash: 'Tunai',
       qris: 'QRIS',
       transfer: 'Transfer',
+      hutang: 'Hutang',
     };
     return labels[method] || method;
   };
@@ -58,6 +59,7 @@ export default function TransactionsClient({
       cash: 'bg-green-100 text-green-700',
       qris: 'bg-blue-100 text-blue-700',
       transfer: 'bg-purple-100 text-purple-700',
+      hutang: 'bg-orange-100 text-orange-700',
     };
     return colors[method] || 'bg-slate-100 text-slate-700';
   };

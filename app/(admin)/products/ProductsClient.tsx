@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface PaginationInfo {
   page: number;
@@ -66,6 +67,7 @@ export default function ProductsClient({
     price: '',
     cost_price: '',
     stock: '',
+    low_stock_threshold: '10',
     category_id: '',
     barcode: '',
     sku: '',
@@ -117,6 +119,7 @@ export default function ProductsClient({
         price: product.price.toString(),
         cost_price: product.cost_price?.toString() || '0',
         stock: product.stock.toString(),
+        low_stock_threshold: (product.low_stock_threshold || 10).toString(),
         category_id: product.category_id || '',
         barcode: product.barcode || '',
         sku: product.sku || '',
@@ -130,6 +133,7 @@ export default function ProductsClient({
         price: '',
         cost_price: '',
         stock: '',
+        low_stock_threshold: '10',
         category_id: '',
         barcode: '',
         sku: '',
@@ -148,6 +152,7 @@ export default function ProductsClient({
       price: '',
       cost_price: '',
       stock: '',
+      low_stock_threshold: '10',
       category_id: '',
       barcode: '',
       sku: '',
@@ -162,12 +167,12 @@ export default function ProductsClient({
 
     // Validate file
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      alert('Pilih gambar dengan format JPG, PNG, atau WebP');
+      toast.error('Pilih gambar dengan format JPG, PNG, atau WebP');
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      alert('Ukuran gambar maksimal 2MB');
+      toast.error('Ukuran gambar maksimal 2MB');
       return;
     }
 
@@ -193,6 +198,55 @@ export default function ProductsClient({
     e.preventDefault();
     setLoading(true);
 
+    // ===== INPUT VALIDATION =====
+    const name = formData.name.trim();
+    const price = parseFloat(formData.price);
+    const costPrice = parseFloat(formData.cost_price) || 0;
+    const stock = parseInt(formData.stock);
+
+    // Validate product name
+    if (!name || name.length < 2) {
+      toast.error('Nama produk minimal 2 karakter!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate price
+    if (isNaN(price) || price <= 0) {
+      toast.error('Harga jual harus lebih dari 0!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate cost price
+    if (isNaN(costPrice) || costPrice < 0) {
+      toast.error('Harga modal tidak boleh negatif!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate selling price >= cost price
+    if (price < costPrice) {
+      toast.error('Harga jual tidak boleh lebih kecil dari harga modal! Ini berarti menjual rugi.');
+      setLoading(false);
+      return;
+    }
+
+    // Validate stock
+    if (isNaN(stock) || stock < 0) {
+      toast.error('Stok tidak boleh negatif!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate barcode (if provided, must be alphanumeric)
+    if (formData.barcode && !/^[a-zA-Z0-9]+$/.test(formData.barcode)) {
+      toast.error('Barcode hanya boleh mengandung huruf dan angka!');
+      setLoading(false);
+      return;
+    }
+    // ===== END VALIDATION =====
+
     try {
       let imageUrl = formData.image_url;
 
@@ -203,7 +257,7 @@ export default function ProductsClient({
         const result = await uploadProductImage(formData.imageFile, productId);
 
         if (!result.success) {
-          alert(result.error || 'Gagal mengunggah foto');
+          toast.error(result.error || 'Gagal mengunggah foto');
           setLoading(false);
           setUploadingImage(false);
           return;
@@ -214,10 +268,11 @@ export default function ProductsClient({
       }
 
       const productData = {
-        name: formData.name,
-        price: parseFloat(formData.price),
-        cost_price: parseFloat(formData.cost_price) || 0,
-        stock: parseInt(formData.stock),
+        name: name,
+        price: price,
+        cost_price: costPrice,
+        stock: stock,
+        low_stock_threshold: parseInt(formData.low_stock_threshold) || 10,
         category_id: formData.category_id || null,
         barcode: formData.barcode || null,
         sku: formData.sku || null,
@@ -253,9 +308,10 @@ export default function ProductsClient({
 
       closeModal();
       router.refresh();
+      toast.success('Produk berhasil disimpan!');
     } catch (error) {
       console.error('Error saving product:', error);
-      alert('Gagal menyimpan produk. Silakan coba lagi.');
+      toast.error('Gagal menyimpan produk. Silakan coba lagi.');
     } finally {
       setLoading(false);
     }
@@ -277,9 +333,10 @@ export default function ProductsClient({
       setProducts(products.filter((p) => p.id !== id));
       setDeleteConfirm(null);
       router.refresh();
+      toast.success('Produk berhasil dihapus!');
     } catch (error) {
       console.error('Error deleting product:', error);
-      alert('Gagal menghapus produk');
+      toast.error('Gagal menghapus produk!');
     } finally {
       setLoading(false);
     }
@@ -362,7 +419,7 @@ export default function ProductsClient({
                   <Package className="w-12 h-12 text-slate-300" />
                 </div>
               )}
-              {product.stock < 10 && (
+              {product.stock < (product.low_stock_threshold || 10) && (
                 <span className="absolute top-2 right-2 px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded">
                   Stok Menipis
                 </span>
@@ -513,7 +570,7 @@ export default function ProductsClient({
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">
                     Harga Modal *
@@ -563,6 +620,22 @@ export default function ProductsClient({
                     min="0"
                     placeholder="0"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Batas Stok Rendah
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.low_stock_threshold}
+                    onChange={(e) =>
+                      setFormData({ ...formData, low_stock_threshold: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                    min="0"
+                    placeholder="10"
+                  />
+                  <p className="text-xs text-slate-400 mt-1">Akan muncul tanda "Stok Menipis" jika stok di bawah angka ini</p>
                 </div>
               </div>
 

@@ -35,7 +35,7 @@ export interface CartItem {
 export interface Transaction {
   id: string;
   total: number;
-  payment_method: 'cash' | 'qris' | 'transfer';
+  payment_method: 'cash' | 'qris' | 'transfer' | 'hutang';
   cashier_id: string;
   status: 'completed' | 'voided';
   created_at: string;
@@ -47,6 +47,7 @@ export interface TransactionItem {
   transaction_id: string;
   product_id: string;
   product_name?: string;
+  product?: { name: string };
   qty: number;
   price: number;
   created_at: string;

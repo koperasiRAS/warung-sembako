@@ -83,15 +83,7 @@ export const inventoryService = {
       cost_price: cost_price > 0 ? cost_price : product.cost_price
     };
 
-    // 2. Perform sequential updates
-    const { error: updateError } = await supabase
-      .from('products')
-      .update(productUpdates)
-      .eq('id', product_id);
-
-    if (updateError) throw updateError;
-    
-    // 3. Insert history record
+    // 2. Insert history record FIRST (so if this fails, we don't touch stock)
     const { error: insertError } = await supabase
       .from('inventory_transactions')
       .insert({
@@ -105,9 +97,21 @@ export const inventoryService = {
       });
 
     if (insertError) {
-      // Rollback is manual if no RPC
-      console.error('Failed to insert history, but stock updated:', insertError);
-      throw insertError;
+      console.error('Failed to insert inventory history:', insertError);
+      throw new Error('Gagal menyimpan riwayat inventory: ' + insertError.message);
+    }
+
+    // 3. Only update stock AFTER history is successfully inserted
+    const { error: updateError } = await supabase
+      .from('products')
+      .update(productUpdates)
+      .eq('id', product_id);
+
+    if (updateError) {
+      // CRITICAL: History is saved but stock didn't update
+      // This creates an audit trail but stock is out of sync
+      console.error('CRITICAL: History saved but stock update failed:', updateError);
+      throw new Error('Gagal update stock: ' + updateError.message);
     }
   }
 };

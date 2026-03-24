@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { Category } from '@/lib/supabase/types';
 import { Plus, Search, Edit, Trash2, Tags, X, Loader2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface CategoryWithCount extends Category {
   productCount: number;
@@ -91,9 +92,10 @@ export default function CategoriesClient({
       }
 
       closeModal();
+      toast.success('Kategori berhasil disimpan!');
     } catch (error) {
       console.error('Error saving category:', error);
-      alert('Gagal menyimpan kategori');
+      toast.error('Gagal menyimpan kategori!');
     } finally {
       setLoading(false);
     }
@@ -108,9 +110,10 @@ export default function CategoriesClient({
 
       setCategories(categories.filter((c) => c.id !== id));
       setDeleteConfirm(null);
+      toast.success('Kategori berhasil dihapus!');
     } catch (error) {
       console.error('Error deleting category:', error);
-      alert('Gagal menghapus kategori');
+      toast.error('Gagal menghapus kategori!');
     } finally {
       setLoading(false);
     }

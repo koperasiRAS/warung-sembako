@@ -100,14 +100,20 @@ export const productService = {
 
   async getLowStockProducts(threshold: number = 10): Promise<Product[]> {
     const supabase = createClient();
-    const { data, error } = await supabase
-      .from('products')
-      .select('*, category:categories(*)')
-      .lte('stock', threshold)
-      .order('stock', { ascending: true })
-      .limit(10);
+    // Use RPC which compares stock < COALESCE(low_stock_threshold, 10) per product
+    const { data, error } = await supabase.rpc('get_low_stock_products', { limit_count: 10 });
 
-    if (error) throw error;
+    if (error) {
+      // Fallback for databases that haven't run the migration yet
+      const { data: fallback, error: fallbackError } = await supabase
+        .from('products')
+        .select('*, category:categories(*)')
+        .lte('stock', threshold)
+        .order('stock', { ascending: true })
+        .limit(10);
+      if (fallbackError) throw fallbackError;
+      return fallback || [];
+    }
     return data || [];
   }
 };

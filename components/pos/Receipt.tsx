@@ -25,7 +25,8 @@ export function Receipt({ transaction, items, cashierName }: ReceiptProps) {
   const paymentMethodLabel = {
     cash: 'CASH',
     qris: 'QRIS',
-    transfer: 'TRANSFER'
+    transfer: 'TRANSFER',
+    hutang: 'HUTANG'
   };
 
   return (
@@ -49,7 +50,7 @@ export function Receipt({ transaction, items, cashierName }: ReceiptProps) {
         </div>
         {items.map((item) => (
           <div key={item.id} className="grid grid-cols-12 gap-1">
-            <span className="col-span-6 truncate">{item.product_name}</span>
+            <span className="col-span-6 truncate">{item.product?.name || item.product_name || '-'}</span>
             <span className="col-span-2 text-center">{item.qty}</span>
             <span className="col-span-4 text-right">{formatCurrency(item.price * item.qty)}</span>
           </div>

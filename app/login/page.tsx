@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Loader2, Store } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,13 +38,10 @@ export default function LoginPage() {
         .eq('id', user.id)
         .single();
 
-      if (profile?.role === 'owner') {
-        router.push('/pos'); // Owner also defaults to POS 
-      } else {
-        router.push('/pos');
-      }
+      // All users go to POS
+      router.push('/pos');
     } else {
-      router.push('/pos'); // Fallback to POS
+      router.push('/pos');
     }
 
     router.refresh();

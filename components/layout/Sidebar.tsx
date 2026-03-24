@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Package,
@@ -37,12 +37,13 @@ const navItems = [
 
 export default function Sidebar({ role = 'owner' }: { role?: string }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const supabase = createClient();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/login';
+    router.replace('/login');
   };
 
   return (
@@ -57,9 +58,10 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
 
       {/* Backdrop */}
       {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+        <button
+          className="lg:hidden fixed inset-0 bg-black/50 z-40 cursor-default"
           onClick={() => setMobileOpen(false)}
+          aria-label="Close menu"
         />
       )}
 
@@ -67,7 +69,7 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
       <aside
         className={`
           fixed top-0 left-0 h-[100dvh] w-64 bg-white border-r border-slate-200 z-50
-          transform transition-transform duration-200 ease-in-out
+          transform transition-transform duration-150 ease-out
           lg:translate-x-0
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
@@ -75,9 +77,9 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
         <div className="flex flex-col h-full overflow-hidden">
           {/* Logo */}
           <div className="p-6 border-b border-slate-100 flex items-center justify-center">
-            <img 
-              src="/logo-ras.png" 
-              alt="Warung Sembako by RAS" 
+            <img
+              src="/logo-ras.png"
+              alt="Warung Sembako by RAS"
               className="h-14 sm:h-16 w-auto object-contain"
             />
           </div>
@@ -94,13 +96,13 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={`
-                    flex items-center gap-3 px-4 py-3 rounded-lg transition
-                    ${
-                      isActive
-                        ? 'bg-primary text-white'
-                        : 'text-slate-600 hover:bg-slate-100'
+                    flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150
+                    ${isActive
+                      ? 'bg-primary text-white'
+                      : 'text-slate-600 hover:bg-slate-100 active:scale-[0.98]'
                     }
                   `}
+                  prefetch={true}
                 >
                   <item.icon className="w-5 h-5" />
                   <span className="font-medium">{item.label}</span>
@@ -113,7 +115,7 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100 bg-white">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition"
+              className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition active:scale-[0.98]"
             >
               <LogOut className="w-5 h-5" />
               <span className="font-medium">Keluar</span>

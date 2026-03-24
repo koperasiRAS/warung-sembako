@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { BookUser, Search, CheckCircle2, Loader2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useDebounce } from '@/hooks/useDebounce';
+import toast from 'react-hot-toast';
 
 interface Debt {
   id: string;
@@ -66,7 +67,7 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
 
     const amount = parseFloat(paymentAmount);
     if (isNaN(amount) || amount <= 0 || amount > selectedDebt.remaining_amount) {
-      alert('Jumlah pembayaran tidak valid!');
+      toast.error('Jumlah pembayaran tidak valid!');
       return;
     }
 
@@ -84,13 +85,19 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
       // Temporary fallback in case the user hasn't executed the SQL migration yet
       if (paymentError) {
         console.warn('RPC pay_debt failed (might need migration). Trying manual fallback...', paymentError);
-        
-        await supabase.from('debt_payments').insert({
+
+        // Insert payment record with error handling
+        const { error: insertError } = await supabase.from('debt_payments').insert({
           debt_id: selectedDebt.id,
           amount: amount,
           note: `Pembayaran kasbon via ${userRole}`
         });
-        
+
+        if (insertError) {
+          console.error('Failed to insert debt payment:', insertError);
+          throw new Error('Gagal mencatat pembayaran: ' + insertError.message);
+        }
+
         const { error: updateError } = await supabase
           .from('debts')
           .update({
@@ -103,11 +110,11 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
         if (updateError) throw updateError;
       }
 
-      // Calculate new remaining and status for UI optimistically
+      // Calculate new remaining and status for UI
       const newRemaining = selectedDebt.remaining_amount - amount;
       const newStatus = newRemaining <= 0 ? 'paid' : 'partial';
 
-      // Optimistically update local state
+      // Only update UI state AFTER all database operations succeeded
       setDebts(prev => prev.map(d => {
         if (d.id === selectedDebt.id) {
           return { ...d, remaining_amount: newRemaining, status: newStatus };
@@ -119,10 +126,11 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
       setSelectedDebt(null);
       setPaymentAmount('');
       router.refresh();
-      
+      toast.success('Pembayaran kasbon berhasil!');
+
     } catch (error: any) {
       console.error('Payment processing failed:', error);
-      alert('Gagal memproses pembayaran: ' + error.message);
+      toast.error('Gagal memproses pembayaran: ' + error.message);
     } finally {
       setIsSubmitting(false);
     }

@@ -71,6 +71,7 @@ export default async function TransactionDetailPage({ params }: TransactionDetai
       cash: 'Tunai',
       qris: 'QRIS',
       transfer: 'Transfer',
+      hutang: 'Hutang',
     };
     return labels[method] || method;
   };

@@ -5,19 +5,32 @@ import ExpensesClient from './ExpensesClient';
 
 export const dynamic = 'force-dynamic';
 
-async function getExpenses() {
+async function getExpenses(page: number = 1, pageSize: number = 20) {
   const supabase = await createClient();
 
-  const { data: expenses } = await supabase
-    .from('expenses')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(50);
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
 
-  return expenses || [];
+  const { data: expenses, count } = await supabase
+    .from('expenses')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  return {
+    expenses: expenses || [],
+    total: count || 0,
+    totalPages: Math.ceil((count || 0) / pageSize),
+    page,
+    pageSize,
+  };
 }
 
-export default async function ExpensesPage() {
+export default async function ExpensesPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const user = await getUser();
 
   if (!user) {
@@ -30,7 +43,17 @@ export default async function ExpensesPage() {
     redirect('/pos');
   }
 
-  const expenses = await getExpenses();
+  const page = searchParams.page ? Number.parseInt(searchParams.page) : 1;
+  const { expenses, total, totalPages, pageSize } = await getExpenses(page);
 
-  return <ExpensesClient initialExpenses={expenses} />;
+  return (
+    <ExpensesClient
+      initialExpenses={expenses}
+      pagination={
+        totalPages > 1
+          ? { page, total, totalPages, pageSize }
+          : undefined
+      }
+    />
+  );
 }

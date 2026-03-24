@@ -83,13 +83,8 @@ async function getUnpaidDebts() {
 async function getLowStockProducts() {
   const supabase = await createClient();
 
-  // Get products with stock less than 10 and greater than 0
-  const { data, error } = await supabase
-    .from('products')
-    .select('id, name, price, stock, barcode, image_url')
-    .lt('stock', 10)
-    .order('stock', { ascending: true })
-    .limit(5);
+  // Use RPC to get products where stock < low_stock_threshold (or default 10)
+  const { data, error } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
 
   if (error) {
     console.error('Error fetching low stock products:', error);
@@ -399,12 +394,8 @@ export default async function DashboardPage() {
 async function LowStockList() {
   const supabase = await createClient();
 
-  const { data: lowStock } = await supabase
-    .from('products')
-    .select('*')
-    .lt('stock', 10)
-    .order('stock', { ascending: true })
-    .limit(5);
+  const { data } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
+  const lowStock = (data || []) as Array<{ id: string; name: string; stock: number; low_stock_threshold: number; price: number; image_url: string | null; [key: string]: unknown }>;
 
   if (!lowStock || lowStock.length === 0) {
     return (

@@ -22,6 +22,7 @@ export interface Product {
   price: number;
   cost_price: number;
   stock: number;
+  low_stock_threshold: number;
   category_id: string | null;
   barcode: string | null;
   sku: string | null;
@@ -34,7 +35,7 @@ export interface Product {
 export interface Transaction {
   id: string;
   total: number;
-  payment_method: 'cash' | 'qris' | 'transfer';
+  payment_method: 'cash' | 'qris' | 'transfer' | 'hutang';
   cashier_id: string;
   status: 'completed' | 'voided';
   created_at: string;

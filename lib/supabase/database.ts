@@ -60,7 +60,9 @@ export interface Database {
           id: string
           name: string
           price: number
+          cost_price: number
           stock: number
+          low_stock_threshold: number
           category_id: string | null
           barcode: string | null
           sku: string | null
@@ -72,7 +74,9 @@ export interface Database {
           id?: string
           name: string
           price: number
+          cost_price?: number
           stock: number
+          low_stock_threshold?: number
           category_id?: string | null
           barcode?: string | null
           sku?: string | null
@@ -84,7 +88,9 @@ export interface Database {
           id?: string
           name?: string
           price?: number
+          cost_price?: number
           stock?: number
+          low_stock_threshold?: number
           category_id?: string | null
           barcode?: string | null
           sku?: string | null
@@ -97,7 +103,7 @@ export interface Database {
         Row: {
           id: string
           total: number
-          payment_method: 'cash' | 'qris' | 'transfer'
+          payment_method: 'cash' | 'qris' | 'transfer' | 'hutang'
           cashier_id: string
           status: 'completed' | 'voided'
           created_at: string
@@ -105,7 +111,7 @@ export interface Database {
         Insert: {
           id?: string
           total: number
-          payment_method: 'cash' | 'qris' | 'transfer'
+          payment_method: 'cash' | 'qris' | 'transfer' | 'hutang'
           cashier_id: string
           status?: 'completed' | 'voided'
           created_at?: string
@@ -113,7 +119,7 @@ export interface Database {
         Update: {
           id?: string
           total?: number
-          payment_method?: 'cash' | 'qris' | 'transfer'
+          payment_method?: 'cash' | 'qris' | 'transfer' | 'hutang'
           cashier_id?: string
           status?: 'completed' | 'voided'
           created_at?: string

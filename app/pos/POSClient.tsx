@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import toast from 'react-hot-toast';
 import type { Product, Category } from '@/lib/supabase/types';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ThermalReceipt } from '@/components/pos/ThermalReceipt';
@@ -89,6 +90,11 @@ export default function POSClient({
         console.error('Failed to load cart:', e);
       }
     }
+
+    // Set shift start time if not already set (for shift tracking)
+    if (!localStorage.getItem('shift_start_time')) {
+      localStorage.setItem('shift_start_time', new Date().toISOString());
+    }
   }, []);
 
   // Save cart to localStorage when it changes
@@ -127,7 +133,8 @@ export default function POSClient({
   // Calculate totals
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const total = subtotal;
-  const change = parseFloat(cashReceived || '0') - total;
+  const cashValue = parseFloat(cashReceived || '0');
+  const change = isNaN(cashValue) ? 0 : cashValue - total;
 
   // Barcode scanning - improved algorithm
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -323,7 +330,7 @@ export default function POSClient({
         if (debtError) {
           console.error('Failed to record debt:', debtError);
           // Don't throw to not break the POS flow, but maybe show an alert
-          alert('Warning: Transaksi berhasil tapi gagal mencatat ke Buku Utang!');
+          toast.error('Transaksi berhasil tapi gagal mencatat ke Buku Utang!');
         }
       }
 
@@ -366,7 +373,12 @@ export default function POSClient({
     }
   };
 
-  // Format currency
+  // Low stock helper
+  const isLowStock = (product: Product) =>
+    (product.low_stock_threshold ? product.stock < product.low_stock_threshold : product.stock < 10);
+
+  // Count low stock products (excluding out-of-stock)
+  const lowStockCount = products.filter(p => p.stock > 0 && isLowStock(p)).length;
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -428,6 +440,15 @@ export default function POSClient({
             </button>
           </div>
         </header>
+
+        {/* Low Stock Banner */}
+        {lowStockCount > 0 && (
+          <div className="bg-amber-50 border-b border-amber-200 px-3 py-2 flex items-center gap-2 shrink-0">
+            <span className="text-amber-600 text-sm font-medium">
+              ⚠️ {lowStockCount} produk stok menipis
+            </span>
+          </div>
+        )}
 
         {/* Search & Categories - Mobile Optimized */}
         <div className="bg-white border-b border-slate-200 p-3 space-y-2 shrink-0">
@@ -492,7 +513,7 @@ export default function POSClient({
               <button
                 key={product.id}
                 onClick={() => addToCart(product)}
-                className="bg-white rounded-lg border border-slate-200 p-2 text-left hover:border-teal-400 hover:shadow-sm transition active:scale-95 active:bg-teal-50"
+                className="bg-white rounded-lg border border-slate-200 p-2 text-left hover:border-teal-400 hover:shadow-sm transition active:scale-95 active:bg-teal-50 relative"
               >
                 <div className="aspect-square bg-slate-100 rounded-md mb-2 overflow-hidden">
                   {product.image_url ? (
@@ -506,6 +527,11 @@ export default function POSClient({
                     <div className="w-full h-full flex items-center justify-center">
                       <Package className="w-6 h-6 text-slate-300" />
                     </div>
+                  )}
+                  {isLowStock(product) && (
+                    <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-medium rounded">
+                      ⚠ {product.stock} stok
+                    </span>
                   )}
                 </div>
                 <h3 className="font-medium text-slate-800 text-xs truncate leading-tight">

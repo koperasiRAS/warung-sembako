@@ -8,19 +8,29 @@ export const dynamic = 'force-dynamic';
 async function getCategories() {
   const supabase = await createClient();
 
-  const { data: categories } = await supabase
-    .from('categories')
-    .select('*')
-    .order('name', { ascending: true });
+  const [categoriesRes, countsRes] = await Promise.all([
+    supabase
+      .from('categories')
+      .select('*')
+      .order('name', { ascending: true }),
 
-  // Get product counts
-  const { data: products } = await supabase
-    .from('products')
-    .select('category_id');
+    supabase
+      .from('products')
+      .select('category_id', { count: 'exact' })
+  ]);
 
-  const categoriesWithCount = (categories || []).map((cat) => ({
+  const categories = categoriesRes.data || [];
+  // Build a map of category_id -> product count efficiently (no fetch-all products)
+  const countMap: Record<string, number> = {};
+  for (const row of countsRes.data || []) {
+    if (row.category_id) {
+      countMap[row.category_id] = (countMap[row.category_id] || 0) + 1;
+    }
+  }
+
+  const categoriesWithCount = categories.map((cat) => ({
     ...cat,
-    productCount: products?.filter((p) => p.category_id === cat.id).length || 0,
+    productCount: countMap[cat.id] || 0,
   }));
 
   return categoriesWithCount;

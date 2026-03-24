@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import toast from 'react-hot-toast';
 import { LogOut, Calculator, ArrowLeft, Loader2, Printer, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -52,9 +53,9 @@ export default function ShiftClient({ initialData }: { initialData: ShiftData })
         actual_cash: actualCashNum,
         variance: variance,
         status: 'closed',
-        start_time: (() => {
+        start_time: localStorage.getItem('shift_start_time') || (() => {
           const t = new Date(initialData.date);
-          t.setHours(0, 0, 0, 0); // mock start time as start of day for now
+          t.setHours(0, 0, 0, 0);
           return t.toISOString();
         })(),
         end_time: new Date().toISOString()
@@ -63,13 +64,14 @@ export default function ShiftClient({ initialData }: { initialData: ShiftData })
       if (error) throw error;
       
       setIsSuccess(true);
-      // Auto logout after 3 seconds
+      // Clear shift start time and auto logout after 3 seconds
+      localStorage.removeItem('shift_start_time');
       setTimeout(() => {
         handleLogout();
       }, 3000);
     } catch (e: any) {
       console.error('Failed to close shift:', e);
-      alert('Gagal menyimpan laporan shift: ' + e.message);
+      toast.error('Gagal menyimpan laporan shift: ' + e.message);
     } finally {
       setIsSubmitting(false);
     }

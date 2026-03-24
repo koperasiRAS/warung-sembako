@@ -1,15 +1,26 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { Expense } from '@/lib/supabase/types';
 import { Plus, Search, Edit, Trash2, Wallet, X, Loader2, Banknote } from 'lucide-react';
+import toast from 'react-hot-toast';
+
+interface PaginationInfo {
+  page: number;
+  total: number;
+  totalPages: number;
+  pageSize: number;
+}
 
 interface ExpensesClientProps {
   initialExpenses: Expense[];
+  pagination?: PaginationInfo;
 }
 
-export default function ExpensesClient({ initialExpenses }: ExpensesClientProps) {
+export default function ExpensesClient({ initialExpenses, pagination }: ExpensesClientProps) {
+  const router = useRouter();
   const supabase = createClient();
   const [expenses, setExpenses] = useState(initialExpenses);
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,14 +74,47 @@ export default function ExpensesClient({ initialExpenses }: ExpensesClientProps)
     setEditingExpense(null);
   };
 
+  const handlePageChange = (newPage: number) => {
+    if (!pagination || newPage < 1 || newPage > pagination.totalPages) return;
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', newPage.toString());
+    router.push(`/expenses?${params.toString()}`);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
+    // ===== INPUT VALIDATION =====
+    const title = formData.title.trim();
+    const amount = parseFloat(formData.amount);
+
+    // Validate title
+    if (!title || title.length < 2) {
+      toast.error('Judul pengeluaran minimal 2 karakter!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate amount
+    if (isNaN(amount) || amount <= 0) {
+      toast.error('Jumlah pengeluaran harus lebih dari 0!');
+      setLoading(false);
+      return;
+    }
+
+    // Validate amount is reasonable (not more than 1 billion)
+    if (amount > 1000000000) {
+      toast.error('Jumlah pengeluaran terlalu besar! Maksimal Rp 1.000.000.000');
+      setLoading(false);
+      return;
+    }
+    // ===== END VALIDATION =====
+
     try {
       const expenseData = {
-        title: formData.title,
-        amount: parseFloat(formData.amount),
+        title: title,
+        amount: amount,
         payment_method: formData.payment_method,
         note: formData.note || null,
       };
@@ -124,9 +168,10 @@ export default function ExpensesClient({ initialExpenses }: ExpensesClientProps)
       }
 
       closeModal();
+      toast.success('Pengeluaran berhasil disimpan!');
     } catch (error) {
       console.error('Error saving expense:', error);
-      alert('Gagal menyimpan pengeluaran');
+      toast.error('Gagal menyimpan pengeluaran!');
     } finally {
       setLoading(false);
     }
@@ -152,9 +197,10 @@ export default function ExpensesClient({ initialExpenses }: ExpensesClientProps)
 
       setExpenses(expenses.filter((ex) => ex.id !== id));
       setDeleteConfirm(null);
+      toast.success('Pengeluaran berhasil dihapus!');
     } catch (error) {
       console.error('Error deleting expense:', error);
-      alert('Gagal menghapus pengeluaran');
+      toast.error('Gagal menghapus pengeluaran!');
     } finally {
       setLoading(false);
     }
@@ -313,6 +359,43 @@ export default function ExpensesClient({ initialExpenses }: ExpensesClientProps)
           </div>
         )}
       </div>
+
+      {/* Pagination */}
+      {pagination && pagination.totalPages > 1 && (
+        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-white rounded-b-xl">
+          <p className="text-sm text-slate-500">
+            Menampilkan {(pagination.page - 1) * pagination.pageSize + 1}–{Math.min(pagination.page * pagination.pageSize, pagination.total)} dari {pagination.total} pengeluaran
+          </p>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={pagination.page <= 1}
+              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              ←
+            </button>
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((p) => {
+                const isActive = p === pagination.page;
+                return (
+                  <button
+                    key={p}
+                    onClick={() => handlePageChange(p)}
+                    className={`px-3 py-1.5 text-sm border rounded-lg transition ${isActive ? 'bg-primary text-white border-primary' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                  >
+                    {p}
+                  </button>
+                );
+              })}
+            <button
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={pagination.page >= pagination.totalPages}
+              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Modal */}
       {isModalOpen && (

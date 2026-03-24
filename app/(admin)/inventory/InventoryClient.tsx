@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { InventoryTransaction, inventoryService } from '@/services/inventory.service';
 import type { Product } from '@/lib/supabase/types';
 import { Plus, Search, PackageMinus, PackagePlus, Store, Calendar, Loader2, X } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface PaginationInfo {
   page: number;
@@ -42,11 +43,30 @@ export default function InventoryClient({
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const params = new URLSearchParams();
+    const currentParams = new URLSearchParams(window.location.search);
+    const currentSearch = currentParams.get('search') || '';
+    if (query === currentSearch) return; // no-op if nothing changed
+    const params = new URLSearchParams(window.location.search);
     if (query) params.set('search', query);
+    else params.delete('search');
     params.set('page', '1');
     router.push(`/inventory?${params.toString()}`);
   };
+
+  const handlePageChange = (newPage: number) => {
+    if (!pagination || newPage < 1 || newPage > pagination.totalPages) return;
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', newPage.toString());
+    router.push(`/inventory?${params.toString()}`);
+  };
+
+  // Sync state from URL on mount and after navigation
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlPage = parseInt(params.get('page') || '1');
+    const urlSearch = params.get('search') || '';
+    setSearchQuery(urlSearch);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openModal = () => {
     setFormData({
@@ -85,14 +105,10 @@ export default function InventoryClient({
       setIsModalOpen(false);
       // Reload page to get updated inventory history and product list
       router.refresh();
-      // Simple client side push to feel faster, but router.refresh() handles the UI
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      
+      toast.success('Restock berhasil disimpan!');
     } catch (error) {
       console.error('Error saving restock:', error);
-      alert('Gagal menyimpan inventaris barang masuk. Pastikan produk dipilih.');
+      toast.error('Gagal menyimpan inventaris barang masuk. Pastikan produk dipilih.');
     } finally {
       setLoading(false);
     }
@@ -223,6 +239,50 @@ export default function InventoryClient({
           </table>
         </div>
       </div>
+
+      {/* Pagination */}
+      {pagination && pagination.totalPages > 1 && (
+        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-white">
+          <p className="text-sm text-slate-500">
+            Menampilkan {(pagination.page - 1) * pagination.pageSize + 1}–{Math.min(pagination.page * pagination.pageSize, pagination.total)} dari {pagination.total} transaksi
+          </p>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={pagination.page <= 1}
+              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              ←
+            </button>
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
+              .filter(p => p === 1 || p === pagination.totalPages || Math.abs(p - pagination.page) <= 1)
+              .map((p, idx, arr) => {
+                const showEllipsis = idx > 0 && arr[idx - 1] !== p - 1;
+                const btnClass = p === pagination.page
+                  ? 'bg-teal-600 text-white border-teal-600'
+                  : 'border-slate-200 text-slate-600 hover:bg-slate-50';
+                return (
+                  <span key={p} className="flex items-center">
+                    {showEllipsis ? <span className="px-2 py-1.5 text-sm text-slate-400">...</span> : null}
+                    <button
+                      onClick={() => handlePageChange(p)}
+                      className={`px-3 py-1.5 text-sm border rounded-lg transition ${btnClass}`}
+                    >
+                      {p}
+                    </button>
+                  </span>
+                );
+              })}
+            <button
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={pagination.page >= pagination.totalPages}
+              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Add Modal */}
       {isModalOpen && (

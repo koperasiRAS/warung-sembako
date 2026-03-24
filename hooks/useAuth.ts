@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Profile } from '@/types';
+import { Profile } from '@/lib/supabase/types';
 
 export interface UseAuthReturn {
   user: Profile | null;
