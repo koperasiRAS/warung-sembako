@@ -59,5 +59,11 @@ async function ShiftPageContent() {
     transactionCount,
   };
 
-  return <ShiftClient initialData={shiftData} />;
+  // Get the open shift ID from DB so we can UPDATE it (not INSERT) on close
+  const { data: openShift } = await supabase.rpc('ensure_open_shift', {
+    p_cashier_id: user.id,
+  });
+  const openShiftId: string | null = openShift?.[0]?.id || null;
+
+  return <ShiftClient initialData={shiftData} openShiftId={openShiftId} />;
 }

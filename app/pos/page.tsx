@@ -40,6 +40,13 @@ export default async function POSPage() {
 
   const profile = await getProfile(user.id);
 
+  // Ensure an open shift exists for this cashier (DB-backed, idempotent)
+  const supabase = await createClient();
+  const { data: openShift } = await supabase.rpc('ensure_open_shift', {
+    p_cashier_id: user.id,
+  });
+  const shiftId: string | null = openShift?.[0]?.id || null;
+
   const [products, categories] = await Promise.all([
     getProducts(),
     getCategories(),
@@ -50,6 +57,7 @@ export default async function POSPage() {
       initialProducts={products}
       initialCategories={categories}
       user={{ id: user.id, email: user.email || '' }}
+      shiftId={shiftId}
     />
   );
 }

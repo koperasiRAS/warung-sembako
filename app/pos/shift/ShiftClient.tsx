@@ -17,7 +17,7 @@ interface ShiftData {
   transactionCount: number;
 }
 
-export default function ShiftClient({ initialData }: { initialData: ShiftData }) {
+export default function ShiftClient({ initialData, openShiftId }: { initialData: ShiftData; openShiftId?: string | null }) {
   const router = useRouter();
   const supabase = createClient();
   const [actualCash, setActualCash] = useState<string>('');
@@ -44,25 +44,29 @@ export default function ShiftClient({ initialData }: { initialData: ShiftData })
   };
 
   const handleFinishShift = async () => {
+    if (!openShiftId) {
+      toast.error('Shift tidak ditemukan. Silakan hubungi owner.');
+      return;
+    }
+
     setIsSubmitting(true);
-    
+
     try {
-      const { error } = await supabase.from('shifts').insert({
-        cashier_id: initialData.cashierId,
-        expected_cash: expectedCash,
-        actual_cash: actualCashNum,
-        variance: variance,
-        status: 'closed',
-        start_time: localStorage.getItem('shift_start_time') || (() => {
-          const t = new Date(initialData.date);
-          t.setHours(0, 0, 0, 0);
-          return t.toISOString();
-        })(),
-        end_time: new Date().toISOString()
-      });
+      // UPDATE the existing open shift row, don't INSERT a new one
+      const { error } = await supabase
+        .from('shifts')
+        .update({
+          status: 'closed',
+          expected_cash: expectedCash,
+          actual_cash: actualCashNum,
+          variance: variance,
+          end_time: new Date().toISOString(),
+        })
+        .eq('id', openShiftId)
+        .eq('status', 'open'); // safety: only update if still open
 
       if (error) throw error;
-      
+
       setIsSuccess(true);
       // Clear shift start time and auto logout after 3 seconds
       localStorage.removeItem('shift_start_time');

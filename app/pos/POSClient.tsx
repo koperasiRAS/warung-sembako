@@ -29,6 +29,7 @@ interface POSClientProps {
   initialProducts: Product[];
   initialCategories: Category[];
   user: { id: string; email: string };
+  shiftId?: string | null;
 }
 
 // Local cart item type (not from DB)
@@ -45,6 +46,7 @@ export default function POSClient({
   initialProducts,
   initialCategories,
   user,
+  shiftId,
 }: POSClientProps) {
   const supabase = createClient();
   const searchInputRef = useRef<HTMLInputElement>(null);
