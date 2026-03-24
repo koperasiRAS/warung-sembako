@@ -19,7 +19,7 @@ import {
   BookUser,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const navItems = [
   { href: '/pos', label: 'Kasir (POS)', icon: ShoppingCart, roles: ['owner', 'cashier'] },
@@ -40,6 +40,42 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const supabase = createClient();
+
+  // Realtime dashboard refresh — subscribe to database changes and trigger router.refresh()
+  useEffect(() => {
+    const channel = supabase
+      .channel('admin-dashboard-realtime')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'transactions' },
+        () => { router.refresh(); }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products' },
+        () => { router.refresh(); }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'daily_balances' },
+        () => { router.refresh(); }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'debts' },
+        () => { router.refresh(); }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'expenses' },
+        () => { router.refresh(); }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
