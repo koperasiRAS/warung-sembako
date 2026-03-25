@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { Expense } from '@/lib/supabase/types';
@@ -39,6 +39,38 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
   const filteredExpenses = expenses.filter((expense) =>
     expense.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Realtime: update expense list when expenses table changes
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel('expenses-realtime')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'expenses' },
+        async () => {
+          const { data } = await supabase
+            .from('expenses')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (data) setExpenses(data as Expense[]);
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'expenses' },
+        async () => {
+          const { data } = await supabase
+            .from('expenses')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (data) setExpenses(data as Expense[]);
+        }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
   const cashExpenses = expenses
@@ -169,9 +201,15 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
 
       closeModal();
       toast.success('Pengeluaran berhasil disimpan!');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving expense:', error);
-      toast.error('Gagal menyimpan pengeluaran!');
+      const msg = error?.message || '';
+      if (msg.includes('INSUFFICIENT_BALANCE')) {
+        const readable = msg.split('INSUFFICIENT_BALANCE:')[1] || 'Saldo tidak mencukupi!';
+        toast.error(readable);
+      } else {
+        toast.error('Gagal menyimpan pengeluaran!');
+      }
     } finally {
       setLoading(false);
     }

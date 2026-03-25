@@ -104,6 +104,30 @@ export default function POSClient({
     localStorage.setItem('pos_cart', JSON.stringify(cart));
   }, [cart]);
 
+  // Refetch products from DB (used for realtime sync)
+  const refetchProducts = useCallback(async () => {
+    const { data } = await supabase
+      .from('products')
+      .select('*, category:categories(*)')
+      .gt('stock', 0)
+      .order('name', { ascending: true });
+    if (data) setProducts(data as Product[]);
+  }, [supabase]);
+
+  // Realtime: listen to products table changes and refetch
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel('pos-products-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products' },
+        () => { refetchProducts(); }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [refetchProducts]);
+
   // Filter products - memoized for performance
   const filteredProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
@@ -376,6 +400,7 @@ export default function POSClient({
       clearCart();
       localStorage.setItem('last_cash_received', cashReceived);
       setCustomerName('');
+      refetchProducts(); // Refetch from DB so all tabs see updated stock
 
       // Update local products
       setProducts((prev) =>
