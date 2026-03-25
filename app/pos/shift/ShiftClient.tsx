@@ -40,9 +40,9 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
 
   const expectedCash = initialData.cashSales;
   const actualCashNum = parseFloat(actualCash) || 0;
-  const openingCash = initialData.openingCash || 0;
+  const shiftOpeningCash = initialData.openingCash || 0;
   // Total uang yang seharusnya ada di laci = uang buka shift + penjualan cash
-  const expectedCashWithOpening = openingCash + expectedCash;
+  const expectedCashWithOpening = shiftOpeningCash + expectedCash;
   const variance = actualCashNum - expectedCashWithOpening;
 
   const handleLogout = async () => {
