@@ -300,7 +300,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
                 <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
                   <span className="text-emerald-700 text-sm font-medium block mb-1">Total Tunai di Laci</span>
                   <span className="font-bold text-slate-800">{formatCurrency(expectedCashWithOpening)}</span>
-                  <p className="text-xs text-slate-500 mt-1">Buka ({formatCurrency(openingCash)}) + Tunai ({formatCurrency(expectedCash)})</p>
+                  <p className="text-xs text-slate-500 mt-1">Buka ({formatCurrency(shiftOpeningCash)}) + Tunai ({formatCurrency(expectedCash)})</p>
                 </div>
               </div>
             </div>
