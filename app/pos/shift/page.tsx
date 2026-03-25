@@ -60,16 +60,20 @@ async function ShiftPageContent({ reason }: { reason?: string }) {
     cashSales,
     nonCashSales,
     transactionCount,
+    openingCash: 0,
   };
 
   // Only query existing open shift — do NOT create one here (that happens only when user clicks "Buka Shift Baru")
   const { data: existingShift } = await supabase
     .from('shifts')
-    .select('id')
+    .select('id, opening_cash')
     .eq('cashier_id', user.id)
     .eq('status', 'open')
     .limit(1);
   const openShiftId: string | null = existingShift?.[0]?.id || null;
+  if (existingShift?.[0]?.opening_cash) {
+    shiftData.openingCash = Number(existingShift[0].opening_cash);
+  }
 
   return <ShiftClient initialData={shiftData} openShiftId={openShiftId} reason={reason} />;
 }

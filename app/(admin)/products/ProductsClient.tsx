@@ -54,6 +54,28 @@ export default function ProductsClient({
   useEffect(() => {
     setCategories(initialCategories);
   }, [initialCategories]);
+
+  // Realtime: update categories dropdown when categories table changes
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel('categories-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'categories' },
+        async () => {
+          const { data } = await supabase
+            .from('categories')
+            .select('*')
+            .order('name', { ascending: true });
+          if (data) setCategories(data as Category[]);
+        }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);

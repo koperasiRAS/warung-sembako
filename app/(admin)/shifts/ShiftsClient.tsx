@@ -14,6 +14,10 @@ interface Shift {
   expected_cash: number;
   actual_cash: number;
   variance: number;
+  opening_cash: number;
+  total_profit: number;
+  cash_balance: number;
+  bank_balance: number;
   status: string;
   created_at: string;
 }
@@ -79,15 +83,16 @@ export default function ShiftsClient({ initialShifts }: { initialShifts: Shift[]
               <tr>
                 <th className="px-6 py-4 font-medium">Kasir</th>
                 <th className="px-6 py-4 font-medium">Waktu Tutup Shift</th>
-                <th className="px-6 py-4 font-medium text-right">Ekspektasi (Sistem)</th>
-                <th className="px-6 py-4 font-medium text-right">Aktual Laci (Fisik)</th>
+                <th className="px-6 py-4 font-medium text-right">Saldo Tunai</th>
+                <th className="px-6 py-4 font-medium text-right">Saldo Bank</th>
+                <th className="px-6 py-4 font-medium text-right">Profit</th>
                 <th className="px-6 py-4 font-medium text-right">Selisih (Variance)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
               {shifts.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
                     <FileText className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                     <p className="font-medium text-slate-600">Belum ada data shift</p>
                     <p className="text-sm mt-1">Laporan akan muncul setelah kasir melakukan "Tutup Kasir".</p>
@@ -106,11 +111,18 @@ export default function ShiftsClient({ initialShifts }: { initialShifts: Shift[]
                         {formatDateTime(shift.end_time || shift.created_at)}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      {formatCurrency(shift.expected_cash)}
+                    <td className="px-6 py-4 text-right font-medium text-slate-700">
+                      {formatCurrency(shift.cash_balance || 0)}
                     </td>
-                    <td className="px-6 py-4 text-right font-medium">
-                      {formatCurrency(shift.actual_cash)}
+                    <td className="px-6 py-4 text-right font-medium text-slate-700">
+                      {formatCurrency(shift.bank_balance || 0)}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <span className={`font-bold ${
+                        (shift.total_profit || 0) >= 0 ? 'text-emerald-600' : 'text-red-600'
+                      }`}>
+                        {(shift.total_profit || 0) >= 0 ? '+' : ''}{formatCurrency(shift.total_profit || 0)}
+                      </span>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className={`inline-flex items-center justify-end gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium w-full

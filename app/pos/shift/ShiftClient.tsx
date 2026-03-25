@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
-import { LogOut, Calculator, ArrowLeft, Loader2, Printer, CheckCircle2, Clock } from 'lucide-react';
+import { LogOut, ArrowLeft, Loader2, Printer, CheckCircle2, Clock } from 'lucide-react';
 import Link from 'next/link';
 
 interface ShiftData {
@@ -15,6 +15,7 @@ interface ShiftData {
   cashSales: number;
   nonCashSales: number;
   transactionCount: number;
+  openingCash: number;
 }
 
 export default function ShiftClient({ initialData, openShiftId, reason }: { initialData: ShiftData; openShiftId?: string | null; reason?: string }) {
@@ -25,6 +26,8 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   const [isSuccess, setIsSuccess] = useState(false);
   const [isOpening, setIsOpening] = useState(reason === 'no_shift');
   const [isOpeningSubmitting, setIsOpeningSubmitting] = useState(false);
+  const [openingCash, setOpeningCash] = useState<string>('');
+  const [openingCashError, setOpeningCashError] = useState('');
 
   // Format currency
   const formatCurrency = (amount: number) => {
@@ -46,6 +49,12 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   };
 
   const handleOpenShift = async () => {
+    const cash = Number.parseFloat(openingCash);
+    if (Number.isNaN(cash) || cash < 0) {
+      setOpeningCashError('Masukkan nominal laci yang valid');
+      return;
+    }
+    setOpeningCashError('');
     setIsOpeningSubmitting(true);
     try {
       const { data, error } = await supabase.rpc('ensure_open_shift', {
@@ -54,6 +63,11 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
       if (error || !data?.[0]?.id) {
         throw error || new Error('Gagal membuka shift');
       }
+      const newShiftId = data[0].id;
+      await supabase
+        .from('shifts')
+        .update({ opening_cash: cash })
+        .eq('id', newShiftId);
       toast.success('Shift berhasil dibuka!');
       router.push('/pos');
     } catch (e: any) {
@@ -73,6 +87,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     setIsSubmitting(true);
 
     try {
+      const totalProfit = actualCashNum - (initialData.openingCash || 0);
       // UPDATE the existing open shift row, don't INSERT a new one
       const { error } = await supabase
         .from('shifts')
@@ -81,6 +96,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
           expected_cash: expectedCash,
           actual_cash: actualCashNum,
           variance: variance,
+          total_profit: totalProfit,
           end_time: new Date().toISOString(),
         })
         .eq('id', openShiftId)
@@ -102,28 +118,66 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     }
   };
 
-  // Show "Buka Shift Baru" screen when user has no open shift — NON-DISMISSIBLE
+  // Show "Buka Shift Baru" screen when user has no open shift — FULLY NON-DISMISSIBLE
   if (isOpening) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
-        {/* Non-dismissible backdrop — clicking outside does nothing */}
-        <div className="absolute inset-0 cursor-default" />
-        <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 text-center max-w-sm w-full relative z-10">
-          <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Clock className="w-8 h-8" />
+      <div
+        className="min-h-screen bg-gradient-to-br from-slate-900/90 to-slate-800/90 flex flex-col items-center justify-center p-4"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm">
+          {/* Header */}
+          <div className="p-6 pb-4 text-center border-b border-slate-100">
+            <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
+              <Clock className="w-8 h-8" />
+            </div>
+            <h2 className="text-xl font-bold text-slate-800">Buka Shift Baru</h2>
+            <p className="text-slate-500 text-sm mt-1">
+              Masukkan nominal uang laci kasir untuk memulai shift.
+            </p>
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Shift Sudah Ditutup</h2>
-          <p className="text-slate-500 mb-6">
-            Shift sebelumnya sudah ditutup. Silakan buka shift baru untuk mulai berjualan lagi.
-          </p>
-          <button
-            onClick={handleOpenShift}
-            disabled={isOpeningSubmitting}
-            className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
-          >
-            {isOpeningSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
-            Buka Shift Baru
-          </button>
+
+          {/* Input nominal laci */}
+          <div className="p-6 space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2" htmlFor="opening-cash">
+                Nominal Tunai di Laci *
+              </label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">Rp</span>
+                <input
+                  id="opening-cash"
+                  type="number"
+                  value={openingCash}
+                  onChange={(e) => {
+                    setOpeningCash(e.target.value);
+                    setOpeningCashError('');
+                  }}
+                  placeholder="0"
+                  className={`w-full pl-12 pr-4 py-3 text-lg font-bold border-2 rounded-xl outline-none transition ${
+                    openingCashError
+                      ? 'border-red-400 focus:border-red-500'
+                      : 'border-slate-200 focus:border-teal-500'
+                  }`}
+                />
+              </div>
+              {openingCashError && (
+                <p className="text-red-500 text-xs mt-1">{openingCashError}</p>
+              )}
+              <p className="text-xs text-slate-400 mt-1">
+                Total uang cash yang ada di laci kasir saat ini.
+              </p>
+            </div>
+
+            <button
+              onClick={handleOpenShift}
+              disabled={isOpeningSubmitting || openingCash === ''}
+              className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {isOpeningSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
+              Buka Shift &amp; Mulai Berjualan
+            </button>
+          </div>
         </div>
       </div>
     );

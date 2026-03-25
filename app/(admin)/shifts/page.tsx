@@ -25,6 +25,19 @@ export default async function ShiftsPage() {
     .select('*')
     .order('created_at', { ascending: false });
 
+  // Gather unique dates from shifts to fetch daily_balances
+  const shiftDates = [...new Set((shifts || []).map((s: any) => s.created_at.split('T')[0]))];
+
+  // Fetch daily_balances for those dates
+  let balanceMap: Record<string, any> = {};
+  if (shiftDates.length > 0) {
+    const { data: balances } = await supabase
+      .from('daily_balances')
+      .select('date, cash_balance, bank_balance')
+      .in('date', shiftDates);
+    balances?.forEach((b: any) => { balanceMap[b.date] = b; });
+  }
+
   // Gather unique cashier IDs
   const cashierIds = [...new Set((shifts || []).map((s: any) => s.cashier_id))];
 
@@ -41,9 +54,13 @@ export default async function ShiftsPage() {
   // Map the nested cashier data to a simpler structure
   const formattedShifts = (shifts || []).map((shift: any) => {
     const cashierProfile = profiles.find((p: any) => p.id === shift.cashier_id);
+    const shiftDate = shift.created_at.split('T')[0];
+    const balance = balanceMap[shiftDate];
     return {
       ...shift,
-      cashierName: cashierProfile?.full_name || cashierProfile?.email || 'Unknown Cashier'
+      cashierName: cashierProfile?.full_name || cashierProfile?.email || 'Unknown Cashier',
+      cash_balance: balance?.cash_balance || 0,
+      bank_balance: balance?.bank_balance || 0,
     };
   });
 
