@@ -67,6 +67,17 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           if (data) setExpenses(data as Expense[]);
         }
       )
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'expenses' },
+        async () => {
+          const { data } = await supabase
+            .from('expenses')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (data) setExpenses(data as Expense[]);
+        }
+      )
       .subscribe();
     return () => { supabase.removeChannel(channel); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,14 +166,14 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
         // Get old expense to calculate balance difference
         const oldExpense = expenses.find(ex => ex.id === editingExpense.id);
 
-        const { error } = await supabase
-          .from('expenses')
-          .update(expenseData)
-          .eq('id', editingExpense.id);
+        // 1. RPC deduct NEW balance FIRST (with validation — fails if insufficient)
+        const { error: rpcNewError } = await supabase.rpc('reverse_balance_after_expense', {
+          p_payment_method: expenseData.payment_method,
+          p_amount: expenseData.amount,
+        });
+        if (rpcNewError) throw rpcNewError;
 
-        if (error) throw error;
-
-        // Reverse old expense balance (add back)
+        // 2. RPC add back OLD balance
         if (oldExpense) {
           await supabase.rpc('reverse_balance_after_expense', {
             p_payment_method: oldExpense.payment_method,
@@ -170,11 +181,13 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           });
         }
 
-        // Apply new expense balance (subtract)
-        await supabase.rpc('reverse_balance_after_expense', {
-          p_payment_method: expenseData.payment_method,
-          p_amount: expenseData.amount,
-        });
+        // 3. UPDATE expense only after both RPC calls succeed
+        const { error } = await supabase
+          .from('expenses')
+          .update(expenseData)
+          .eq('id', editingExpense.id);
+
+        if (error) throw error;
 
         setExpenses(
           (expenses ?? []).map((ex) =>
@@ -182,6 +195,14 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           )
         );
       } else {
+        // 1. RPC deduct balance FIRST (with validation — fails if insufficient)
+        const { error: rpcError } = await supabase.rpc('reverse_balance_after_expense', {
+          p_payment_method: expenseData.payment_method,
+          p_amount: expenseData.amount,
+        });
+        if (rpcError) throw rpcError;
+
+        // 2. INSERT expense only after balance is validated and deducted
         const { data, error } = await supabase
           .from('expenses')
           .insert(expenseData)
@@ -189,13 +210,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           .single();
 
         if (error) throw error;
-
-        // Update balance after creating expense
-        await supabase.rpc('reverse_balance_after_expense', {
-          p_payment_method: expenseData.payment_method,
-          p_amount: expenseData.amount,
-        });
-
         setExpenses([data, ...expenses]);
       }
 
@@ -221,17 +235,26 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
       // Get expense to reverse balance
       const expense = expenses.find(ex => ex.id === id);
 
-      const { error } = await supabase.from('expenses').delete().eq('id', id);
-
-      if (error) throw error;
-
-      // Reverse the balance (add back the amount)
-      if (expense) {
-        await supabase.rpc('reverse_balance_after_expense', {
-          p_payment_method: expense.payment_method,
-          p_amount: -expense.amount,
-        });
+      if (!expense) {
+        toast.error('Data pengeluaran tidak ditemukan!');
+        setLoading(false);
+        return;
       }
+
+      // 1. RPC add back balance FIRST (before deleting)
+      const { error: rpcError } = await supabase.rpc('reverse_balance_after_expense', {
+        p_payment_method: expense.payment_method,
+        p_amount: -expense.amount,
+      });
+      if (rpcError) {
+        toast.error('Gagal hapus: tidak bisa mengembalikan saldo!');
+        setLoading(false);
+        return;
+      }
+
+      // 2. DELETE expense only after balance is restored
+      const { error } = await supabase.from('expenses').delete().eq('id', id);
+      if (error) throw error;
 
       setExpenses(expenses.filter((ex) => ex.id !== id));
       setDeleteConfirm(null);
