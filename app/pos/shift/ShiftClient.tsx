@@ -26,6 +26,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   const [isSuccess, setIsSuccess] = useState(false);
   const [isOpening, setIsOpening] = useState(reason === 'no_shift');
   const [isOpeningSubmitting, setIsOpeningSubmitting] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const [openingCash, setOpeningCash] = useState<string>('');
   const [openingCashError, setOpeningCashError] = useState('');
 
@@ -52,13 +53,20 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   };
 
   const handleOpenShift = async () => {
+    // Guard against double-click — disable IMMEDIATELY before any async work
+    if (isNavigating || isOpeningSubmitting) return;
+    setIsNavigating(true);
+    setIsOpeningSubmitting(true);
+    setOpeningCashError('');
+
     const cash = Number.parseFloat(openingCash);
     if (Number.isNaN(cash) || cash < 0) {
       setOpeningCashError('Masukkan nominal laci yang valid');
+      setIsNavigating(false);
+      setIsOpeningSubmitting(false);
       return;
     }
-    setOpeningCashError('');
-    setIsOpeningSubmitting(true);
+
     try {
       // 1. Open / get shift
       const { data, error } = await supabase.rpc('ensure_open_shift', {
@@ -70,15 +78,14 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
       const newShiftId = data[0].id;
 
       // 2. Save opening_cash to shifts table
-      await supabase
+      const { error: shiftError } = await supabase
         .from('shifts')
         .update({ opening_cash: cash })
         .eq('id', newShiftId);
+      if (shiftError) throw shiftError;
 
       // 3. Sync to daily_balances — add opening_cash to cash_balance
-      // This makes the physical drawer cash visible in the dashboard
       const today = new Date().toISOString().split('T')[0];
-
       const { data: existingBalance } = await supabase
         .from('daily_balances')
         .select('id, cash_balance, opening_cash')
@@ -86,7 +93,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
         .single();
 
       if (existingBalance) {
-        await supabase
+        const { error: updateError } = await supabase
           .from('daily_balances')
           .update({
             cash_balance: (existingBalance.cash_balance || 0) + cash,
@@ -94,8 +101,9 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
             updated_at: new Date().toISOString(),
           })
           .eq('id', existingBalance.id);
+        if (updateError) throw updateError;
       } else {
-        await supabase
+        const { error: insertError } = await supabase
           .from('daily_balances')
           .insert({
             date: today,
@@ -103,13 +111,16 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
             bank_balance: 0,
             opening_cash: cash,
           });
+        if (insertError) throw insertError;
       }
 
       toast.success('Shift berhasil dibuka!');
-      router.push('/pos');
+      // Use hard redirect to force server component re-execute
+      window.location.href = '/pos';
     } catch (e: any) {
       console.error('Failed to open shift:', e);
       toast.error('Gagal membuka shift: ' + (e.message || 'Unknown error'));
+      setIsNavigating(false);
     } finally {
       setIsOpeningSubmitting(false);
     }
@@ -214,7 +225,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
 
             <button
               onClick={handleOpenShift}
-              disabled={isOpeningSubmitting || openingCash === ''}
+              disabled={isOpeningSubmitting || isNavigating || openingCash === ''}
               className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isOpeningSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
