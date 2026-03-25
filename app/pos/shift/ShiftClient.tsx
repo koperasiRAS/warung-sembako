@@ -40,7 +40,10 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
 
   const expectedCash = initialData.cashSales;
   const actualCashNum = parseFloat(actualCash) || 0;
-  const variance = actualCashNum - expectedCash;
+  const openingCash = initialData.openingCash || 0;
+  // Total uang yang seharusnya ada di laci = uang buka shift + penjualan cash
+  const expectedCashWithOpening = openingCash + expectedCash;
+  const variance = actualCashNum - expectedCashWithOpening;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -57,6 +60,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     setOpeningCashError('');
     setIsOpeningSubmitting(true);
     try {
+      // 1. Open / get shift
       const { data, error } = await supabase.rpc('ensure_open_shift', {
         p_cashier_id: initialData.cashierId,
       });
@@ -64,10 +68,43 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
         throw error || new Error('Gagal membuka shift');
       }
       const newShiftId = data[0].id;
+
+      // 2. Save opening_cash to shifts table
       await supabase
         .from('shifts')
         .update({ opening_cash: cash })
         .eq('id', newShiftId);
+
+      // 3. Sync to daily_balances — add opening_cash to cash_balance
+      // This makes the physical drawer cash visible in the dashboard
+      const today = new Date().toISOString().split('T')[0];
+
+      const { data: existingBalance } = await supabase
+        .from('daily_balances')
+        .select('id, cash_balance, opening_cash')
+        .eq('date', today)
+        .single();
+
+      if (existingBalance) {
+        await supabase
+          .from('daily_balances')
+          .update({
+            cash_balance: (existingBalance.cash_balance || 0) + cash,
+            opening_cash: cash,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', existingBalance.id);
+      } else {
+        await supabase
+          .from('daily_balances')
+          .insert({
+            date: today,
+            cash_balance: cash,
+            bank_balance: 0,
+            opening_cash: cash,
+          });
+      }
+
       toast.success('Shift berhasil dibuka!');
       router.push('/pos');
     } catch (e: any) {
@@ -87,15 +124,21 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     setIsSubmitting(true);
 
     try {
-      const totalProfit = actualCashNum - (initialData.openingCash || 0);
+      // expectedCashTotal = uang laci saat buka + penjualan cash hari ini
+      // Ini yang HARUS ada di laci jika tidak ada selisih
+      const openingCash = initialData.openingCash || 0;
+      const expectedCashTotal = openingCash + expectedCash;
+      const totalProfit = actualCashNum - openingCash;
+      const varianceWithOpening = actualCashNum - expectedCashTotal;
+
       // UPDATE the existing open shift row, don't INSERT a new one
       const { error } = await supabase
         .from('shifts')
         .update({
           status: 'closed',
-          expected_cash: expectedCash,
+          expected_cash: expectedCashTotal,
           actual_cash: actualCashNum,
-          variance: variance,
+          variance: varianceWithOpening,
           total_profit: totalProfit,
           end_time: new Date().toISOString(),
         })
@@ -122,7 +165,7 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   if (isOpening) {
     return (
       <div
-        className="min-h-screen bg-gradient-to-br from-slate-900/90 to-slate-800/90 flex flex-col items-center justify-center p-4"
+        className="fixed inset-0 z-[60] min-h-screen bg-gradient-to-br from-slate-900/90 to-slate-800/90 flex flex-col items-center justify-center p-4"
         onContextMenu={(e) => e.preventDefault()}
       >
         <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-sm">
@@ -255,9 +298,9 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
                   <p className="text-xs text-slate-500 mt-1">QRIS & Transfer</p>
                 </div>
                 <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
-                  <span className="text-emerald-700 text-sm font-medium block mb-1">Pembayaran Tunai</span>
-                  <span className="font-bold text-slate-800">{formatCurrency(initialData.cashSales)}</span>
-                  <p className="text-xs text-slate-500 mt-1">Estimasi Uang di Laci</p>
+                  <span className="text-emerald-700 text-sm font-medium block mb-1">Total Tunai di Laci</span>
+                  <span className="font-bold text-slate-800">{formatCurrency(expectedCashWithOpening)}</span>
+                  <p className="text-xs text-slate-500 mt-1">Buka ({formatCurrency(openingCash)}) + Tunai ({formatCurrency(expectedCash)})</p>
                 </div>
               </div>
             </div>
