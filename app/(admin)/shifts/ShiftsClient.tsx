@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Clock, Calculator, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
+import { Clock, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
 
 interface Shift {
   id: string;
@@ -19,8 +19,13 @@ interface Shift {
 }
 
 export default function ShiftsClient({ initialShifts }: { initialShifts: Shift[] }) {
-  const [shifts] = useState<Shift[]>(initialShifts);
+  const [shifts, setShifts] = useState<Shift[]>(initialShifts);
   const router = useRouter();
+
+  // Sync props → state so realtime router.refresh() updates the display
+  useEffect(() => {
+    setShifts(initialShifts);
+  }, [initialShifts]);
 
   // Realtime: refresh when shifts table changes (new shift closed, etc.)
   useEffect(() => {

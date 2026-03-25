@@ -4,8 +4,8 @@ import { SalesChart, ResetDataComponent } from '@/components/dashboard';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-// Caching configuration - revalidates every 30 seconds
-export const revalidate = 30;
+// Caching configuration — force-dynamic so realtime router.refresh() always hits DB
+export const revalidate = 0;
 
 async function getDailyBalance() {
   const supabase = await createClient();

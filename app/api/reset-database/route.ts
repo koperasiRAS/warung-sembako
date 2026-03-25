@@ -27,16 +27,15 @@ export async function DELETE() {
 
     // 1. Delete all operational tables data from Supabase DB using the service_role
     // Note: Thanks to cascading deletes and dependency logic, we delete from leaf nodes up to root nodes.
+    // NOTE: products & categories are NOT deleted — they are preserved on reset
     const tablesToClean = [
-      'debt_payments', 
-      'debts', 
-      'transaction_items', 
+      'debt_payments',
+      'debts',
+      'transaction_items',
       'transactions',
       'inventory_transactions',
       'expenses',
       'daily_balances',
-      'products', 
-      'categories', 
       'shifts'
     ];
 
