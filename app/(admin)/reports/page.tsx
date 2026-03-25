@@ -27,9 +27,18 @@ async function getReportData() {
   const todayNonCash = todayTransactions
     ?.filter((t) => t.payment_method === 'qris' || t.payment_method === 'transfer')
     .reduce((sum, t) => sum + t.total, 0) || 0;
-  const todayHutang = todayTransactions
-    ?.filter((t) => t.payment_method === 'hutang')
-    .reduce((sum, t) => sum + t.total, 0) || 0;
+  // Outstanding hutang — query from debts table (remaining_amount)
+  // This reflects what's actually still unpaid, not the original transaction value
+  const { data: allDebts } = await supabase
+    .from('debts')
+    .select('remaining_amount, created_at');
+
+  const todayStart = `${today}T00:00:00`;
+  const todayEnd = `${today}T23:59:59`;
+
+  const todayOutstanding = allDebts
+    ?.filter(d => d.created_at >= todayStart && d.created_at <= todayEnd)
+    .reduce((sum, d) => sum + d.remaining_amount, 0) || 0;
 
   // Monthly stats
   const { data: monthTransactions } = await supabase
@@ -43,6 +52,12 @@ async function getReportData() {
   const monthHutang = monthTransactions
     ?.filter((t) => t.payment_method === 'hutang')
     .reduce((sum, t) => sum + t.total, 0) || 0;
+
+  // Outstanding bulan ini — sum of remaining_amount from debts table (what's truly unpaid)
+  const monthStartTime = `${monthStart}T00:00:00`;
+  const monthOutstanding = allDebts
+    ?.filter(d => d.created_at >= monthStartTime)
+    .reduce((sum, d) => sum + d.remaining_amount, 0) || 0;
 
   let monthCOGS = 0;
   if (monthTransactions && monthTransactions.length > 0) {
@@ -73,15 +88,16 @@ async function getReportData() {
   const netProfit = grossProfit - monthExpensesTotal;
 
   return {
-    today: { sales: todaySales, count: todayCount, cash: todayCash, nonCash: todayNonCash, hutang: todayHutang },
-    month: { 
-      sales: monthSales, 
-      count: monthCount, 
-      expenses: monthExpensesTotal, 
-      cogs: monthCOGS, 
-      grossProfit, 
+    today: { sales: todaySales, count: todayCount, cash: todayCash, nonCash: todayNonCash, outstandingHutang: todayOutstanding },
+    month: {
+      sales: monthSales,
+      count: monthCount,
+      expenses: monthExpensesTotal,
+      cogs: monthCOGS,
+      grossProfit,
       netProfit,
-      hutang: monthHutang
+      hutang: monthHutang,
+      outstandingHutang: monthOutstanding,
     },
   };
 }
@@ -162,9 +178,9 @@ export default async function ReportsPage() {
           <div className="bg-white rounded-xl p-6 border border-slate-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">Kasbon (Piutang)</p>
+                <p className="text-sm text-slate-500">Piutang Belum Lunas</p>
                 <p className="text-2xl font-bold text-orange-600 mt-1">
-                  {formatCurrency(report.today.hutang)}
+                  {formatCurrency(report.today.outstandingHutang)}
                 </p>
               </div>
             </div>
@@ -220,12 +236,12 @@ export default async function ReportsPage() {
           </div>
 
           <div className="rounded-xl p-6 border border-orange-200 bg-orange-50">
-            <p className="text-sm text-orange-800 font-medium">Omzet via Kasbon (Bulan Ini)</p>
+            <p className="text-sm text-orange-800 font-medium">Piutang Belum Lunas (Bulan Ini)</p>
             <p className="text-2xl font-bold text-orange-600 mt-1">
-              {formatCurrency(report.month.hutang)}
+              {formatCurrency(report.month.outstandingHutang)}
             </p>
             <p className="text-xs text-orange-700 mt-1">
-              Nilai barang terjual tapi belum dibayar lunas
+              Sisa utang pelanggan yang belum dibayar lunas
             </p>
           </div>
 
