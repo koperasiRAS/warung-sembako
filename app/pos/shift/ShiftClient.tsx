@@ -111,34 +111,73 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
         .eq('id', newShiftId);
       if (shiftError) throw shiftError;
 
-      // 3. Sync to daily_balances — add opening_cash to cash_balance
+      // 3. Sync to daily_balances
       const today = new Date().toISOString().split('T')[0];
-      const { data: existingBalance } = await supabase
-        .from('daily_balances')
-        .select('id, cash_balance, opening_cash')
-        .eq('date', today)
-        .single();
 
-      if (existingBalance) {
-        const { error: updateError } = await supabase
+      // CRITICAL: Only add opening_cash to daily_balances if this is the FIRST shift of the day.
+      // If a shift was already closed today, the physical cash is ALREADY recorded in
+      // daily_balances (reconciled via actualCash at close). Adding again = double-count bug.
+      const { data: closedShiftsToday } = await supabase
+        .from('shifts')
+        .select('id', { count: 'exact', head: true })
+        .eq('cashier_id', initialData.cashierId)
+        .eq('status', 'closed')
+        .gte('end_time', `${today}T00:00:00`)
+        .lt('end_time', `${today}T23:59:59`);
+
+      const hasClosedShiftToday = (closedShiftsToday ?? 0) > 0;
+
+      if (hasClosedShiftToday) {
+        // Resume after previous shift closed: cash already in daily_balances from reconcile.
+        // Just ensure daily_balances exists for today (it should, but safe-guard).
+        const { data: existingBalance } = await supabase
           .from('daily_balances')
-          .update({
-            cash_balance: (existingBalance.cash_balance || 0) + cash,
-            opening_cash: cash,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existingBalance.id);
-        if (updateError) throw updateError;
+          .select('id')
+          .eq('date', today)
+          .single();
+
+        if (!existingBalance) {
+          // Edge case: no daily_balances yet — create with this as opening
+          const { error: insertError } = await supabase
+            .from('daily_balances')
+            .insert({
+              date: today,
+              cash_balance: cash,
+              bank_balance: 0,
+              opening_cash: cash,
+            });
+          if (insertError) throw insertError;
+        }
+        // opening_cash shift is already saved in step 2 above (for shift report purposes).
       } else {
-        const { error: insertError } = await supabase
+        // First shift of the day: ensure daily_balances exists and add opening cash
+        const { data: existingBalance } = await supabase
           .from('daily_balances')
-          .insert({
-            date: today,
-            cash_balance: cash,
-            bank_balance: 0,
-            opening_cash: cash,
-          });
-        if (insertError) throw insertError;
+          .select('id, cash_balance')
+          .eq('date', today)
+          .single();
+
+        if (existingBalance) {
+          const { error: updateError } = await supabase
+            .from('daily_balances')
+            .update({
+              cash_balance: (existingBalance.cash_balance || 0) + cash,
+              opening_cash: cash,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', existingBalance.id);
+          if (updateError) throw updateError;
+        } else {
+          const { error: insertError } = await supabase
+            .from('daily_balances')
+            .insert({
+              date: today,
+              cash_balance: cash,
+              bank_balance: 0,
+              opening_cash: cash,
+            });
+          if (insertError) throw insertError;
+        }
       }
 
       toast.success('Shift berhasil dibuka!');
