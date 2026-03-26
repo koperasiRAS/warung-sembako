@@ -1,6 +1,6 @@
 import { createClient, getProfile, getUser } from '@/lib/supabase/server';
 import { AlertTriangle, Package } from 'lucide-react';
-import { SalesChart, ResetDataComponent } from '@/components/dashboard';
+import { SalesChart, ResetDataComponent, DashboardRealtime } from '@/components/dashboard';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -328,6 +328,9 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-4 lg:p-8">
+      {/* Realtime subscription — silently refreshes dashboard on any data change */}
+      <DashboardRealtime />
+
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
@@ -29,6 +29,33 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
   const [isNavigating, setIsNavigating] = useState(false);
   const [openingCash, setOpeningCash] = useState<string>('');
   const [openingCashError, setOpeningCashError] = useState('');
+
+  // Realtime: refresh page when new transactions are created during this shift
+  useEffect(() => {
+    if (!openShiftId) return;
+
+    const channel = supabase
+      .channel(`shift-txns-${openShiftId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'transactions',
+          filter: `cashier_id=eq.${initialData.cashierId}`,
+        },
+        () => {
+          // New transaction in this shift — refresh to show updated totals
+          router.refresh();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openShiftId, initialData.cashierId]);
 
   // Format currency
   const formatCurrency = (amount: number) => {
@@ -135,15 +162,14 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
     setIsSubmitting(true);
 
     try {
-      // expectedCashTotal = uang laci saat buka + penjualan cash hari ini
-      // Ini yang HARUS ada di laci jika tidak ada selisih
-      const openingCash = initialData.openingCash || 0;
-      const expectedCashTotal = openingCash + expectedCash;
-      const totalProfit = actualCashNum - openingCash;
+      const closingCash = initialData.openingCash || 0;
+      const expectedCashTotal = closingCash + expectedCash;
+      const totalProfit = actualCashNum - closingCash;
       const varianceWithOpening = actualCashNum - expectedCashTotal;
+      const now = new Date().toISOString();
 
-      // UPDATE the existing open shift row, don't INSERT a new one
-      const { error } = await supabase
+      // UPDATE the existing open shift row
+      const { error: shiftError } = await supabase
         .from('shifts')
         .update({
           status: 'closed',
@@ -151,15 +177,45 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
           actual_cash: actualCashNum,
           variance: varianceWithOpening,
           total_profit: totalProfit,
-          end_time: new Date().toISOString(),
+          end_time: now,
         })
         .eq('id', openShiftId)
         .eq('status', 'open'); // safety: only update if still open
 
-      if (error) throw error;
+      if (shiftError) throw shiftError;
+
+      // CRITICAL FIX: Reconcile daily_balances with actual cash count
+      // The daily_balances.cash_balance accumulates cash sales (+expectedCash) but the
+      // physical cash in drawer is actualCashNum. We need to adjust the running balance:
+      //   - Remove the expected cash sales from daily_balances (they were added by transactions)
+      //   - Add the actual physical cash counted (which includes opening cash + cash sales - any discrepancies)
+      // After this, daily_balances.cash_balance reflects the TRUE physical cash position.
+      const today = now.split('T')[0];
+      const { data: todayBalance } = await supabase
+        .from('daily_balances')
+        .select('id, cash_balance')
+        .eq('date', today)
+        .single();
+
+      if (todayBalance) {
+        // Recalculate: the balance currently has opening_cash + expectedCash (accumulated from transactions)
+        // We want it to have: actualCashNum (physical money counted)
+        // Adjustment = actualCashNum - (current running balance)
+        const adjustment = actualCashNum - (todayBalance.cash_balance || 0);
+        const { error: balanceError } = await supabase
+          .from('daily_balances')
+          .update({
+            cash_balance: actualCashNum,
+            updated_at: now,
+          })
+          .eq('date', today);
+        if (balanceError) {
+          console.error('Failed to update daily_balances:', balanceError);
+          // Non-fatal: shift is already closed, log but don't throw
+        }
+      }
 
       setIsSuccess(true);
-      // Clear shift start time and auto logout after 3 seconds
       localStorage.removeItem('shift_start_time');
       setTimeout(() => {
         handleLogout();
