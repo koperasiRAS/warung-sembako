@@ -117,15 +117,15 @@ export default function ShiftClient({ initialData, openShiftId, reason }: { init
       // CRITICAL: Only add opening_cash to daily_balances if this is the FIRST shift of the day.
       // If a shift was already closed today, the physical cash is ALREADY recorded in
       // daily_balances (reconciled via actualCash at close). Adding again = double-count bug.
-      const { data: closedShiftsToday } = await supabase
+      const { count: closedShiftCount } = await supabase
         .from('shifts')
-        .select('id', { count: 'exact', head: true })
+        .select('*', { count: 'exact', head: true })
         .eq('cashier_id', initialData.cashierId)
         .eq('status', 'closed')
         .gte('end_time', `${today}T00:00:00`)
         .lt('end_time', `${today}T23:59:59`);
 
-      const hasClosedShiftToday = (closedShiftsToday ?? 0) > 0;
+      const hasClosedShiftToday = (closedShiftCount ?? 0) > 0;
 
       if (hasClosedShiftToday) {
         // Resume after previous shift closed: cash already in daily_balances from reconcile.
