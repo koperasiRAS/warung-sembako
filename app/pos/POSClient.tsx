@@ -77,17 +77,30 @@ export default function POSClient({
   const barcodeBufferRef = useRef('');
   const lastKeyTimeRef = useRef(0);
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage on mount — validate stock against current DB state
   useEffect(() => {
     const savedCart = localStorage.getItem('pos_cart');
     if (savedCart) {
       try {
-        setCart(JSON.parse(savedCart));
+        const parsedCart = JSON.parse(savedCart) as LocalCartItem[];
+        // Validate: only keep items where stock > 0 and price matches DB
+        const validCart = parsedCart.filter((item) => {
+          const product = initialProducts.find((p) => p.id === item.product_id);
+          if (!product || product.stock <= 0) return false;
+          // Remove items with stale prices (allow 1% tolerance for rounding)
+          if (Math.abs(product.price - item.price) > product.price * 0.01) return false;
+          return true;
+        });
+        setCart(validCart);
+        if (validCart.length < parsedCart.length) {
+          toast('Beberapa item di keranjang sudah tidak valid dan dihapus.');
+        }
       } catch (e) {
         console.error('Failed to load cart:', e);
+        localStorage.removeItem('pos_cart');
       }
     }
-  }, []);
+  }, [initialProducts]);
 
   // Save cart to localStorage when it changes
   useEffect(() => {
@@ -146,11 +159,29 @@ export default function POSClient({
     });
   }, [products, debouncedSearch, selectedCategory]);
 
-  // Calculate totals
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const total = subtotal;
-  const cashValue = parseFloat(cashReceived || '0');
-  const change = isNaN(cashValue) ? 0 : cashValue - total;
+  // Calculate totals — memoized for performance
+  const subtotal = useMemo(
+    () => cart.reduce((sum, item) => sum + item.price * item.qty, 0),
+    [cart]
+  );
+  const total = subtotal; // total === subtotal in this POS (no tax/discount)
+  const cashValue = useMemo(() => parseFloat(cashReceived || '0'), [cashReceived]);
+  const change = useMemo(() => (isNaN(cashValue) ? 0 : cashValue - total), [cashValue, total]);
+
+  // Low stock count — memoized
+  const lowStockCount = useMemo(() => {
+    return products.filter((p) => {
+      if (p.stock <= 0) return false;
+      const threshold = p.low_stock_threshold ?? 10;
+      return p.stock < threshold;
+    }).length;
+  }, [products]);
+
+  // Total cart items — memoized
+  const totalCartItems = useMemo(
+    () => cart.reduce((sum, item) => sum + item.qty, 0),
+    [cart]
+  );
 
   // Barcode scanning - improved algorithm
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -178,8 +209,9 @@ export default function POSClient({
 
     // Process the key
     if (e.key === 'Enter') {
-      if (barcodeBufferRef.current.length >= 8) {
-        const barcode = barcodeBufferRef.current.trim().toLowerCase();
+      const buffer = barcodeBufferRef.current.trim();
+      if (buffer.length >= 8 && buffer.length <= 100) {
+        const barcode = buffer.toLowerCase();
         // Search product by barcode (case-insensitive)
         const product = products.find((p) => p.barcode?.toLowerCase() === barcode);
 
@@ -202,11 +234,14 @@ export default function POSClient({
       return;
     }
 
-    // Only add printable characters to buffer
-    if (e.key.length === 1) {
+    // Only add printable characters to buffer — enforce max length
+    if (e.key.length === 1 && barcodeBufferRef.current.length < 100) {
       barcodeBufferRef.current += e.key;
+    } else if (barcodeBufferRef.current.length >= 100) {
+      // Buffer overflow — reset to prevent memory issues
+      barcodeBufferRef.current = '';
     }
-  }, [products, scannerActive, setSearchQuery]);
+  }, [products, scannerActive]);
 
   // Attach keyboard listener
   useEffect(() => {
@@ -288,8 +323,8 @@ export default function POSClient({
   // Quick cash amounts for mobile
   const quickCashAmounts = [10000, 20000, 50000, 100000];
 
-  // Process payment - using atomic RPC for transaction integrity
-  const handlePayment = async () => {
+  // Process payment — memoized to avoid recreation on every render
+  const handlePayment = useCallback(async () => {
     // Client-side stock validation
     for (const item of cart) {
       const product = products.find((p) => p.id === item.product_id);
@@ -324,7 +359,7 @@ export default function POSClient({
         price: item.price,
       }));
 
-      // Use atomic RPC function for transaction integrity
+      // Use atomic RPC function — debt recording is now atomic within the RPC for hutang
       const { data: transactionId, error: rpcError } = await supabase.rpc(
         'create_pos_transaction',
         {
@@ -332,6 +367,7 @@ export default function POSClient({
           p_total: total,
           p_payment_method: paymentMethod,
           p_items: itemsJson,
+          p_customer_name: paymentMethod === 'hutang' ? customerName.trim() : null,
         }
       );
 
@@ -339,9 +375,16 @@ export default function POSClient({
         // Handle stock-related RPC errors
         if (
           rpcError.message?.includes('Insufficient stock') ||
-          rpcError.message?.includes('stock')
+          rpcError.message?.includes('stok') ||
+          rpcError.message?.includes('Stok')
         ) {
           toast.error('Stok tidak mencukupi. Silakan kurangi jumlah di keranjang.');
+          setLoading(false);
+          return;
+        }
+        // Handle price manipulation
+        if (rpcError.message?.includes('Harga') || rpcError.message?.includes('harga')) {
+          toast.error('Harga produk berubah. Silakan refresh halaman.');
           setLoading(false);
           return;
         }
@@ -351,23 +394,6 @@ export default function POSClient({
 
       if (!transactionId) {
         throw new Error('Gagal membuat transaksi');
-      }
-
-      // If debt (hutang), insert into debts table
-      if (paymentMethod === 'hutang') {
-        const { error: debtError } = await supabase.from('debts').insert({
-          transaction_id: transactionId,
-          customer_name: customerName,
-          amount: total,
-          remaining_amount: total,
-          status: 'unpaid'
-        });
-        
-        if (debtError) {
-          console.error('Failed to record debt:', debtError);
-          // Don't throw to not break the POS flow, but maybe show an alert
-          toast.error('Transaksi berhasil tapi gagal mencatat ke Buku Utang!');
-        }
       }
 
       // Get full transaction details with product info for receipt
@@ -388,7 +414,12 @@ export default function POSClient({
       setShowPayment(false);
       setShowReceipt(true);
       clearCart();
-      localStorage.setItem('last_cash_received', cashReceived);
+      // Only store cash info for cash payments
+      if (paymentMethod === 'cash') {
+        localStorage.setItem('last_cash_received', cashReceived);
+      } else {
+        localStorage.removeItem('last_cash_received');
+      }
       setCustomerName('');
       refetchProducts(); // Refetch from DB so all tabs see updated stock
 
@@ -408,14 +439,12 @@ export default function POSClient({
     } finally {
       setLoading(false);
     }
-  };
+  }, [cart, products, total, change, paymentMethod, customerName, supabase, user.id, clearCart, refetchProducts]);
 
   // Low stock helper
   const isLowStock = (product: Product) =>
     (product.low_stock_threshold ? product.stock < product.low_stock_threshold : product.stock < 10);
 
-  // Count low stock products (excluding out-of-stock)
-  const lowStockCount = products.filter(p => p.stock > 0 && isLowStock(p)).length;
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -463,7 +492,7 @@ export default function POSClient({
               <ShoppingCart className="w-5 h-5" />
               {cart.length > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 rounded-full text-xs flex items-center justify-center font-medium">
-                  {cart.reduce((sum, item) => sum + item.qty, 0)}
+                  {totalCartItems}
                 </span>
               )}
             </button>
@@ -676,7 +705,7 @@ export default function POSClient({
           <div className="absolute right-0 top-0 h-full w-full max-w-sm bg-white flex flex-col animate-in slide-in-from-right duration-200">
             <div className="p-4 border-b border-slate-200 flex items-center justify-between shrink-0">
               <h2 className="text-lg font-semibold text-slate-800">
-                Keranjang ({cart.reduce((sum, item) => sum + item.qty, 0)})
+                Keranjang ({totalCartItems})
               </h2>
               <button
                 onClick={() => setShowCart(false)}
@@ -948,8 +977,16 @@ export default function POSClient({
           <div className="print-receipt">
             <ThermalReceipt
               transaction={lastTransaction}
-              cashReceived={parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0')}
-              change={parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0') - lastTransaction.total}
+              cashReceived={
+                lastTransaction.payment_method === 'cash'
+                  ? parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0')
+                  : 0
+              }
+              change={
+                lastTransaction.payment_method === 'cash'
+                  ? parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0') - lastTransaction.total
+                  : 0
+              }
             />
           </div>
 
@@ -960,8 +997,16 @@ export default function POSClient({
               <div className="p-4 border-b border-slate-200 scale-75 origin-top">
                 <ThermalReceipt
                   transaction={lastTransaction}
-                  cashReceived={parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0')}
-                  change={parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0') - lastTransaction.total}
+                  cashReceived={
+                    lastTransaction.payment_method === 'cash'
+                      ? parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0')
+                      : 0
+                  }
+                  change={
+                    lastTransaction.payment_method === 'cash'
+                      ? parseFloat(cashReceived || localStorage.getItem('last_cash_received') || '0') - lastTransaction.total
+                      : 0
+                  }
                 />
               </div>
 

@@ -56,6 +56,10 @@ BEGIN
   SET stock = stock + p_quantity,
       updated_at = NOW()
   WHERE id = p_product_id;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Product not found: %', p_product_id;
+  END IF;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -216,12 +220,12 @@ BEGIN
     UPDATE daily_balances
     SET cash_balance = cash_balance - v_transaction.total,
         updated_at = NOW()
-    WHERE date = CURRENT_DATE;
+    WHERE date = DATE(v_transaction.created_at);
   ELSIF v_transaction.payment_method IN ('qris', 'transfer') THEN
     UPDATE daily_balances
     SET bank_balance = bank_balance - v_transaction.total,
         updated_at = NOW()
-    WHERE date = CURRENT_DATE;
+    WHERE date = DATE(v_transaction.created_at);
   END IF;
 
   UPDATE transactions
