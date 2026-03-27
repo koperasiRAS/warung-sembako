@@ -30,6 +30,7 @@ async function getProducts(params: {
       price,
       cost_price,
       stock,
+      low_stock_threshold,
       category_id,
       barcode,
       sku,
