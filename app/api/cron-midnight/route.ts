@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // Vercel Cron: runs every day at 00:00 midnight Jakarta time (Asia/Jakarta)
-// - Closes all open shifts from the previous day
-// - Initializes today's daily_balance from yesterday's closing balance
+// Initializes today's daily_balance from yesterday's closing balance
 // Registered in vercel.json: "0 0 * * *"
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
@@ -23,21 +22,7 @@ export async function GET(request: Request) {
     serviceKey
   );
 
-  // 1. Auto-close all open shifts (end of previous day)
-  const { error: shiftError } = await supabaseAdmin
-    .from('shifts')
-    .update({
-      status: 'closed',
-      end_time: new Date().toISOString(),
-    })
-    .eq('status', 'open');
-
-  if (shiftError) {
-    console.error('Auto-close shifts error:', shiftError);
-    return NextResponse.json({ error: shiftError.message }, { status: 500 });
-  }
-
-  // 2. Get Jakarta date helpers
+  // Get Jakarta date
   const now = new Date();
   const jakartaOffset = 7 * 60; // UTC+7
   const jakartaDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (jakartaOffset * 60000));
@@ -46,14 +31,14 @@ export async function GET(request: Request) {
   yesterday.setDate(yesterday.getDate() - 1);
   const yesterdayStr = yesterday.toISOString().split('T')[0];
 
-  // 3. Get yesterday's balance to carry forward
+  // Get yesterday's balance to carry forward
   const { data: yesterdayBalance } = await supabaseAdmin
     .from('daily_balances')
     .select('cash_balance, bank_balance')
     .eq('date', yesterdayStr)
     .single();
 
-  // 4. Check if today's balance already exists
+  // Check if today's balance already exists
   const { data: todayBalance } = await supabaseAdmin
     .from('daily_balances')
     .select('id')
@@ -78,9 +63,9 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.json({
-    message: 'Midnight rollover complete.',
+    message: 'Daily rollover complete.',
     today: todayStr,
-    yesterdayClosed: yesterdayBalance ? {
+    yesterdayBalance: yesterdayBalance ? {
       cash_balance: yesterdayBalance.cash_balance,
       bank_balance: yesterdayBalance.bank_balance,
     } : null,

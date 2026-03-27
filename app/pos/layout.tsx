@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getUser, getProfile } from '@/lib/supabase/server';
-import Sidebar from '@/components/layout/Sidebar';
+import { getUser } from '@/lib/supabase/server';
 import { Providers } from '@/components/providers/Providers';
 
 export default async function POSLayout({
@@ -14,15 +13,10 @@ export default async function POSLayout({
     redirect('/login');
   }
 
-  const profile = await getProfile(user.id);
-
   return (
     <Providers>
-      <div className="min-h-screen bg-slate-50 flex">
-        <Sidebar role={profile?.role} />
-        <main className="flex-1 lg:ml-64 min-h-screen w-full">
-          {children}
-        </main>
+      <div className="min-h-screen bg-slate-50">
+        {children}
       </div>
     </Providers>
   );

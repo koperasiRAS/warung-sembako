@@ -55,17 +55,6 @@ export function DashboardRealtime() {
         {
           event: '*',
           schema: 'public',
-          table: 'shifts',
-        },
-        () => {
-          router.refresh();
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
           table: 'products',
         },
         () => {

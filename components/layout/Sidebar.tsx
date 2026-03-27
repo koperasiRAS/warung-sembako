@@ -15,7 +15,6 @@ import {
   TrendingUp,
   ShoppingCart,
   Users,
-  Clock,
   BookUser,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
@@ -30,7 +29,6 @@ const navItems = [
   { href: '/transactions', label: 'Transaksi', icon: Receipt, roles: ['owner', 'cashier'] },
   { href: '/debts', label: 'Buku Utang', icon: BookUser, roles: ['owner', 'cashier'] },
   { href: '/expenses', label: 'Pengeluaran', icon: Wallet, roles: ['owner'] },
-  { href: '/shifts', label: 'Laporan Shift', icon: Clock, roles: ['owner'] },
   { href: '/reports', label: 'Laporan', icon: TrendingUp, roles: ['owner', 'cashier'] },
   { href: '/cashiers', label: 'Manajemen Kasir', icon: Users, roles: ['owner'] },
 ];
@@ -87,11 +85,6 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'expenses' },
-        () => { router.refresh(); }
-      )
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'shifts' },
         () => { router.refresh(); }
       )
       .on(

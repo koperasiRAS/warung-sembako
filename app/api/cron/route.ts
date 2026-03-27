@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // Vercel Cron: runs every day at 10:00 AM Jakarta time
-// Registered in vercel.json cron config
+// Daily health check — ensures daily_balances record exists for today
+// (shift auto-close has been removed; daily rollover is handled by /api/cron-midnight)
 export async function GET(request: Request) {
-  // Verify cron secret
   if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -19,22 +19,37 @@ export async function GET(request: Request) {
     serviceKey
   );
 
-  // Auto-close all open shifts at end of day
-  const { error } = await supabaseAdmin
-    .from('shifts')
-    .update({
-      status: 'closed',
-      end_time: new Date().toISOString(),
-      expected_cash: 0,
-      actual_cash: 0,
-      variance: 0,
-    })
-    .eq('status', 'open');
+  // Ensure today's balance record exists (creates from yesterday if needed)
+  const now = new Date();
+  const jakartaOffset = 7 * 60;
+  const jakartaDate = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + (jakartaOffset * 60000));
+  const todayStr = jakartaDate.toISOString().split('T')[0];
+  const yesterday = new Date(jakartaDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
 
-  if (error) {
-    console.error('Auto-close shifts error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  const { data: todayBalance } = await supabaseAdmin
+    .from('daily_balances')
+    .select('id')
+    .eq('date', todayStr)
+    .single();
+
+  if (!todayBalance) {
+    const { data: yesterdayBalance } = await supabaseAdmin
+      .from('daily_balances')
+      .select('cash_balance, bank_balance')
+      .eq('date', yesterdayStr)
+      .single();
+
+    await supabaseAdmin
+      .from('daily_balances')
+      .insert({
+        date: todayStr,
+        cash_balance: yesterdayBalance?.cash_balance ?? 0,
+        bank_balance: yesterdayBalance?.bank_balance ?? 0,
+        opening_cash: 0,
+      });
   }
 
-  return NextResponse.json({ message: 'All open shifts auto-closed.' });
+  return NextResponse.json({ message: 'Daily health check complete.' });
 }

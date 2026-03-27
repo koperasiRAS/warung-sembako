@@ -20,16 +20,12 @@ import {
   Package,
   RotateCcw,
   Calculator,
-  LogOut,
   BookUser,
 } from 'lucide-react';
-import Link from 'next/link';
-
 interface POSClientProps {
   initialProducts: Product[];
   initialCategories: Category[];
   user: { id: string; email: string };
-  shiftId?: string | null;
 }
 
 // Local cart item type (not from DB)
@@ -46,7 +42,6 @@ export default function POSClient({
   initialProducts,
   initialCategories,
   user,
-  shiftId,
 }: POSClientProps) {
   const supabase = createClient();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -91,11 +86,6 @@ export default function POSClient({
       } catch (e) {
         console.error('Failed to load cart:', e);
       }
-    }
-
-    // Set shift start time if not already set (for shift tracking)
-    if (!localStorage.getItem('shift_start_time')) {
-      localStorage.setItem('shift_start_time', new Date().toISOString());
     }
   }, []);
 
@@ -453,14 +443,6 @@ export default function POSClient({
                 <span className="text-xs text-slate-500 hidden sm:block">Warung Sembako by RAS</span>
               </div>
             </div>
-            
-            <Link 
-              href="/pos/shift"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-lg text-sm transition"
-            >
-              <LogOut className="w-4 h-4" />
-              Tutup Kasir
-            </Link>
           </div>
           <div className="flex items-center gap-2">
             <button
