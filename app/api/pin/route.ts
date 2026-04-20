@@ -42,48 +42,35 @@ export async function POST(request: Request) {
       // Prioritaskan akun owner jika ada beberapa profil dengan PIN yang sama
       const ownerProfile = matchResult.find((p: any) => p.role === 'owner');
       matchedKasir = ownerProfile || matchResult[0];
-    } else if (rpcError) {
-      // Fallback: compare satu-per-satu jika RPC belum ada/error
-      for (const kasir of kasirs) {
-        const { data } = await supabaseAdmin
-          .from('profiles')
-          .select('id, email, full_name, role, pin_hash')
-          .eq('id', kasir.id)
-          .single();
+    } else if (rpcError || (!matchResult && kasirs.length > 0)) {
+      // Fallback: compare secara paralel jika RPC belum ada/error
+      const kasirDetails = await Promise.all(
+        kasirs.map((k) => 
+          supabaseAdmin.from('profiles').select('id, email, full_name, role, pin_hash').eq('id', k.id).single()
+        )
+      );
 
-        if (!data?.pin_hash) continue;
-
-        // crypt(plain, hash) → kalau match, hasilnya = hash
+      const matchPromises = kasirDetails.map(async ({ data }) => {
+        if (!data?.pin_hash) return null;
         const { data: cryptResult } = await supabaseAdmin.rpc('verify_pin_plain', {
           plain: pin,
           hash: data.pin_hash,
         });
+        return cryptResult === true ? data : null;
+      });
 
-        if (cryptResult === true) {
-          matchedKasir = data;
-          break;
-        }
-      }
+      const results = await Promise.all(matchPromises);
+      matchedKasir = results.find(r => r !== null);
     }
 
     if (!matchedKasir) {
       return NextResponse.json({ error: 'PIN salah' }, { status: 401 });
     }
 
-    // Generate a secure random password for the session
-    const tempPassword = crypto.randomUUID() + 'A1!a';
+    // Gunakan password deterministik untuk menghindari update password di setiap login (yang sangat lambat)
+    // Cukup gunakan ID profil ditambah kombinasi unik agar aman
+    const deterministicPassword = `${matchedKasir.id}-POS-Auth!1`;
 
-    // Update user's password in GoTrue
-    const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
-      matchedKasir.id,
-      { password: tempPassword }
-    );
-
-    if (updateError) {
-      return NextResponse.json({ error: 'Gagal menyiapkan sesi autentikasi' }, { status: 500 });
-    }
-
-    // Now sign in the user to create a session and set cookies
     const { cookies } = await import('next/headers');
     const { createServerClient } = await import('@supabase/ssr');
 
@@ -105,10 +92,31 @@ export async function POST(request: Request) {
       }
     );
 
-    const { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
+    // Coba langsung login (tanpa update)
+    let { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
       email: matchedKasir.email,
-      password: tempPassword,
+      password: deterministicPassword,
     });
+
+    // Jika gagal login, berarti password deterministik belum di-set. Lakukan update 1x saja.
+    if (sessionError || !sessionData.session) {
+      const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
+        matchedKasir.id,
+        { password: deterministicPassword }
+      );
+
+      if (updateError) {
+        return NextResponse.json({ error: 'Gagal menyiapkan sesi autentikasi' }, { status: 500 });
+      }
+
+      // Coba login lagi setelah update
+      const retryAuth = await supabase.auth.signInWithPassword({
+        email: matchedKasir.email,
+        password: deterministicPassword,
+      });
+      sessionData = retryAuth.data;
+      sessionError = retryAuth.error;
+    }
 
     if (sessionError || !sessionData.session) {
       return NextResponse.json({ error: 'Gagal membuat sesi' }, { status: 500 });

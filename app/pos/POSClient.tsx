@@ -461,7 +461,7 @@ export default function POSClient({
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-background)' }}>
       {/* Main Content - Products */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: '0', overflow: 'hidden' }}>
+      <div className="print-hide" style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: '0', overflow: 'hidden' }}>
         {/* Header */}
         <header style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -732,13 +732,12 @@ export default function POSClient({
 
       {/* Cart Sidebar - Desktop Only */}
       <div style={{
-        display: 'none',
         width: '20rem',
         backgroundColor: 'var(--color-surface-container-lowest)',
         borderLeft: '1px solid var(--color-outline-variant)',
         flexDirection: 'column',
         flexShrink: '0',
-      }} className="lg:flex">
+      }} className="hidden lg:flex print-hide">
         <div style={{
           padding: 'var(--space-4)',
           borderBottom: '1px solid var(--color-outline-variant)',
@@ -1323,19 +1322,19 @@ export default function POSClient({
                 size: 58mm auto;
                 margin: 0;
               }
-              body * {
-                visibility: hidden;
+              body {
+                background: white;
+                margin: 0;
+                padding: 0;
+              }
+              .print-hide {
+                display: none !important;
               }
               .print-receipt {
                 display: block !important;
-                position: absolute;
-                top: 0;
-                left: 0;
                 width: 58mm;
-                visibility: visible;
-              }
-              .print-receipt * {
-                visibility: visible;
+                margin: 0 auto;
+                padding: 0;
               }
             }
             .print-receipt {
