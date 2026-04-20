@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Warung Sembako - Categories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#1c4ed8",
+                      "surface-container-high": "#e8e8e9",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#b7c4ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#fffbff",
+                      "background": "#f9f9fa",
+                      "surface": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-dim": "#dadadb",
+                      "on-secondary-fixed": "#1a1930",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#2151da",
+                      "on-surface": "#1a1c1d",
+                      "secondary-container": "#e0dcfb",
+                      "primary-container": "#4069f2",
+                      "on-background": "#1a1c1d",
+                      "surface-container": "#eeeeef",
+                      "on-primary-fixed-variant": "#0039b5",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "on-secondary-fixed-variant": "#46445d",
+                      "tertiary-container": "#c55000",
+                      "secondary-fixed": "#e3dffe",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "surface-container-highest": "#e2e2e3",
+                      "secondary": "#5d5c76",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-bright": "#f9f9fa",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#9d3e00",
+                      "on-primary": "#ffffff",
+                      "outline": "#747686",
+                      "outline-variant": "#c4c5d7",
+                      "on-primary-fixed": "#001551",
+                      "on-surface-variant": "#434655",
+                      "secondary-fixed-dim": "#c7c3e2",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#2f3132",
+                      "tertiary-fixed": "#ffdbcc",
+                      "inverse-primary": "#b7c4ff",
+                      "surface-variant": "#e2e2e3",
+                      "on-secondary-container": "#62607a",
+                      "on-tertiary-fixed": "#351000",
+                      "surface-container-low": "#f3f3f4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-family: 'Material Symbols Outlined';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+      </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 flex flex-col border-none bg-surface-container-low hidden md:flex fixed left-0 top-0 h-full p-4 z-50">
+<div class="mb-8 px-4 mt-2">
+<h1 class="text-xl font-black text-slate-900 tracking-tight font-headline">Warung Sembako</h1>
+<p class="text-sm text-slate-500 font-body">Efficient Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="warehouse">warehouse</span>
+<span>Restock</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 bg-white text-primary font-bold rounded-full shadow-sm scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="category" style="font-variation-settings: 'FILL' 1;">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span>Transactions</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Debt Book</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Expenses</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span>Cashiers</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span>POS</span>
+</a>
+</nav>
+<div class="mt-auto">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-h-screen md:ml-64 bg-background">
+<!-- TopAppBar -->
+<header class="w-full h-16 bg-[#f9f9fa]/80 backdrop-blur-xl flex items-center justify-between px-8 py-4 sticky top-0 z-40 transition-colors duration-200 ease-in-out">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96 hidden md:block">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-surface-container-lowest rounded-xl pl-12 pr-4 py-2 border-none focus:ring-0 focus:bg-surface-bright focus:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-all font-body text-sm placeholder:text-slate-400" placeholder="Search categories..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:bg-slate-200 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-200 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-200 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="ml-4 h-10 w-10 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Manager Avatar" class="w-full h-full object-cover" data-alt="Portrait of a smiling professional store manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvQSLXRRxJdRxvVlnkO9tvTmghag-YbwKSoVdJ9D4ikD1-FKqbL-tqcBzx9HdfojX2-VO6sbIqrYrapEpl2U_Io-T4F7i48Dbo02Mmf1d6fj3GAPFqTXCYHq7Yu3FCeN-me6t5Qg-PVt8TwmuI4ZDTcFrJkbqIWLfvHdtfv20LcBjHZiaZFv7a4gEsdeq8UdaOi-IdsKxOUbnm3k_4wzPZs0xn99-wz3cVd3osFSQ-JSBqWxdvE-IvS87h2EpZ9KgiQuexOkLCy2YK"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-7xl mx-auto w-full flex-1 flex flex-col gap-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<h2 class="text-3xl font-headline font-bold text-on-surface">Categories</h2>
+<p class="text-on-surface-variant font-body mt-1">Manage your store's product organization</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-3 rounded-xl font-headline font-semibold text-sm flex items-center gap-2 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-all shrink-0">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+                    Add New Category
+                </button>
+</div>
+<!-- Categories Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Category Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="rice_bowl">rice_bowl</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Beras &amp; Biji-bijian</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">42 Products</p>
+</div>
+</div>
+<!-- Category Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-[#fde68a] flex items-center justify-center text-[#92400e]">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Minyak Goreng</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">18 Products</p>
+</div>
+</div>
+<!-- Category Card 3 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-[#fbcfe8] flex items-center justify-center text-[#9d174d]">
+<span class="material-symbols-outlined" data-icon="cookie">cookie</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Snack &amp; Makanan Ringan</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">156 Products</p>
+</div>
+</div>
+<!-- Category Card 4 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-[#bbf7d0] flex items-center justify-center text-[#166534]">
+<span class="material-symbols-outlined" data-icon="cleaning_services">cleaning_services</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Kebutuhan Rumah</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">84 Products</p>
+</div>
+</div>
+<!-- Category Card 5 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-[#bfdbfe] flex items-center justify-center text-[#1e3a8a]">
+<span class="material-symbols-outlined" data-icon="local_cafe">local_cafe</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Minuman</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">112 Products</p>
+</div>
+</div>
+<!-- Category Card 6 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 hover:shadow-[0px_20px_40px_rgba(26,28,29,0.06)] transition-shadow group relative overflow-hidden flex flex-col gap-4 border border-outline-variant/15">
+<div class="flex items-start justify-between">
+<div class="h-12 w-12 rounded-full bg-[#fed7aa] flex items-center justify-center text-[#9a3412]">
+<span class="material-symbols-outlined" data-icon="egg_alt">egg_alt</span>
+</div>
+<button class="text-slate-400 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity p-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-on-surface">Bahan Pokok Lainnya</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">29 Products</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

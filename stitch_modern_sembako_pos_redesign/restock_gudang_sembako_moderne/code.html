@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Warung Sembako - Restock</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#1c4ed8",
+                      "surface-container-high": "#e8e8e9",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#b7c4ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#fffbff",
+                      "background": "#f9f9fa",
+                      "surface": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-dim": "#dadadb",
+                      "on-secondary-fixed": "#1a1930",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#2151da",
+                      "on-surface": "#1a1c1d",
+                      "secondary-container": "#e0dcfb",
+                      "primary-container": "#4069f2",
+                      "on-background": "#1a1c1d",
+                      "surface-container": "#eeeeef",
+                      "on-primary-fixed-variant": "#0039b5",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "on-secondary-fixed-variant": "#46445d",
+                      "tertiary-container": "#c55000",
+                      "secondary-fixed": "#e3dffe",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "surface-container-highest": "#e2e2e3",
+                      "secondary": "#5d5c76",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-bright": "#f9f9fa",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#9d3e00",
+                      "on-primary": "#ffffff",
+                      "outline": "#747686",
+                      "outline-variant": "#c4c5d7",
+                      "on-primary-fixed": "#001551",
+                      "on-surface-variant": "#434655",
+                      "secondary-fixed-dim": "#c7c3e2",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#2f3132",
+                      "tertiary-fixed": "#ffdbcc",
+                      "inverse-primary": "#b7c4ff",
+                      "surface-variant": "#e2e2e3",
+                      "on-secondary-container": "#62607a",
+                      "on-tertiary-fixed": "#351000",
+                      "surface-container-low": "#f3f3f4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #1c4ed8 0%, #4069f2 100%);
+        }
+        .ambient-shadow {
+            box-shadow: 0px 20px 40px rgba(13, 12, 34, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full p-4 h-screen w-64 flex flex-col border-none bg-[#f3f3f4] dark:bg-slate-900 hidden md:flex z-50">
+<div class="mb-8 px-4">
+<h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight font-headline">Warung Sembako</h1>
+<p class="text-xs text-slate-500 font-body mt-1">Efficient Atelier</p>
+</div>
+<nav class="flex-1 space-y-2 overflow-y-auto pr-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full bg-white dark:bg-slate-800 text-[#4E76FF] font-bold shadow-sm hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warehouse</span>
+<span>Restock</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Debt Book</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Expenses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span>Cashiers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span>POS</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-transparent">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 h-full relative z-10">
+<!-- TopAppBar -->
+<header class="w-full h-16 bg-[#f9f9fa]/80 dark:bg-slate-950/80 backdrop-blur-xl flex items-center justify-between px-8 py-4 sticky top-0 z-40">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest rounded-xl border-none focus:ring-0 focus:bg-surface-bright ambient-shadow transition-all text-sm font-body" placeholder="Search inventory..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full duration-200 ease-in-out transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full duration-200 ease-in-out transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full duration-200 ease-in-out transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-4 h-8 w-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/15">
+<img alt="Manager Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a man with short hair smiling softly, bright lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaskKMunE6eMokicU-J0sHAEFDPEJSzNrHk9eNVq9xsYR8piqhgjqGX5S9sjBIkxrLQP-aQBMey1Sm1N9aCguoPFHnCQ7fjEA4T5hlJD3m9nRDzK5zpzN8FsxWkd4iDZmmLxkvkoCmdmINYqnISw0BWCepX0tCfIyageVj3anFc-QiXUNzFHyBUwz7uPYUsvBMXL4IdumrlOes6F-ZxeI01grINoUaivBXNkbGdpa_ID1qt9ufhv6vX7TUc3XAHEhO3nHsp9lruply"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8 bg-background">
+<!-- Page Header & Main Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="text-3xl font-bold font-headline text-on-surface">Warehouse Operations</h2>
+<p class="text-on-surface-variant font-body mt-1 text-sm">Manage incoming shipments and critical low-stock alerts.</p>
+</div>
+<button class="btn-gradient text-on-primary font-headline font-semibold text-sm px-6 py-3 rounded-xl flex items-center gap-2 ambient-shadow hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_box</span>
+                    New Incoming Shipment
+                </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Alerts & Inventory Health -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Alert Bento Box -->
+<section class="bg-surface-container-lowest rounded-lg p-6 ambient-shadow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-bold font-headline flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                Critical Low Stock
+                            </h3>
+<button class="text-sm font-medium text-primary hover:text-primary-container transition-colors">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Alert Card 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex gap-4 items-center">
+<div class="w-16 h-16 bg-surface-container-lowest rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Beras Rojolele" class="w-full h-full object-cover" data-alt="close up of premium white rice grains in a wooden bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvsj_FNR0-INWPljWWVEQhAnp_GBlQxNfffnNtQgZz365O3kycUw0SQIeZkzNvmZPA5jJqmBliwSqmDToTXfGjdtJfDc7_KDMfB7Y-TlPquAfpBtIqSXpDXxG0rmYwXcVXkpOfSRo2j6RqrKyrec9JG4359zAmXjgCfF39yjhR-P4QJplynB53ahJepyIuYliWh0U3E4oyK8GdOTmo_hbeec4pftxAsKH2FTSt9DlN5cjzGOTegUedn-_CLweqenG1X9d1zpwh8boa"/>
+</div>
+<div class="flex-1">
+<h4 class="font-headline font-semibold text-on-surface text-sm">Beras Rojolele 5kg</h4>
+<p class="text-xs text-on-surface-variant font-body mb-2">SKU: BR-RJ-05</p>
+<div class="flex items-center gap-2">
+<span class="text-tertiary font-bold font-body text-sm">2 Sacks Left</span>
+<span class="text-xs text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">Min: 15</span>
+</div>
+</div>
+<button class="h-10 w-10 bg-surface-container-highest rounded-full flex items-center justify-center text-on-surface hover:bg-primary-fixed hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+</button>
+</div>
+<!-- Alert Card 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex gap-4 items-center">
+<div class="w-16 h-16 bg-surface-container-lowest rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Minyak Goreng" class="w-full h-full object-cover" data-alt="bottle of clear golden cooking oil on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM349dLZV7X_72d8Y2ZcMv_F9rVvxI4Ew-Ce0i9WWRNV2CA26vnbfjdI1c2RTAO1EEV39itvyWQNDQPws7RV29A0WbgsV5ujShQO4hXtPlrpsCs2pazBq5d2L5nD7FmNQlBpSJ5FDXoVYUgWkJdYoZjCDu4L0bgwxad1JIYNE2iUaZe3kp3uGr6DFJwFvzCC_mq_oyRwPOtZ4CAOq70fQDlO4e9NW2VDVOb0CZUwNdBu0j7nBVKFv69Ey4y91rafbdvk6kANhN7MDS"/>
+</div>
+<div class="flex-1">
+<h4 class="font-headline font-semibold text-on-surface text-sm">Bimoli Cooking Oil 2L</h4>
+<p class="text-xs text-on-surface-variant font-body mb-2">SKU: OL-BM-02</p>
+<div class="flex items-center gap-2">
+<span class="text-tertiary font-bold font-body text-sm">4 Pouches Left</span>
+<span class="text-xs text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">Min: 24</span>
+</div>
+</div>
+<button class="h-10 w-10 bg-surface-container-highest rounded-full flex items-center justify-center text-on-surface hover:bg-primary-fixed hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Recent Shipments List -->
+<section>
+<div class="flex justify-between items-center mb-6 px-2">
+<h3 class="text-lg font-bold font-headline text-on-surface">Recent Incoming Logs</h3>
+<div class="flex gap-2">
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full text-xs font-semibold font-body">This Week</button>
+<button class="bg-surface-container-highest text-on-surface px-4 py-1.5 rounded-full text-xs font-semibold font-body hover:bg-surface-container-low transition-colors">Older</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg ambient-shadow overflow-hidden">
+<!-- List Header -->
+<div class="grid grid-cols-12 gap-4 p-4 border-b border-outline-variant/15 text-xs font-semibold text-on-surface-variant uppercase tracking-wider font-body">
+<div class="col-span-3">PO Number / Date</div>
+<div class="col-span-4">Supplier</div>
+<div class="col-span-2">Items</div>
+<div class="col-span-3 text-right">Status</div>
+</div>
+<!-- List Items -->
+<div class="divide-y divide-transparent"> <!-- No line rule for lists -->
+<div class="grid grid-cols-12 gap-4 p-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-3">
+<div class="font-headline font-semibold text-sm text-on-surface">PO-2023-089</div>
+<div class="text-xs text-on-surface-variant font-body">Oct 24, 08:30 AM</div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-xs">UD</div>
+<div>
+<div class="font-headline font-medium text-sm text-on-surface">UD Sumber Makmur</div>
+<div class="text-xs text-on-surface-variant font-body">Rice &amp; Grains</div>
+</div>
+</div>
+<div class="col-span-2 text-sm font-body text-on-surface">
+                                        4 Pallets
+                                    </div>
+<div class="col-span-3 flex justify-end items-center gap-3">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-primary-fixed text-on-primary-fixed-variant">Received</span>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-4 p-4 hover:bg-surface-container-low transition-colors items-center mt-4"> <!-- Spacing instead of divider -->
+<div class="col-span-3">
+<div class="font-headline font-semibold text-sm text-on-surface">PO-2023-088</div>
+<div class="text-xs text-on-surface-variant font-body">Oct 23, 14:15 PM</div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xs">PT</div>
+<div>
+<div class="font-headline font-medium text-sm text-on-surface">PT Indofood CBP</div>
+<div class="text-xs text-on-surface-variant font-body">Noodles &amp; Condiments</div>
+</div>
+</div>
+<div class="col-span-2 text-sm font-body text-on-surface">
+                                        12 Boxes
+                                    </div>
+<div class="col-span-3 flex justify-end items-center gap-3">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container-high text-on-surface-variant">Checking</span>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Quick Stats & Key Items -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Warehouse Capacity -->
+<div class="bg-surface-container-low rounded-lg p-6">
+<h3 class="text-sm font-bold font-headline text-on-surface mb-4 uppercase tracking-wider">Warehouse Health</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="font-body text-on-surface-variant">Overall Capacity</span>
+<span class="font-headline font-bold text-on-surface">78%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-2">inventory_2</span>
+<div class="text-2xl font-black font-headline text-on-surface">1,204</div>
+<div class="text-xs font-body text-on-surface-variant">Total SKUs</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<span class="material-symbols-outlined text-tertiary mb-2">trending_down</span>
+<div class="text-2xl font-black font-headline text-tertiary">14</div>
+<div class="text-xs font-body text-on-surface-variant">Need Restock</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Key High-Volume Items -->
+<div class="bg-surface-container-lowest rounded-lg p-6 ambient-shadow">
+<h3 class="text-sm font-bold font-headline text-on-surface mb-4 uppercase tracking-wider">High Volume Movers</h3>
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">egg</span>
+</div>
+<div>
+<div class="font-headline font-semibold text-sm text-on-surface">Telur Ayam Kampung</div>
+<div class="text-xs font-body text-on-surface-variant">Daily delivery</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline font-bold text-sm text-on-surface">45 Trays</div>
+<div class="text-xs font-body text-primary">+12 today</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between pt-4"> <!-- Spacing instead of line -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">water_drop</span>
+</div>
+<div>
+<div class="font-headline font-semibold text-sm text-on-surface">Aqua Galon 19L</div>
+<div class="text-xs font-body text-on-surface-variant">Weekly delivery</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline font-bold text-sm text-on-surface">120 Gal</div>
+<div class="text-xs font-body text-on-surface-variant">Stable</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom spacing -->
+<div class="h-12"></div>
+</div>
+</main>
+</body></html>

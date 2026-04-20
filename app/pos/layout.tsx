@@ -20,7 +20,7 @@ export default async function POSLayout({
     <Providers>
       <div style={{ minHeight: '100dvh', display: 'flex', backgroundColor: 'var(--color-background)' }}>
         <Sidebar role={profile?.role} />
-        <main style={{ flex: 1, marginLeft: '0', minHeight: '100dvh', width: '100%' }} className="lg:ml-64">
+        <main style={{ flex: 1, marginLeft: '16rem', minHeight: '100dvh', width: '100%' }} className="lg:ml-64">
           {children}
         </main>
       </div>

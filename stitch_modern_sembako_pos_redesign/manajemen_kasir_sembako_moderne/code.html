@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Warung Sembako - Cashiers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#1c4ed8",
+                        "surface-container-high": "#e8e8e9",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b7c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f9f9fa",
+                        "surface": "#f9f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-dim": "#dadadb",
+                        "on-secondary-fixed": "#1a1930",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#2151da",
+                        "on-surface": "#1a1c1d",
+                        "secondary-container": "#e0dcfb",
+                        "primary-container": "#4069f2",
+                        "on-background": "#1a1c1d",
+                        "surface-container": "#eeeeef",
+                        "on-primary-fixed-variant": "#0039b5",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-secondary-fixed-variant": "#46445d",
+                        "tertiary-container": "#c55000",
+                        "secondary-fixed": "#e3dffe",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-container-highest": "#e2e2e3",
+                        "secondary": "#5d5c76",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-bright": "#f9f9fa",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#9d3e00",
+                        "on-primary": "#ffffff",
+                        "outline": "#747686",
+                        "outline-variant": "#c4c5d7",
+                        "on-primary-fixed": "#001551",
+                        "on-surface-variant": "#434655",
+                        "secondary-fixed-dim": "#c7c3e2",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3132",
+                        "tertiary-fixed": "#ffdbcc",
+                        "inverse-primary": "#b7c4ff",
+                        "surface-variant": "#e2e2e3",
+                        "on-secondary-container": "#62607a",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-low": "#f3f3f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- App Container -->
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low fixed left-0 top-0 h-full w-64 flex flex-col border-none p-4 z-20">
+<!-- Header -->
+<div class="mb-8 px-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary font-headline font-bold text-lg">
+                    W
+                </div>
+<div>
+<h1 class="font-headline text-xl font-black text-on-surface tracking-tight leading-none">Warung Sembako</h1>
+<p class="font-label text-xs text-secondary mt-1">Efficient Atelier</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                        Products
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">warehouse</span>
+                        Restock
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">category</span>
+                        Categories
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                        Transactions
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+                        Debt Book
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+                        Expenses
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+                        Reports
+                    </a>
+</li>
+<!-- Active Nav Item -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-bold bg-surface-container-lowest text-primary rounded-full shadow-[0px_2px_8px_rgba(13,12,34,0.04)]" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">manage_accounts</span>
+                        Cashiers
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+                        POS
+                    </a>
+</li>
+</ul>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-3 px-4 py-3 font-headline text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                    Logout
+                </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex flex-col min-h-screen relative">
+<!-- TopAppBar -->
+<header class="w-full h-16 bg-background/80 backdrop-blur-xl flex items-center justify-between px-8 py-4 sticky top-0 z-10 transition-all duration-200 ease-in-out">
+<!-- Search Bar -->
+<div class="flex-1 max-w-md relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full h-10 bg-surface-container-lowest pl-11 pr-4 rounded-xl font-body text-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-bright focus:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all border-none ring-0" placeholder="Search staff..." type="text"/>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-outline hover:bg-surface-container-highest hover:text-on-surface rounded-full transition-colors">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-outline hover:bg-surface-container-highest hover:text-on-surface rounded-full transition-colors">
+<span class="material-symbols-outlined text-[22px]">help_outline</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-outline hover:bg-surface-container-highest hover:text-on-surface rounded-full transition-colors">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</button>
+<div class="ml-4 w-10 h-10 rounded-full bg-surface-container-high overflow-hidden cursor-pointer hover:shadow-[0px_8px_16px_rgba(13,12,34,0.06)] transition-shadow">
+<img alt="Manager Avatar" class="w-full h-full object-cover" data-alt="close up portrait of a young professional woman with natural makeup looking confident in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTUGT_hf1xpiULvZSn4oupe7Ga1XnAwTWrumK5MHRmJUN5GNxf07FVXAeRwQ7ojmkU2NQgL2a5rVQsE_VrmPZz_bjJ2ABJeidXjmnOzl6h7tJyfzDk2C5oNJdtMe9u5O_aj35YHlKTxHocfaJKSZ2Jk7BbGuK_ptVOeMvmBJrytPjqR6BDEuMoR9OKqM3lbtdNgoqZuPqB2h8AdYTdBeON1BmcoFkHJlP9juLvQSFMnehKwAyxf9PE200Ya4FsgbZ5JxnK9aKyxKqJ"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Page Header & Action -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline text-3xl font-bold text-on-surface tracking-tight">Staff Roster</h2>
+<p class="font-body text-sm text-secondary mt-1">Manage cashiers, shifts, and access levels.</p>
+</div>
+<button class="h-12 px-6 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-semibold text-sm rounded-xl flex items-center gap-2 hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Add New Cashier
+                    </button>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col">
+<span class="font-body text-sm text-secondary mb-2">Total Active Shift</span>
+<div class="flex items-end gap-3">
+<span class="font-headline text-4xl font-bold text-on-surface">3</span>
+<span class="font-body text-sm text-secondary pb-1">/ 8 Staff</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col">
+<span class="font-body text-sm text-secondary mb-2">Needs Attention</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[28px]">warning</span>
+<span class="font-headline text-lg font-medium text-on-surface">1 Shift Unassigned</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col items-start justify-center">
+<button class="w-full h-12 bg-surface-container-highest text-on-surface font-headline font-semibold text-sm rounded-xl hover:bg-surface-dim transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                            View Full Schedule
+                        </button>
+</div>
+</div>
+<!-- Cashiers Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Staff Card: Active -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col group relative transition-all duration-300 hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] hover:-translate-y-1">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Staff Avatar" class="w-full h-full object-cover" data-alt="portrait of a young male professional with short dark hair smiling warmly in bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQlIreyxl-sAfpssuz-pLBfgTchMGrqmYoLdMB_dKAmWcUj7lXUNM7955B2wrzH6dBJwYX3O4Dkv9VWFuMmXRCt-vl6PuuvqkjTQyLCeXRz12l6xAkNpBwrWMHz4SwwYzCugNzK17UPWocEBo_YHXoMuFCymTfNgJW3Uclk1W1T7gJuMtRFiEY0B_yuihdyuVA90Axh8FwAIXgmm3mEroWZM0TBnhzFmb9xvMdApwfVGcktavQvp81xFk8AOPgfWQnQcbICrjJ6kvL"/>
+</div>
+<div>
+<h3 class="font-headline text-lg font-semibold text-on-surface">Budi Santoso</h3>
+<p class="font-body text-xs text-secondary">ID: WS-001 • Lead Cashier</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="mb-6 flex gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed font-label text-xs font-medium rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Active Now
+                            </span>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant font-label text-xs font-medium rounded-full">
+                                POS 1
+                            </span>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body text-xs text-secondary mb-1">Current Shift</span>
+<span class="font-body text-sm font-medium text-on-surface">08:00 - 16:00</span>
+</div>
+<button class="h-10 px-4 bg-surface-container-highest text-on-surface font-headline font-semibold text-xs rounded-xl hover:bg-surface-dim transition-colors">
+                                View Profile
+                            </button>
+</div>
+</div>
+<!-- Staff Card: Offline -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col group relative transition-all duration-300 hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] hover:-translate-y-1">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Staff Avatar" class="w-full h-full object-cover grayscale-[20%] opacity-90" data-alt="headshot of a middle aged woman with glasses smiling gently against a soft neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQD1_hWi04jgmRn0kyrgY40gLS2rMAir256spMGhKAvf5mzYryBq4OAm_WZyu-95NBzDp2dxFD465j9YcVHTB_cl-g1tDF3gip_XetdFfmWv5vu8AxU414fF84-_0HVnxNYmX5YmKoIPlZUFmGH1e334ewcsIqqIIEh26zUI_ZuyLSeUrVByH1078AqIqWqrzaeCkTOPdoJu9zv1zz0j0-NiqxbtBCpufl5Z7VC3tKmpmYYGq2H0E4i18eswEHd7_2B93jKHbSmwbK"/>
+</div>
+<div>
+<h3 class="font-headline text-lg font-semibold text-on-surface">Siti Rahma</h3>
+<p class="font-body text-xs text-secondary">ID: WS-004 • Cashier</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="mb-6 flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high text-secondary font-label text-xs font-medium rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                Offline
+                            </span>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body text-xs text-secondary mb-1">Next Shift</span>
+<span class="font-body text-sm font-medium text-on-surface">Tomorrow, 08:00</span>
+</div>
+<button class="h-10 px-4 bg-surface-container-highest text-on-surface font-headline font-semibold text-xs rounded-xl hover:bg-surface-dim transition-colors">
+                                View Profile
+                            </button>
+</div>
+</div>
+<!-- Staff Card: Active -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col group relative transition-all duration-300 hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] hover:-translate-y-1">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-high flex items-center justify-center font-headline text-xl font-bold text-secondary">
+                                    A
+                                </div>
+<div>
+<h3 class="font-headline text-lg font-semibold text-on-surface">Agus Pratama</h3>
+<p class="font-body text-xs text-secondary">ID: WS-007 • Cashier</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="mb-6 flex gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed font-label text-xs font-medium rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Active Now
+                            </span>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant font-label text-xs font-medium rounded-full">
+                                POS 2
+                            </span>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body text-xs text-secondary mb-1">Current Shift</span>
+<span class="font-body text-sm font-medium text-on-surface">10:00 - 18:00</span>
+</div>
+<button class="h-10 px-4 bg-surface-container-highest text-on-surface font-headline font-semibold text-xs rounded-xl hover:bg-surface-dim transition-colors">
+                                View Profile
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

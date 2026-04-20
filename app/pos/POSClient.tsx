@@ -459,7 +459,7 @@ export default function POSClient({
   };
 
   return (
-    <div style={{ height: '100dvh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-background)' }} className="lg:flex-row">
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-background)' }}>
       {/* Main Content - Products */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: '0', overflow: 'hidden' }}>
         {/* Header */}
@@ -683,7 +683,7 @@ export default function POSClient({
                   e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)';
                 }}
               >
-                <div style={{ aspectRatio: '1', backgroundColor: 'var(--color-surface-dim)', borderRadius: 'var(--radius-md)', marginBottom: 'var(--space-2)', overflow: 'hidden' }}>
+                <div style={{ aspectRatio: '1', width: '100%', backgroundColor: 'var(--color-surface-dim)', borderRadius: 'var(--radius-md)', marginBottom: 'var(--space-2)', overflow: 'hidden', position: 'relative', flexShrink: '0' }}>
                   {product.image_url ? (
                     <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                   ) : (

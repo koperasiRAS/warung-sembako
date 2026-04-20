@@ -9,7 +9,7 @@ export interface ProductGridProps {
 export function ProductGrid({ products, onProductClick, isLoading }: ProductGridProps) {
   if (isLoading) {
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)' }} className="sm:grid-cols-4 md:grid-cols-5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-6 gap-3">
         {[...Array(10)].map((_, i) => (
           <div key={i} style={{ aspectRatio: '1', backgroundColor: 'var(--color-surface-container)', borderRadius: 'var(--radius-lg)' }} />
         ))}
@@ -29,7 +29,7 @@ export function ProductGrid({ products, onProductClick, isLoading }: ProductGrid
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)' }} className="sm:grid-cols-4 md:grid-cols-5">
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-6 gap-3">
       {products.map((product) => (
         <button
           key={product.id}
@@ -57,7 +57,7 @@ export function ProductGrid({ products, onProductClick, isLoading }: ProductGrid
           onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
           onMouseUp={(e) => { e.currentTarget.style.transform = 'scale(0.98)'; }}
         >
-          <div style={{ width: '100%', aspectRatio: '1', backgroundColor: 'var(--color-surface-container)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-2)' }}>
+          <div style={{ width: '100%', aspectRatio: '1', backgroundColor: 'var(--color-surface-container)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-2)', flexShrink: '0' }}>
             {product.image_url ? (
               <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
             ) : (

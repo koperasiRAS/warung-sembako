@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atelier POS - Cashier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#62607a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9fa",
+                        "secondary-fixed": "#e3dffe",
+                        "surface-bright": "#f9f9fa",
+                        "tertiary": "#9d3e00",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "secondary-fixed-dim": "#c7c3e2",
+                        "on-primary-fixed": "#001551",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary-fixed": "#1a1930",
+                        "on-surface-variant": "#434655",
+                        "primary-fixed-dim": "#b7c4ff",
+                        "surface-container-low": "#f3f3f4",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8e9",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-fixed-variant": "#46445d",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary": "#5d5c76",
+                        "tertiary-container": "#c55000",
+                        "inverse-primary": "#b7c4ff",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#4069f2",
+                        "surface-tint": "#2151da",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "outline": "#747686",
+                        "inverse-surface": "#2f3132",
+                        "secondary-container": "#e0dcfb",
+                        "outline-variant": "#c4c5d7",
+                        "surface-container-highest": "#e2e2e3",
+                        "primary": "#1c4ed8",
+                        "surface-variant": "#e2e2e3",
+                        "on-surface": "#1a1c1d",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eeeeef",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9fa",
+                        "surface-dim": "#dadadb",
+                        "on-primary-fixed-variant": "#0039b5",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1d",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary-container": "#fffbff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e2e3; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c4c5d7; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-72 flex flex-col bg-[#f3f3f4] dark:bg-slate-900 border-none flat no shadows fixed left-0 top-0 py-8 px-4 space-y-2 z-20">
+<!-- Header -->
+<div class="px-6 pb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold text-xl">
+<span class="material-symbols-outlined" data-icon="storefront" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<h1 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-['Plus_Jakarta_Sans']">Atelier Sembako</h1>
+</div>
+<p class="text-sm text-on-surface-variant font-['Inter']">Premium Retail</p>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="warehouse">warehouse</span>
+<span>Stock</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="receipt_long">receipt_long</span>
+<span>Transactions</span>
+</a>
+<a class="flex items-center gap-4 bg-white dark:bg-slate-800 text-[#4E76FF] font-bold rounded-full px-6 py-3 transition-all duration-300 shadow-sm scale-95 active:scale-90 font-['Plus_Jakarta_Sans'] text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="point_of_sale" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span>Cashier</span>
+</a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto space-y-2 pt-4">
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white transition-colors hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full scale-95 active:scale-90 transition-transform font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<div class="flex-1 flex flex-col ml-72 h-screen">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-10 py-4 w-full bg-[#f9f9fa]/80 dark:bg-slate-950/80 backdrop-blur-xl docked full-width top-0 tonal background shift no borders flat z-10 font-['Inter'] text-sm tracking-wide sticky top-0">
+<!-- Search Bar (Left) -->
+<div class="w-96">
+<div class="relative flex items-center w-full h-12 rounded-xl bg-surface-container-lowest focus-within:bg-surface-bright focus-within:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300">
+<div class="grid place-items-center h-full w-12 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="peer h-full w-full outline-none text-sm text-on-surface pr-2 bg-transparent placeholder-on-surface-variant" id="search" placeholder="Search SKU or Product Name..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-2">
+<div class="hidden md:flex flex-col text-right mr-4">
+<span class="font-headline font-semibold text-on-surface">Shift: Morning</span>
+<span class="text-xs text-on-surface-variant">Budi Santoso</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 transition-colors active:opacity-70">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 transition-colors active:opacity-70">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 transition-colors active:opacity-70">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- Product Grid Area (Left Side) -->
+<div class="flex-1 flex flex-col p-8 overflow-y-auto bg-surface-container-low rounded-tl-xl">
+<!-- Category Chips -->
+<div class="flex items-center gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary font-medium text-sm whitespace-nowrap transition-colors shadow-sm">
+                        Semua
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Beras
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Minyak
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Mie Instan
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Gula &amp; Garam
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Minuman
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-primary-fixed hover:text-on-primary-fixed font-medium text-sm whitespace-nowrap transition-colors">
+                        Snack
+                    </button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex flex-col cursor-pointer hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300 group">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-4 overflow-hidden relative">
+<img alt="Beras Premium 5kg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="white sack of premium rice on clean background top down view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-83V5RYx01lxs1Qkjb-V8peTZhr2Lph6J0pntCLRldT0vnS2lDPhU2tMzM7pTI_hud8BYKDfmfPNz1EwR4n5OpJ7neAjxN4gju4M2vQBY4lvudAKVIfbrUurKiAmQWApIhWE3EvVt4aqkjdXSfxnD_6o4W7_L46ZpNWrLwgiBZ6dkcuCn1mKbsPLQjb33e_ff8OrMe5u0Y6I-JSDkiOuHmE2FzOuYAniW9vZbQoZXB-Cht8Xwqmo1gXAwxbUOcHSt6p-f76kTDjIo"/>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-body font-medium text-on-surface text-base line-clamp-2 mb-1">Beras Maknyus Premium 5kg</h3>
+<span class="font-body text-sm text-on-surface-variant mb-2">Stock: 24</span>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline font-bold text-lg text-on-surface">Rp 65.000</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 (Low Stock Warning) -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex flex-col cursor-pointer hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300 group">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-4 overflow-hidden relative">
+<img alt="Minyak Goreng 2L" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="bottle of clear cooking oil on plain background well lit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdQlxfyppDpNVADdZRsQBWaR1zvt77lPK6wBJyo7eabKcA1NESXuYcx2AzaWG7JjnZTzPCS08RLYgA1fubkpu1HCEmZ5nse2sPFB9voCrYpwuKFXnraV4M7nDjD_sXXTPzc0ppmRQ0jar1ZPJYUdPuwxIiweJ4HRzoXo5mrqZJfwRvJGLZNKjGI0HHl2DSrYh5v1kWAmgGRqz1j6_ciLi3vaYs92S0B7der9NfAP7Cg8cUADCmMHHYzq6TKjmy3Fmp2MVMJ5mlyLNz"/>
+<div class="absolute top-2 left-2 bg-tertiary text-on-tertiary text-xs font-bold px-2 py-1 rounded-md">
+                                Low Stock
+                            </div>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-body font-medium text-on-surface text-base line-clamp-2 mb-1">Bimoli Minyak Goreng 2L</h3>
+<span class="font-body text-sm text-tertiary font-medium mb-2">Stock: 3</span>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline font-bold text-lg text-on-surface">Rp 34.500</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 (Selected State) -->
+<div class="bg-primary-fixed rounded-lg p-4 flex flex-col cursor-pointer shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300 ring-2 ring-primary border-none">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-4 overflow-hidden relative">
+<img alt="Indomie Goreng" class="w-full h-full object-cover" data-alt="pack of instant noodles bright packaging on plain background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkLQDBDidDv6kR_JqhqgNHbjFD_O9QMGJzCcPW5dXKSVZfUvQ6bNeEJFhKoeZKVNoweie9ZAiTSXoCSUNB6dl2Z71QIwjqAmeV85pQvuDGU8rNBbC7Kmhxq_WmsWuHGFXu9EgRWnd8uPMsG01r2ZEpBglptAHMIb3M0kHHIccCdDKb_q_buRnqkn-kG1Hkl4dBAey6530DlMBTlu4X_Kr78T_4jBu0vnhuM7UjZtgQzfvE2UV7PbmqR7uP_gy12nKuFnQT2Z5yhP8k"/>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-body font-medium text-on-primary-fixed text-base line-clamp-2 mb-1">Indomie Goreng Special 85g</h3>
+<span class="font-body text-sm text-on-primary-fixed opacity-80 mb-2">Stock: 156</span>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline font-bold text-lg text-on-primary-fixed">Rp 3.000</span>
+<div class="flex items-center bg-surface-container-lowest rounded-full px-2 py-1">
+<span class="text-xs font-bold px-2 text-primary">x5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex flex-col cursor-pointer hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300 group">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-4 overflow-hidden relative">
+<div class="w-full h-full flex items-center justify-center text-on-surface-variant opacity-30">
+<span class="material-symbols-outlined text-6xl" data-icon="egg">egg</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-body font-medium text-on-surface text-base line-clamp-2 mb-1">Telur Ayam Negeri (Per 1kg)</h3>
+<span class="font-body text-sm text-on-surface-variant mb-2">Stock: 15kg</span>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline font-bold text-lg text-on-surface">Rp 28.000</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex flex-col cursor-pointer hover:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] transition-all duration-300 group">
+<div class="aspect-square bg-surface-container-high rounded-xl mb-4 overflow-hidden relative">
+<div class="w-full h-full flex items-center justify-center text-on-surface-variant opacity-30">
+<span class="material-symbols-outlined text-6xl" data-icon="science">science</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-body font-medium text-on-surface text-base line-clamp-2 mb-1">Gula Pasir Gulaku 1kg</h3>
+<span class="font-body text-sm text-on-surface-variant mb-2">Stock: 42</span>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-headline font-bold text-lg text-on-surface">Rp 16.500</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Current Order Panel (Right Side) -->
+<div class="w-96 bg-background border-l-0 flex flex-col h-full shadow-[-10px_0_30px_rgba(0,0,0,0.02)] z-10">
+<!-- Order Header -->
+<div class="p-6 pb-4">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-headline font-bold text-xl text-on-surface">Current Order</h2>
+<span class="text-sm font-medium text-on-surface-variant bg-surface-container-low px-3 py-1 rounded-full">#ORD-092</span>
+</div>
+<p class="text-sm text-on-surface-variant">Customer: Walk-in</p>
+</div>
+<!-- Order Items List -->
+<div class="flex-1 overflow-y-auto px-6 py-2 space-y-6">
+<!-- Item 1 -->
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-surface-container-high rounded-xl flex-shrink-0 overflow-hidden">
+<img alt="Indomie" class="w-full h-full object-cover" data-alt="pack of instant noodles bright packaging on plain background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGDnN7Xad18W7G4guoD2sLbp7hBcrSvzg2RF2OMDwRxPiNsKmO3gQusMXP4kEXGgypYvVeF-sLRRNuWJhpV11yWbGVcQ5mu1A5xC3rYqU9eX9TALnvkOA7eFB4xLGwq_zZe30MTTqDtHlUp9dE3eGonNEBN6xeG05nRUiV6k4sHmFXOnQDiZA9X6ns9am0JdwIaJefykjUJ3M9oUPqQe6D7bYgXoGeXD_dKmja92alvK-OIuDbIRH0n4qrIEuUww2Nq1Y22SymzjOf"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<h4 class="font-body font-medium text-sm text-on-surface leading-tight pr-2">Indomie Goreng Special 85g</h4>
+<span class="font-headline font-bold text-sm text-on-surface whitespace-nowrap">Rp 15.000</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xs text-on-surface-variant">Rp 3.000 / item</span>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="w-8 text-center font-medium text-sm text-on-surface">5</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-surface-container-high rounded-xl flex-shrink-0 overflow-hidden">
+<img alt="Beras" class="w-full h-full object-cover" data-alt="white sack of premium rice on clean background top down view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0jT42k3KlO62oOLxG536Qp01bA25ei5SM9n9nF8AiICof2_WYjgtYAGTIS-RXED_aZgwLppTAYDcXN-nZr1Bj1yfAOmQbvEYOvna-JWer9x7pSzUTWTynITMZRmLYYp6esxc5TU93DGPXUaygGsw4G5rzVF8RKs7tWyrIZ2JRrrRT9G3ukFFTFlRP-qXv2ewDHPR-l3E1j3BknTq8aGMEG0Z1zT_C-Bb-7gsr4URIQX4AV7y0kfaoD22ownmR63HI5PZtOqpJSdjE"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<h4 class="font-body font-medium text-sm text-on-surface leading-tight pr-2">Beras Maknyus Premium 5kg</h4>
+<span class="font-headline font-bold text-sm text-on-surface whitespace-nowrap">Rp 65.000</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-xs text-on-surface-variant">Rp 65.000 / item</span>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="w-8 text-center font-medium text-sm text-on-surface">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Totals & Action -->
+<div class="p-6 bg-surface-container-lowest rounded-tl-xl mt-auto">
+<div class="space-y-3 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant font-body">Subtotal (6 items)</span>
+<span class="text-on-surface font-medium">Rp 80.000</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant font-body">Tax (11%)</span>
+<span class="text-on-surface font-medium">Rp 8.800</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant font-body">Discount</span>
+<span class="text-tertiary font-medium">- Rp 0</span>
+</div>
+<div class="pt-3 flex justify-between items-end border-t border-surface-container-highest/0"> <!-- Ghost border intent via spacing/colors -->
+<span class="text-on-surface font-headline font-bold text-lg">Total</span>
+<span class="text-primary font-headline font-extrabold text-3xl">Rp 88.800</span>
+</div>
+</div>
+<button class="w-full h-16 bg-gradient-to-r from-primary to-primary-container rounded-xl text-on-primary font-headline font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0px_20px_40px_rgba(28,78,216,0.2)] transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                        Process Payment
+                    </button>
+<div class="flex gap-3 mt-3">
+<button class="flex-1 h-12 bg-surface-container-highest rounded-lg text-on-surface font-body font-medium flex items-center justify-center gap-2 hover:bg-surface-dim transition-colors border-none">
+<span class="material-symbols-outlined text-sm" data-icon="pause_circle">pause_circle</span>
+                            Hold
+                        </button>
+<button class="flex-1 h-12 bg-surface-container-highest rounded-lg text-on-surface font-body font-medium flex items-center justify-center gap-2 hover:bg-error-container hover:text-on-error-container transition-colors border-none">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+                            Clear
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

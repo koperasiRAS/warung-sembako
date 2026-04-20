@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - Atelier POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#62607a",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#f9f9fa",
+                      "secondary-fixed": "#e3dffe",
+                      "surface-bright": "#f9f9fa",
+                      "tertiary": "#9d3e00",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "secondary-fixed-dim": "#c7c3e2",
+                      "on-primary-fixed": "#001551",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary-fixed": "#1a1930",
+                      "on-surface-variant": "#434655",
+                      "primary-fixed-dim": "#b7c4ff",
+                      "surface-container-low": "#f3f3f4",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-container-high": "#e8e8e9",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary-fixed-variant": "#46445d",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f0f1f2",
+                      "secondary": "#5d5c76",
+                      "tertiary-container": "#c55000",
+                      "inverse-primary": "#b7c4ff",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#4069f2",
+                      "surface-tint": "#2151da",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "outline": "#747686",
+                      "inverse-surface": "#2f3132",
+                      "secondary-container": "#e0dcfb",
+                      "outline-variant": "#c4c5d7",
+                      "surface-container-highest": "#e2e2e3",
+                      "primary": "#1c4ed8",
+                      "surface-variant": "#e2e2e3",
+                      "on-surface": "#1a1c1d",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eeeeef",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f9f9fa",
+                      "surface-dim": "#dadadb",
+                      "on-primary-fixed-variant": "#0039b5",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1c1d",
+                      "on-primary-container": "#fffbff",
+                      "on-tertiary-container": "#fffbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-[#f3f3f4] dark:bg-slate-900 border-none flex flex-col py-8 px-4 space-y-2 z-50">
+<div class="px-6 pb-8">
+<h1 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-headline">Atelier Sembako</h1>
+<p class="text-sm font-medium text-[#4E76FF] dark:text-[#4E76FF] font-['Plus_Jakarta_Sans']">Premium Retail</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="bg-white dark:bg-slate-800 text-[#4E76FF] font-bold rounded-full px-6 py-3 transition-all duration-300 shadow-sm flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm" href="#">
+<span class="material-symbols-outlined icon-fill">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Products
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">warehouse</span>
+                Stock
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">category</span>
+                Categories
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+                Transactions
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+                Cashier
+            </a>
+</nav>
+<div class="space-y-2 pt-8">
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-6 py-3 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-colors scale-95 active:scale-90 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-10 py-4 bg-[#f9f9fa]/80 dark:bg-slate-950/80 backdrop-blur-xl docked full-width top-0 tonal background shift no borders z-40 sticky">
+<div class="flex items-center gap-6">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white font-headline">Atelier POS</h2>
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="bg-surface-container-lowest rounded-xl pl-12 pr-4 py-2 border-none focus:ring-0 w-64 font-body text-sm text-on-surface shadow-sm focus:shadow-[0px_20px_40px_rgba(13,12,34,0.06)] focus:bg-surface-bright transition-all" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 rounded-full transition-colors font-['Inter'] text-sm tracking-wide">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 rounded-full transition-colors font-['Inter'] text-sm tracking-wide">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="text-slate-400 dark:text-slate-500 hover:bg-[#f3f3f4] dark:hover:bg-slate-800 p-2 rounded-full transition-colors font-['Inter'] text-sm tracking-wide mr-4">
+<span class="material-symbols-outlined">person</span>
+</button>
+<div class="text-sm font-medium text-slate-600 bg-surface-container-highest px-4 py-2 rounded-full font-body">
+                    Shift: Morning
+                </div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-10 space-y-8">
+<!-- Overview Cards (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Total Sales -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col justify-between relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant font-body">Total Sales</span>
+<div class="p-2 bg-primary-fixed rounded-full text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-extrabold text-on-surface font-headline mb-1">Rp 12.450k</h3>
+<p class="text-sm text-primary font-medium flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +15% from yesterday
+                        </p>
+</div>
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-2xl group-hover:scale-110 transition-transform"></div>
+</div>
+<!-- Card 2: Orders -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant font-body">Orders</span>
+<div class="p-2 bg-secondary-container rounded-full text-secondary">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-extrabold text-on-surface font-headline mb-1">142</h3>
+<p class="text-sm text-secondary font-medium flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +5% from yesterday
+                        </p>
+</div>
+</div>
+<!-- Card 3: Avg Transaction -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="text-sm font-medium text-on-surface-variant font-body">Avg Transaction</span>
+<div class="p-2 bg-tertiary-fixed rounded-full text-tertiary">
+<span class="material-symbols-outlined">receipt</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-extrabold text-on-surface font-headline mb-1">Rp 87k</h3>
+<p class="text-sm text-on-surface-variant font-medium flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[16px]">horizontal_rule</span>
+                            Steady
+                        </p>
+</div>
+</div>
+<!-- Card 4: Low Stock Alert -->
+<div class="bg-error-container rounded-lg p-6 flex flex-col justify-between relative overflow-hidden">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<span class="text-sm font-medium text-on-error-container font-body">Low Stock Items</span>
+<div class="p-2 bg-white/50 rounded-full text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="relative z-10">
+<h3 class="text-3xl font-extrabold text-on-error-container font-headline mb-1">8</h3>
+<p class="text-sm text-error font-medium flex items-center gap-1 font-body">
+                            Needs attention today
+                        </p>
+</div>
+<!-- Decorative background element for alert card -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-error/10 rounded-full blur-xl"></div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Chart Area -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface font-headline">Sales Trend</h3>
+<p class="text-sm text-on-surface-variant font-body mt-1">Revenue over the last 7 days</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-primary-fixed text-primary rounded-full text-sm font-medium font-body">Weekly</button>
+<button class="px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-full text-sm font-medium font-body transition-colors">Monthly</button>
+</div>
+</div>
+<!-- Faux Chart Area using pure CSS -->
+<div class="h-64 flex items-end justify-between gap-2 pt-4 border-b border-outline-variant/15 relative">
+<!-- Y-axis labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-on-surface-variant pb-6 -ml-6">
+<span>15k</span>
+<span>10k</span>
+<span>5k</span>
+<span>0</span>
+</div>
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-6">
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+</div>
+<!-- Bars -->
+<div class="w-full bg-surface-container-low rounded-t-sm h-[40%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Mon</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm h-[65%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Tue</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm h-[50%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Wed</span>
+</div>
+<div class="w-full bg-primary rounded-t-sm h-[85%] relative group shadow-[0px_4px_20px_rgba(28,78,216,0.2)]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-lowest px-2 py-1 rounded shadow-sm text-xs font-bold text-primary">12.4k</div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">Thu</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm h-[70%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Fri</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm h-[90%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Sat</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm h-[45%] relative group">
+<div class="absolute inset-0 bg-primary/20 rounded-t-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-on-surface-variant">Sun</span>
+</div>
+</div>
+</div>
+<!-- Best Selling List -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-bold text-on-surface font-headline">Best Selling</h3>
+<button class="text-primary text-sm font-medium hover:underline font-body">View All</button>
+</div>
+<div class="flex-1 space-y-6 overflow-y-auto pr-2">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img alt="Premium whole bean coffee bag on light minimal background" class="w-full h-full object-cover" data-alt="Premium whole bean coffee bag on light minimal background, soft studio lighting, soft gray aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGAaPNYSytB0llf807cpeWbkgjGsThrQlwRsW12H5ZgTAXH_vPy7OhNcbcjXYhWDQYzPpJuc7zGp1QHsRNzKGOHP2GYYSUcc65T8VQs_mAdy14mtFyGyGdrkWbpQ4u2zpXpVDNyatOdHCUHJrv3rlV0Q0XFBezIIlaPWhGvwj4vAtrzSaCFV-y0-lzAWAp0UfFLp-g_HLB4Z-FTY5CAo5wFwJXVyZKZBx8XeF1JGrK0f_J6sdDsduTgQQmMPPsWJb_gSCyeVaFedOm"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-semibold text-on-surface truncate font-body">Kopi Kapal Api Special Mix</h4>
+<p class="text-xs text-on-surface-variant font-body">10 sachet x 25g</p>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface font-body">42 sold</span>
+<span class="text-xs text-primary font-medium font-body">Rp 630k</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img alt="Packaged instant noodles on clean white surface" class="w-full h-full object-cover" data-alt="Packaged instant noodles on clean white surface, top down view, bright lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3zlxOpWV6mizeHhf9-9agIUoLxOByi5NFw_pWt-HSx1Vmif0NogXgslMwJgKEYxy94m_0fyuLWTiUWUyFCe5nIsc9_c7MOFybKNGqn3NGjIniA2S_5H-AuAkN14D9HCZdEr4rPjMYfcIZxUrJ5mh7sqknqul3zHNddFfgs6Z7qThEq656bp_MBYhziyX6B6lBmmuY5QgGc0kkPASSQQc5S6hAG5mSkrp8uBW4loUOXgsL1kNaXeD8lAoGgIleJMnygS6GsXlVDJv"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-semibold text-on-surface truncate font-body">Indomie Goreng Original</h4>
+<p class="text-xs text-on-surface-variant font-body">85g</p>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface font-body">128 sold</span>
+<span class="text-xs text-primary font-medium font-body">Rp 384k</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img alt="Bottle of cooking oil on light gray counter" class="w-full h-full object-cover" data-alt="Clear bottle of golden cooking oil on light gray counter, soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs3OVRcaRYC-WsTWmD6AiOyLkrHcUujty6yJnf64Ul722zf97ER87A69jEaW9FFgkWfHFCNXWY-SIm2uhomU1-VUtalv-QFDSZB9ODVVBU5Ey5tswhq5fQv_GcY1lbzM_VTL_yemsx2AfL6GwQjoQPgPY6Ei3Bauy9UskoEW1VXhzlub7pNd-o0E0NXay6jjCy8kErNw5exM1PxHEESniMJIY5gDoCEuMRV22BbabQmBTNuwr3B-uyG0nDRUpjKxbdcsEVEl2Jlnpv"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-semibold text-on-surface truncate font-body">Bimoli Cooking Oil</h4>
+<p class="text-xs text-on-surface-variant font-body">2 Liter Pouch</p>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface font-body">15 sold</span>
+<span class="text-xs text-primary font-medium font-body">Rp 540k</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">egg</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-semibold text-on-surface truncate font-body">Telur Ayam Kampung</h4>
+<p class="text-xs text-on-surface-variant font-body">1 Pack (10 pcs)</p>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface font-body">22 sold</span>
+<span class="text-xs text-primary font-medium font-body">Rp 660k</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
