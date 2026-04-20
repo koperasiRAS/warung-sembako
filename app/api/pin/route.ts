@@ -69,12 +69,47 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'PIN salah' }, { status: 401 });
     }
 
-    // Buat session baru via admin API
-    const { data: sessionData, error: sessionError } = await supabaseAdmin.auth.admin.createSession({
-      userId: matchedKasir.id,
+    // Generate a secure random password for the session
+    const tempPassword = crypto.randomUUID() + 'A1!a';
+
+    // Update user's password in GoTrue
+    const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
+      matchedKasir.id,
+      { password: tempPassword }
+    );
+
+    if (updateError) {
+      return NextResponse.json({ error: 'Gagal menyiapkan sesi autentikasi' }, { status: 500 });
+    }
+
+    // Now sign in the user to create a session and set cookies
+    const { cookies } = await import('next/headers');
+    const { createServerClient } = await import('@supabase/ssr');
+
+    const cookieStore = cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll();
+          },
+          setAll(cookiesToSet: { name: string; value: string; options: any }[]) {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+
+    const { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
+      email: matchedKasir.email,
+      password: tempPassword,
     });
 
-    if (sessionError || !sessionData) {
+    if (sessionError || !sessionData.session) {
       return NextResponse.json({ error: 'Gagal membuat sesi' }, { status: 500 });
     }
 
@@ -85,7 +120,7 @@ export async function POST(request: Request) {
         full_name: matchedKasir.full_name,
         role: matchedKasir.role,
       },
-      session: sessionData,
+      session: sessionData.session,
     });
   } catch (error: any) {
     return NextResponse.json({ error: 'Terjadi kesalahan server' }, { status: 500 });

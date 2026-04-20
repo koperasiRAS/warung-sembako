@@ -468,7 +468,7 @@ export default function POSClient({
           padding: 'var(--space-2) var(--space-3)',
           backgroundColor: 'var(--color-surface-container-lowest)',
           borderBottom: '1px solid var(--color-outline-variant)',
-          shrink: '0',
+          flexShrink: '0',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
@@ -536,7 +536,7 @@ export default function POSClient({
             backgroundColor: 'var(--color-warning)',
             borderBottom: '1px solid var(--color-warning)',
             display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
-            shrink: '0',
+            flexShrink: '0',
           }}>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-secondary)' }}>
               {lowStockCount} produk stok menipis
@@ -550,7 +550,7 @@ export default function POSClient({
           backgroundColor: 'var(--color-surface-container-lowest)',
           borderBottom: '1px solid var(--color-outline-variant)',
           display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
-          shrink: '0',
+          flexShrink: '0',
         }}>
           <div style={{ position: 'relative' }}>
             <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1rem', height: '1rem', color: 'var(--color-outline)' }} />
@@ -643,7 +643,7 @@ export default function POSClient({
             borderRadius: 'var(--radius-lg)',
             color: 'var(--color-error)',
             fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
-            shrink: '0',
+            flexShrink: '0',
           }}>
             {error}
           </div>
@@ -737,7 +737,7 @@ export default function POSClient({
         backgroundColor: 'var(--color-surface-container-lowest)',
         borderLeft: '1px solid var(--color-outline-variant)',
         flexDirection: 'column',
-        shrink: '0',
+        flexShrink: '0',
       }} className="lg:flex">
         <div style={{
           padding: 'var(--space-4)',
@@ -782,7 +782,7 @@ export default function POSClient({
                       {formatCurrency(item.price)}
                     </p>
                   </div>
-                  <button onClick={() => removeFromCart(item.product_id)} style={{ padding: 'var(--space-1)', color: 'var(--color-outline)', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', shrink: '0' }}>
+                  <button onClick={() => removeFromCart(item.product_id)} style={{ padding: 'var(--space-1)', color: 'var(--color-outline)', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', flexShrink: '0' }}>
                     <Trash2 style={{ width: '1rem', height: '1rem' }} />
                   </button>
                 </div>
@@ -864,7 +864,7 @@ export default function POSClient({
               padding: 'var(--space-4)',
               borderBottom: '1px solid var(--color-outline-variant)',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              shrink: '0',
+              flexShrink: '0',
             }}>
               <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: '600', fontSize: 'var(--text-title-lg)', color: 'var(--color-on-surface)' }}>
                 Keranjang ({totalCartItems})
@@ -895,7 +895,7 @@ export default function POSClient({
                           {formatCurrency(item.price)}
                         </p>
                       </div>
-                      <button onClick={() => removeFromCart(item.product_id)} style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', shrink: '0' }}>
+                      <button onClick={() => removeFromCart(item.product_id)} style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', flexShrink: '0' }}>
                         <Trash2 style={{ width: '1rem', height: '1rem' }} />
                       </button>
                     </div>
@@ -939,7 +939,7 @@ export default function POSClient({
             </div>
 
             {cart.length > 0 && (
-              <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-outline-variant)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', shrink: '0' }}>
+              <div style={{ padding: 'var(--space-4)', borderTop: '1px solid var(--color-outline-variant)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', flexShrink: '0' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ fontFamily: 'var(--font-heading)', fontWeight: '600', fontSize: 'var(--text-title-lg)', color: 'var(--color-on-surface)' }}>Total</span>
                   <span style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-title-lg)', color: 'var(--color-primary)' }}>{formatCurrency(total)}</span>
