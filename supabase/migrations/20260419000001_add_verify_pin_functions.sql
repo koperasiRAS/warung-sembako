@@ -20,7 +20,7 @@ BEGIN
   FROM profiles p
   WHERE p.pin_hash IS NOT NULL
     AND p.role = 'cashier'
-    AND public.crypt(pin_input, p.pin_hash) = p.pin_hash;
+    AND crypt(pin_input, p.pin_hash) = p.pin_hash;
 END;
 $$;
 
@@ -33,9 +33,9 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN
-  RETURN public.crypt(plain, hash) = hash;
+  RETURN crypt(plain, hash) = hash;
 END;
 $$;
 
 -- Test: hash a PIN and store it
--- SELECT public.crypt('123456', public.gen_salt('bf'));
+-- SELECT crypt('123456', gen_salt('bf'));
