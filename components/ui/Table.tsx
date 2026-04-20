@@ -15,34 +15,67 @@ export interface TableProps<T> {
 export function Table<T>({ columns, data, keyExtractor, emptyMessage = 'No data available' }: TableProps<T>) {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center py-12 text-slate-500">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--space-12)',
+        color: 'var(--color-outline)',
+        fontFamily: 'var(--font-body)',
+      }}>
         {emptyMessage}
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%' }}>
         <thead>
-          <tr className="border-b border-slate-200">
+          <tr style={{ borderBottom: '1px solid var(--color-outline-variant)' }}>
             {columns.map((column) => (
               <th
                 key={column.key}
-                className={`px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider ${column.className || ''}`}
+                style={{
+                  padding: 'var(--space-3) var(--space-4)',
+                  textAlign: 'left',
+                  fontFamily: 'var(--font-label)',
+                  fontSize: 'var(--text-label-sm)',
+                  fontWeight: '600',
+                  color: 'var(--color-outline)',
+                  letterSpacing: 'var(--tracking-wider)',
+                  textTransform: 'uppercase',
+                }}
               >
                 {column.header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100">
+        <tbody>
           {data.map((item) => (
-            <tr key={keyExtractor(item)} className="hover:bg-slate-50 transition-colors">
+            <tr
+              key={keyExtractor(item)}
+              style={{
+                borderBottom: '1px solid var(--color-outline-variant)',
+                transition: 'background-color var(--transition-fast)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--color-surface-container)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
               {columns.map((column) => (
                 <td
                   key={column.key}
-                  className={`px-4 py-3 text-sm text-slate-700 ${column.className || ''}`}
+                  style={{
+                    padding: 'var(--space-3) var(--space-4)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'var(--text-body-md)',
+                    color: 'var(--color-on-surface-variant)',
+                  }}
                 >
                   {column.render
                     ? column.render(item)

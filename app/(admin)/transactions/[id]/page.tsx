@@ -32,7 +32,7 @@ export default async function TransactionDetailPage({ params }: TransactionDetai
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const profile = await getProfile(user.id);
@@ -77,80 +77,147 @@ export default async function TransactionDetailPage({ params }: TransactionDetai
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        marginBottom: 'var(--space-6)',
+      }}>
         <Link
           href="/transactions"
-          className="flex items-center gap-2 text-slate-600 hover:text-slate-800"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+            color: 'var(--color-on-surface-variant)',
+            transition: 'color var(--transition-fast)',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-on-surface)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-on-surface-variant)'; }}
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft style={{ width: '1.25rem', height: '1.25rem' }} />
           Kembali ke Transaksi
         </Link>
         <PrintButton />
       </div>
 
       {/* Receipt */}
-      <div className="bg-white rounded-xl border border-slate-200 max-w-md mx-auto p-6 receipt-container" id="receipt">
-        <div className="text-center border-b-2 border-dashed border-slate-300 pb-4 mb-4">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        maxWidth: '28rem',
+        margin: '0 auto',
+        padding: 'var(--space-6)',
+      }} id="receipt">
+        <div style={{
+          textAlign: 'center',
+          borderBottom: '1.5px dashed var(--color-outline-variant)',
+          paddingBottom: 'var(--space-4)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+            fontWeight: '700', color: 'var(--color-on-surface)',
+          }}>
             WARUNG SEMBAKO BY RAS
-          <p className="text-sm text-slate-500 mt-1">
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Jl. Boulevard Grand Depok City
           </p>
         </div>
 
-        <div className="text-sm space-y-2 mb-4">
-          <div className="flex justify-between">
-            <span>Tanggal:</span>
-            <span>{formatDate(transaction.created_at)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>ID Transaksi:</span>
-            <span className="font-mono">{transaction.id.slice(0, 8)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Kasir:</span>
-            <span>{transaction.cashier?.full_name || 'Tidak diketahui'}</span>
+        <div style={{
+          fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+          display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          {[
+            ['Tanggal:', formatDate(transaction.created_at)],
+            ['ID Transaksi:', transaction.id.slice(0, 8)],
+            ['Kasir:', transaction.cashier?.full_name || 'Tidak diketahui'],
+          ].map(([label, value]) => (
+            <div key={label} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ color: 'var(--color-on-surface-variant)' }}>{label}</span>
+              <span style={{
+                fontFamily: label === 'ID Transaksi:' ? 'var(--font-mono)' : 'var(--font-body)',
+                color: 'var(--color-on-surface)',
+              }}>{value}</span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          borderTop: '1px solid var(--color-outline-variant)',
+          borderBottom: '1px solid var(--color-outline-variant)',
+          paddingTop: 'var(--space-2)',
+          paddingBottom: 'var(--space-2)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)',
+            fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)',
+            fontWeight: '600', color: 'var(--color-on-surface-variant)',
+          }}>
+            <div style={{ gridColumn: 'span 6' }}>Item</div>
+            <div style={{ gridColumn: 'span 2', textAlign: 'center' }}>Qty</div>
+            <div style={{ gridColumn: 'span 4', textAlign: 'right' }}>Harga</div>
           </div>
         </div>
 
-        <div className="border-t border-b border-slate-200 py-2 mb-4">
-          <div className="grid grid-cols-12 text-xs font-medium text-slate-600">
-            <div className="col-span-6">Item</div>
-            <div className="col-span-2 text-center">Qty</div>
-            <div className="col-span-4 text-right">Harga</div>
-          </div>
-        </div>
-
-        <div className="space-y-2 mb-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
           {(transaction.items ?? []).map((item: any) => (
-            <div key={item.id} className="grid grid-cols-12 text-sm">
-              <div className="col-span-6 truncate">
+            <div key={item.id} style={{
+              display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)',
+              fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+              color: 'var(--color-on-surface)',
+            }}>
+              <div style={{ gridColumn: 'span 6', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {item.product?.name}
               </div>
-              <div className="col-span-2 text-center">{item.qty}</div>
-              <div className="col-span-4 text-right">
+              <div style={{ gridColumn: 'span 2', textAlign: 'center' }}>{item.qty}</div>
+              <div style={{ gridColumn: 'span 4', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '700' }}>
                 {formatCurrency(item.price * item.qty)}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="border-t border-slate-200 pt-4 mb-4">
-          <div className="flex justify-between text-lg font-bold">
+        <div style={{
+          borderTop: '1px solid var(--color-outline-variant)',
+          paddingTop: 'var(--space-4)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+            fontWeight: '700', color: 'var(--color-on-surface)',
+          }}>
             <span>TOTAL</span>
             <span>{formatCurrency(transaction.total)}</span>
           </div>
-          <div className="flex justify-between text-sm mt-2">
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+            marginTop: 'var(--space-2)', color: 'var(--color-on-surface-variant)',
+          }}>
             <span>Metode Pembayaran:</span>
-            <span className="capitalize">
+            <span style={{ textTransform: 'capitalize' }}>
               {getPaymentMethodLabel(transaction.payment_method)}
             </span>
           </div>
         </div>
 
-        <div className="text-center text-sm text-slate-500 border-t-2 border-dashed border-slate-300 pt-4">
-          <p>Terima kasih atas kunjungan Anda!</p>
+        <div style={{
+          textAlign: 'center',
+          borderTop: '1.5px dashed var(--color-outline-variant)',
+          paddingTop: 'var(--space-4)',
+        }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)' }}>
+            Terima kasih atas kunjungan Anda!
+          </p>
         </div>
       </div>
     </div>

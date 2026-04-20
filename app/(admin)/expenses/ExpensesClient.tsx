@@ -40,7 +40,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
     expense.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Realtime: update expense list when expenses table changes
   useEffect(() => {
     const supabase = createClient();
     const channel = supabase
@@ -80,7 +79,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
       )
       .subscribe();
     return () => { supabase.removeChannel(channel); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
@@ -102,12 +100,7 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
       });
     } else {
       setEditingExpense(null);
-      setFormData({
-        title: '',
-        amount: '',
-        payment_method: 'cash',
-        note: '',
-      });
+      setFormData({ title: '', amount: '', payment_method: 'cash', note: '' });
     }
     setIsModalOpen(true);
   };
@@ -128,31 +121,26 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
     e.preventDefault();
     setLoading(true);
 
-    // ===== INPUT VALIDATION =====
     const title = formData.title.trim();
     const amount = parseFloat(formData.amount);
 
-    // Validate title
     if (!title || title.length < 2) {
       toast.error('Judul pengeluaran minimal 2 karakter!');
       setLoading(false);
       return;
     }
 
-    // Validate amount
     if (isNaN(amount) || amount <= 0) {
       toast.error('Jumlah pengeluaran harus lebih dari 0!');
       setLoading(false);
       return;
     }
 
-    // Validate amount is reasonable (not more than 1 billion)
     if (amount > 1000000000) {
       toast.error('Jumlah pengeluaran terlalu besar! Maksimal Rp 1.000.000.000');
       setLoading(false);
       return;
     }
-    // ===== END VALIDATION =====
 
     try {
       const expenseData = {
@@ -163,17 +151,14 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
       };
 
       if (editingExpense) {
-        // Get old expense to calculate balance difference
         const oldExpense = expenses.find(ex => ex.id === editingExpense.id);
 
-        // 1. RPC deduct NEW balance FIRST (with validation — fails if insufficient)
         const { error: rpcNewError } = await supabase.rpc('reverse_balance_after_expense', {
           p_payment_method: expenseData.payment_method,
           p_amount: expenseData.amount,
         });
         if (rpcNewError) throw rpcNewError;
 
-        // 2. RPC add back OLD balance
         if (oldExpense) {
           await supabase.rpc('reverse_balance_after_expense', {
             p_payment_method: oldExpense.payment_method,
@@ -181,7 +166,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           });
         }
 
-        // 3. UPDATE expense only after both RPC calls succeed
         const { error } = await supabase
           .from('expenses')
           .update(expenseData)
@@ -195,14 +179,12 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
           )
         );
       } else {
-        // 1. RPC deduct balance FIRST (with validation — fails if insufficient)
         const { error: rpcError } = await supabase.rpc('reverse_balance_after_expense', {
           p_payment_method: expenseData.payment_method,
           p_amount: expenseData.amount,
         });
         if (rpcError) throw rpcError;
 
-        // 2. INSERT expense only after balance is validated and deducted
         const { data, error } = await supabase
           .from('expenses')
           .insert(expenseData)
@@ -232,7 +214,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
   const handleDelete = async (id: string) => {
     setLoading(true);
     try {
-      // Get expense to reverse balance
       const expense = expenses.find(ex => ex.id === id);
 
       if (!expense) {
@@ -241,7 +222,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
         return;
       }
 
-      // 1. RPC add back balance FIRST (before deleting)
       const { error: rpcError } = await supabase.rpc('reverse_balance_after_expense', {
         p_payment_method: expense.payment_method,
         p_amount: -expense.amount,
@@ -252,7 +232,6 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
         return;
       }
 
-      // 2. DELETE expense only after balance is restored
       const { error } = await supabase.from('expenses').delete().eq('id', id);
       if (error) throw error;
 
@@ -284,126 +263,184 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Pengeluaran</h1>
-          <p className="text-slate-500 mt-1">Catat pengeluaran usaha</p>
+          <h1 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700',
+            color: 'var(--color-on-surface)',
+          }}>
+            Pengeluaran
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+            color: 'var(--color-outline)',
+            marginTop: 'var(--space-1)',
+          }}>
+            Catat pengeluaran usaha
+          </p>
         </div>
         <button
           onClick={() => openModal()}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--gradient-primary)',
+            color: 'var(--color-on-primary)',
+            border: 'none', borderRadius: 'var(--radius-lg)',
+            fontFamily: 'var(--font-label)', fontWeight: '600',
+            cursor: 'pointer',
+          }}
         >
-          <Plus className="w-5 h-5" />
+          <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
           Tambah Pengeluaran
         </button>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
-          <p className="text-sm text-slate-500">Total Pengeluaran</p>
-          <p className="text-xl font-bold text-red-600 mt-1">
-            {formatCurrency(totalExpenses)}
-          </p>
-        </div>
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
-          <p className="text-sm text-slate-500">Pengeluaran Tunai</p>
-          <p className="text-xl font-bold text-red-600 mt-1">
-            {formatCurrency(cashExpenses)}
-          </p>
-        </div>
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
-          <p className="text-sm text-slate-500">Pengeluaran Bank</p>
-          <p className="text-xl font-bold text-red-600 mt-1">
-            {formatCurrency(bankExpenses)}
-          </p>
-        </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }}>
+        {[
+          { label: 'Total Pengeluaran', value: totalExpenses },
+          { label: 'Pengeluaran Tunai', value: cashExpenses },
+          { label: 'Pengeluaran Bank', value: bankExpenses },
+        ].map((card) => (
+          <div key={card.label} style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-4)',
+            border: '1px solid var(--color-outline-variant)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
+              {card.label}
+            </p>
+            <p style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '700',
+              fontSize: 'var(--text-title-lg)',
+              color: 'var(--color-error)',
+              marginTop: 'var(--space-1)',
+            }}>
+              {formatCurrency(card.value)}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+      <div style={{ position: 'relative', marginBottom: 'var(--space-6)' }}>
+        <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: 'var(--color-outline)' }} />
         <input
           type="text"
           placeholder="Cari pengeluaran..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+          style={{
+            width: '100%',
+            paddingLeft: '2.5rem',
+            paddingRight: 'var(--space-4)',
+            paddingTop: 'var(--space-2)',
+            paddingBottom: 'var(--space-2)',
+            border: '1.5px solid var(--color-outline-variant)',
+            borderRadius: 'var(--radius-lg)',
+            outline: 'none',
+            backgroundColor: 'var(--color-surface-container-high)',
+            color: 'var(--color-on-surface)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+          }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
         />
       </div>
 
       {/* Expenses List */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%' }}>
+            <thead style={{ backgroundColor: 'var(--color-surface-container)', borderBottom: '1px solid var(--color-outline-variant)' }}>
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Tanggal
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Judul
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Catatan
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Metode
-                </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-slate-600">
-                  Jumlah
-                </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-slate-600">
-                  Aksi
-                </th>
+                {['Tanggal', 'Judul', 'Catatan', 'Metode', 'Jumlah', 'Aksi'].map((header) => (
+                  <th key={header} style={{
+                    padding: 'var(--space-3) var(--space-4)',
+                    textAlign: 'left',
+                    fontFamily: 'var(--font-label)',
+                    fontSize: 'var(--text-label-sm)',
+                    fontWeight: '600',
+                    color: 'var(--color-on-surface-variant)',
+                    letterSpacing: 'var(--tracking-wide)',
+                  }}>
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody>
               {(filteredExpenses ?? []).map((expense) => (
-                <tr key={expense.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-3 text-sm text-slate-600">
+                <tr key={expense.id} style={{ borderBottom: '1px solid var(--color-outline-variant)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                >
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
                     {formatDate(expense.created_at)}
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium text-slate-800">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontWeight: '600', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface)' }}>
                     {expense.title}
                   </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)' }}>
                     {expense.note || '-'}
                   </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded ${
-                        expense.payment_method === 'cash'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-blue-100 text-blue-700'
-                      }`}
-                    >
+                  <td style={{ padding: 'var(--space-3) var(--space-4)' }}>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)',
+                      padding: 'var(--space-1) var(--space-2)',
+                      borderRadius: 'var(--radius-full)',
+                      fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', fontWeight: '600',
+                      backgroundColor: expense.payment_method === 'cash' ? 'var(--color-tertiary-fixed)' : '#dbeafe',
+                      color: expense.payment_method === 'cash' ? 'var(--color-tertiary)' : 'var(--color-bank, #2563eb)',
+                    }}>
                       {expense.payment_method === 'cash' ? (
-                        <Banknote className="w-3 h-3" />
+                        <Banknote style={{ width: '0.75rem', height: '0.75rem' }} />
                       ) : (
-                        <Wallet className="w-3 h-3" />
+                        <Wallet style={{ width: '0.75rem', height: '0.75rem' }} />
                       )}
                       {expense.payment_method === 'cash' ? 'Tunai' : 'Bank'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm font-semibold text-red-600 text-right">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-body-sm)', color: 'var(--color-error)', textAlign: 'right' }}>
                     {formatCurrency(expense.amount)}
                   </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex justify-end gap-1">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', textAlign: 'right' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--space-1)' }}>
                       <button
                         onClick={() => openModal(expense)}
-                        className="p-1.5 text-slate-500 hover:text-primary hover:bg-slate-100 rounded"
+                        style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer' }}
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit style={{ width: '1rem', height: '1rem' }} />
                       </button>
                       <button
                         onClick={() => setDeleteConfirm(expense.id)}
-                        className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded"
+                        style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer' }}
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 style={{ width: '1rem', height: '1rem' }} />
                       </button>
                     </div>
                   </td>
@@ -414,43 +451,76 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
         </div>
 
         {filteredExpenses.length === 0 && (
-          <div className="p-12 text-center">
-            <Wallet className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-500">Pengeluaran tidak ditemukan</p>
+          <div style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+            <Wallet style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-4)' }} />
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Pengeluaran tidak ditemukan</p>
           </div>
         )}
       </div>
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-white rounded-b-xl">
-          <p className="text-sm text-slate-500">
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: 'var(--space-3) var(--space-4)',
+          borderTop: '1px solid var(--color-outline-variant)',
+          backgroundColor: 'var(--color-surface-container-lowest)',
+          borderRadius: '0 0 var(--radius-xl) var(--radius-xl)',
+        }}>
+          <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
             Menampilkan {(pagination.page - 1) * pagination.pageSize + 1}–{Math.min(pagination.page * pagination.pageSize, pagination.total)} dari {pagination.total} pengeluaran
           </p>
-          <div className="flex items-center gap-1">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
             <button
               onClick={() => handlePageChange(pagination.page - 1)}
               disabled={pagination.page <= 1}
-              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              style={{
+                padding: 'var(--space-1) var(--space-3)',
+                border: '1px solid var(--color-outline-variant)',
+                borderRadius: 'var(--radius-md)',
+                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-on-surface-variant)',
+                backgroundColor: 'transparent',
+                cursor: pagination.page <= 1 ? 'not-allowed' : 'pointer',
+                opacity: pagination.page <= 1 ? '0.4' : '1',
+              }}
             >
               ←
             </button>
             {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((p) => {
-                const isActive = p === pagination.page;
-                return (
-                  <button
-                    key={p}
-                    onClick={() => handlePageChange(p)}
-                    className={`px-3 py-1.5 text-sm border rounded-lg transition ${isActive ? 'bg-primary text-white border-primary' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
-                  >
-                    {p}
-                  </button>
-                );
-              })}
+              const isActive = p === pagination.page;
+              return (
+                <button
+                  key={p}
+                  onClick={() => handlePageChange(p)}
+                  style={{
+                    padding: 'var(--space-1) var(--space-3)',
+                    border: '1px solid',
+                    borderColor: isActive ? 'var(--color-primary)' : 'var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-md)',
+                    fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                    backgroundColor: isActive ? 'var(--color-primary)' : 'transparent',
+                    color: isActive ? 'var(--color-on-primary)' : 'var(--color-on-surface-variant)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {p}
+                </button>
+              );
+            })}
             <button
               onClick={() => handlePageChange(pagination.page + 1)}
               disabled={pagination.page >= pagination.totalPages}
-              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              style={{
+                padding: 'var(--space-1) var(--space-3)',
+                border: '1px solid var(--color-outline-variant)',
+                borderRadius: 'var(--radius-md)',
+                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-on-surface-variant)',
+                backgroundColor: 'transparent',
+                cursor: pagination.page >= pagination.totalPages ? 'not-allowed' : 'pointer',
+                opacity: pagination.page >= pagination.totalPages ? '0.4' : '1',
+              }}
             >
               →
             </button>
@@ -460,148 +530,212 @@ export default function ExpensesClient({ initialExpenses, pagination }: Expenses
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-md">
-            <div className="p-6 border-b border-slate-100">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-800">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '28rem',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                   {editingExpense ? 'Edit Pengeluaran' : 'Tambah Pengeluaran'}
                 </h2>
                 <button
                   onClick={closeModal}
-                  className="p-2 hover:bg-slate-100 rounded-lg"
+                  style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-md)', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', color: 'var(--color-outline)' }}
                 >
-                  <X className="w-5 h-5" />
+                  <X style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Judul *
                 </label>
                 <input
                   type="text"
                   value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  style={{
+                    width: '100%', padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)', outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)', fontFamily: 'var(--font-body)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Jumlah *
                 </label>
                 <input
                   type="number"
                   value={formData.amount}
-                  onChange={(e) =>
-                    setFormData({ ...formData, amount: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
-                  required
-                  min="0"
-                  step="100"
+                  onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                  style={{
+                    width: '100%', padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)', outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)', fontFamily: 'var(--font-body)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                  required min="0" step="100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Metode Pembayaran
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setFormData({ ...formData, payment_method: 'cash' })
-                    }
-                    className={`p-3 border rounded-lg flex items-center justify-center gap-2 transition ${
-                      formData.payment_method === 'cash'
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-slate-200 text-slate-600'
-                    }`}
-                  >
-                    <Banknote className="w-4 h-4" />
-                    Tunai
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setFormData({ ...formData, payment_method: 'bank' })
-                    }
-                    className={`p-3 border rounded-lg flex items-center justify-center gap-2 transition ${
-                      formData.payment_method === 'bank'
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-slate-200 text-slate-600'
-                    }`}
-                  >
-                    <Wallet className="w-4 h-4" />
-                    Bank
-                  </button>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
+                  {[
+                    { key: 'cash', label: 'Tunai', Icon: Banknote },
+                    { key: 'bank', label: 'Bank', Icon: Wallet },
+                  ].map(({ key, label, Icon }) => {
+                    const isActive = formData.payment_method === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, payment_method: key as 'cash' | 'bank' })}
+                        style={{
+                          padding: 'var(--space-3)',
+                          borderRadius: 'var(--radius-lg)',
+                          border: '1.5px solid',
+                          borderColor: isActive ? 'var(--color-primary)' : 'var(--color-outline-variant)',
+                          backgroundColor: isActive ? 'var(--color-primary-fixed)' : 'transparent',
+                          color: isActive ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                          cursor: 'pointer', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', fontWeight: '600',
+                        }}
+                      >
+                        <Icon style={{ width: '1rem', height: '1rem' }} />
+                        {label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Catatan
                 </label>
                 <textarea
                   value={formData.note}
-                  onChange={(e) =>
-                    setFormData({ ...formData, note: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none"
+                  onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                  style={{
+                    width: '100%', padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)', outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)', fontFamily: 'var(--font-body)',
+                    resize: 'none',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; }}
                   rows={2}
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', paddingTop: 'var(--space-4)' }}>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    backgroundColor: loading ? 'var(--color-surface-container)' : 'var(--color-primary)',
+                    color: loading ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                  }}
                 >
-                  {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {loading && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
                   {editingExpense ? 'Simpan' : 'Buat Baru'}
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
 
       {/* Delete Confirmation */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-sm p-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-2">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '24rem',
+            padding: 'var(--space-6)',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)', marginBottom: 'var(--space-2)' }}>
               Hapus Pengeluaran?
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)', color: 'var(--color-outline)', marginBottom: 'var(--space-6)' }}>
               Tindakan ini tidak dapat dibatalkan.
             </p>
-            <div className="flex gap-3">
+            <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  border: '1px solid var(--color-outline-variant)',
+                  color: 'var(--color-on-surface-variant)',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: 'pointer', backgroundColor: 'transparent',
+                }}
               >
                 Batal
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
                 disabled={loading}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition disabled:opacity-50"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  backgroundColor: 'var(--color-error)',
+                  color: 'var(--color-on-error)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? '0.5' : '1',
+                }}
               >
                 Hapus
               </button>

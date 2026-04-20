@@ -30,10 +30,9 @@ export function ResetDataComponent() {
         throw new Error(data.error || 'Gagal mereset database');
       }
 
-      // Success, close modal and refresh the application to clear all state
       setIsOpen(false);
       setConfirmation('');
-      window.location.href = '/dashboard'; 
+      window.location.href = '/dashboard';
     } catch (err: any) {
       setError(err.message);
       setIsSubmitting(false);
@@ -41,92 +40,154 @@ export function ResetDataComponent() {
   };
 
   return (
-    <div className="mt-8 border-t border-red-200 pt-8">
-      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-        <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row gap-4">
-          <div className="flex gap-4 items-center">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
-              <Database className="w-6 h-6 text-red-600" />
+    <div style={{ marginTop: 'var(--space-8)', borderTop: '1px solid var(--color-error-container)', paddingTop: 'var(--space-8)' }}>
+      <div style={{
+        borderRadius: 'var(--radius-xl)',
+        padding: 'var(--space-6)',
+        border: '1px solid var(--color-error)',
+        backgroundColor: 'var(--color-error-container)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexDirection: 'column', gap: 'var(--space-4)' }} className="sm:flex-row sm:items-center">
+          <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+            <div style={{
+              width: '3rem', height: '3rem', borderRadius: 'var(--radius-full)',
+              backgroundColor: 'var(--color-error)', color: 'var(--color-on-error)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0',
+            }}>
+              <Database style={{ width: '1.5rem', height: '1.5rem' }} />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-red-800">Zona Bahaya (Danger Zone)</h3>
-              <p className="text-sm text-red-600 mt-1 max-w-md">
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-error)', marginBottom: 'var(--space-1)' }}>Zona Bahaya (Danger Zone)</h3>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-error)', maxWidth: '32rem' }}>
                 Tindakan ini akan menghapus permanen seluruh data toko (struk, barang, kasir, log) dan tidak bisa dikembalikan.
               </p>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition shadow-sm"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+              padding: 'var(--space-2) var(--space-5)',
+              backgroundColor: 'var(--color-error)',
+              color: 'var(--color-on-error)',
+              border: 'none', borderRadius: 'var(--radius-lg)',
+              fontFamily: 'var(--font-label)', fontWeight: '600',
+              cursor: 'pointer',
+              boxShadow: 'var(--shadow-sm)',
+              transition: 'background-color var(--transition-fast)',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
           >
-            <Trash2 className="w-5 h-5" />
+            <Trash2 style={{ width: '1.25rem', height: '1.25rem' }} />
             Reset Sistem
           </button>
         </div>
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-rose-100 bg-rose-50 flex justify-between items-center text-rose-800">
-              <div className="flex items-center gap-3">
-                <ShieldAlert className="w-6 h-6 text-rose-600" />
-                <h2 className="text-lg font-bold">Konfirmasi Reset Sistem</h2>
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(30,27,75,0.6)', backdropFilter: 'blur(4px)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-2xl)',
+            width: '100%', maxWidth: '28rem',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-overlay)',
+            animation: 'fadeIn 200ms ease',
+          }}>
+            <div style={{
+              padding: 'var(--space-6)', borderBottom: '1px solid var(--color-error-container)',
+              backgroundColor: 'var(--color-error-container)',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                <ShieldAlert style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-error)' }} />
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-error)' }}>Konfirmasi Reset Sistem</h2>
               </div>
             </div>
-            
-            <form onSubmit={handleReset} className="p-6">
-              <p className="text-slate-600 text-sm mb-4 leading-relaxed">
-                Anda yakin ingin menghapus <strong>seluruh data operasional</strong> (termasuk pendaftaran karyawan)? Tindakan ini <strong>tidak dapat dibatalkan</strong>!
+
+            <form onSubmit={handleReset} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-4)', lineHeight: 'var(--leading-relaxed)' }}>
+                Anda yakin ingin menghapus <strong style={{ color: 'var(--color-on-surface)' }}>seluruh data operasional</strong> (termasuk pendaftaran karyawan)? Tindakan ini <strong style={{ color: 'var(--color-on-surface)' }}>tidak dapat dibatalkan</strong>!
               </p>
 
               {error && (
-                <div className="mb-4 p-3 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm font-medium">
+                <div style={{ padding: 'var(--space-3)', backgroundColor: 'var(--color-error-container)', color: 'var(--color-error)', border: '1px solid var(--color-error)', borderRadius: 'var(--radius-lg)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '600' }}>
                   {error}
                 </div>
               )}
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Ketik <span className="text-red-600 font-bold select-all">RESET</span> untuk melanjutkan
+              <div style={{ marginBottom: 'var(--space-6)' }}>
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
+                  Ketik <span style={{ color: 'var(--color-error)', fontWeight: '700', userSelect: 'all' }}>RESET</span> untuk melanjutkan
                 </label>
                 <input
                   type="text"
                   required
                   value={confirmation}
                   onChange={(e) => setConfirmation(e.target.value)}
-                  className="w-full px-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500/20 focus:border-red-500 outline-none transition-all placeholder:text-slate-300"
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'var(--text-body-sm)',
+                    transition: 'border-color var(--transition-fast)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-error)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   placeholder="RESET"
                   autoComplete="off"
                 />
               </div>
 
-              <div className="flex gap-3 flex-row-reverse">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', flexDirection: 'row-reverse' }}>
                 <button
                   type="submit"
                   disabled={isSubmitting || confirmation !== 'RESET'}
-                  className="flex-1 bg-red-600 text-white px-4 py-2.5 rounded-lg hover:bg-red-700 transition font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-3) var(--space-4)',
+                    backgroundColor: (isSubmitting || confirmation !== 'RESET') ? 'var(--color-surface-container)' : 'var(--color-error)',
+                    color: (isSubmitting || confirmation !== 'RESET') ? 'var(--color-outline)' : 'var(--color-on-error)',
+                    border: 'none', borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: (isSubmitting || confirmation !== 'RESET') ? 'not-allowed' : 'pointer',
+                    transition: 'background-color var(--transition-fast)',
+                  }}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />
                       Mereset...
                     </>
-                  ) : (
-                    'Ya, Hapus Semua'
-                  )}
+                  ) : 'Ya, Hapus Semua'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
                   disabled={isSubmitting}
-                  className="flex-1 border border-slate-300 text-slate-700 px-4 py-2.5 rounded-lg hover:bg-slate-50 transition font-medium"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-3) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } } @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
         </div>
       )}
     </div>

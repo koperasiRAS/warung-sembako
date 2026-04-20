@@ -61,6 +61,28 @@ export function DashboardRealtime() {
           router.refresh();
         }
       )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'debts',
+        },
+        () => {
+          router.refresh();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'categories',
+        },
+        () => {
+          router.refresh();
+        }
+      )
       .subscribe();
 
     return () => {

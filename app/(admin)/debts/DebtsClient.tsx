@@ -137,101 +137,163 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
   };
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }} className="sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800">Buku Utang / Kasbon</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)', letterSpacing: 'var(--tracking-tight)',
+          }}>
+            Buku Utang / Kasbon
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Kelola piutang pelanggan dan catat pelunasan
           </p>
         </div>
-        <div className="bg-orange-50 border border-orange-200 px-4 py-2 rounded-xl flex items-center gap-3">
+        <div style={{
+          padding: 'var(--space-3) var(--space-4)',
+          borderRadius: 'var(--radius-xl)',
+          border: '1px solid var(--color-warning-bg)',
+          backgroundColor: 'var(--color-warning-bg)',
+          display: 'flex', alignItems: 'center', gap: 'var(--space-3)',
+        }}>
           <div>
-            <p className="text-xs text-orange-600 font-medium">Total Uang di Luar (Piutang)</p>
-            <p className="text-lg font-bold text-orange-700">{formatCurrency(totalUnpaid)}</p>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '500', color: 'var(--color-warning)' }}>Total Uang di Luar (Piutang)</p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-warning)' }}>{formatCurrency(totalUnpaid)}</p>
           </div>
         </div>
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <div className="relative w-full max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }} className="sm:flex-row sm:items-center sm:justify-between">
+        <div style={{ position: 'relative', width: '100%', maxWidth: '28rem' }}>
+          <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1rem', height: '1rem', color: 'var(--color-outline)' }} />
           <input
             type="text"
             placeholder="Cari nama pelanggan..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm transition"
+            style={{
+              width: '100%',
+              paddingLeft: '2.25rem',
+              paddingRight: 'var(--space-4)',
+              paddingTop: 'var(--space-2)',
+              paddingBottom: 'var(--space-2)',
+              border: '1.5px solid var(--color-outline-variant)',
+              borderRadius: 'var(--radius-lg)',
+              outline: 'none',
+              backgroundColor: 'var(--color-surface-container-high)',
+              color: 'var(--color-on-surface)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--text-body-sm)',
+              transition: 'border-color var(--transition-fast)',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
           />
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', fontSize: 'var(--text-body-sm)' }}>
+            <thead style={{
+              fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)',
+              fontWeight: '600', textTransform: 'uppercase',
+              color: 'var(--color-on-surface-variant)',
+              backgroundColor: 'var(--color-surface-container)',
+              borderBottom: '1px solid var(--color-outline-variant)',
+            }}>
               <tr>
-                <th className="px-6 py-4 font-medium">Pelanggan</th>
-                <th className="px-6 py-4 font-medium">Tanggal Kasbon</th>
-                <th className="px-6 py-4 font-medium text-right">Total Utang</th>
-                <th className="px-6 py-4 font-medium text-right">Sisa Terutang</th>
-                <th className="px-6 py-4 font-medium text-center">Status</th>
-                <th className="px-6 py-4 font-medium text-right">Aksi</th>
+                {['Pelanggan', 'Tanggal Kasbon', 'Total Utang', 'Sisa Terutang', 'Status', 'Aksi'].map((h) => (
+                  <th key={h} style={{
+                    padding: 'var(--space-4)',
+                    textAlign: h.includes('Utang') || h === 'Aksi' ? 'right' : (h === 'Status' ? 'center' : 'left'),
+                  }}>
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody>
               {filteredDebts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
-                    <BookUser className="w-12 h-12 mx-auto mb-3 text-slate-300" />
-                    <p className="font-medium text-slate-600">Buku Utang Bersih!</p>
-                    <p className="text-sm mt-1">Tidak ada catatan kasbon saat ini.</p>
+                  <td colSpan={6} style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+                    <BookUser style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-3)' }} />
+                    <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface-variant)' }}>Buku Utang Bersih!</p>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>Tidak ada catatan kasbon saat ini.</p>
                   </td>
                 </tr>
               ) : (
-                filteredDebts.map((debt) => (
-                  <tr key={debt.id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-6 py-4 font-medium text-slate-800">
-                      {debt.customer_name}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {formatDate(debt.created_at)}
-                    </td>
-                    <td className="px-6 py-4 text-right text-slate-600">
-                      {formatCurrency(debt.amount)}
-                    </td>
-                    <td className="px-6 py-4 text-right font-bold text-orange-600">
-                      {formatCurrency(debt.remaining_amount)}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <div className={`inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium border
-                        ${debt.status === 'paid' 
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
-                          : debt.status === 'partial'
-                            ? 'bg-amber-50 text-amber-700 border-amber-200'
-                            : 'bg-rose-50 text-rose-700 border-rose-200'
-                        }`}
-                      >
-                        {debt.status === 'paid' ? 'Lunas' : debt.status === 'partial' ? 'Dicicil' : 'Belum Bayar'}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      {debt.status !== 'paid' ? (
-                        <button
-                          onClick={() => handleOpenPayment(debt)}
-                          className="px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg transition text-xs font-medium"
-                        >
-                          Proses Bayar
-                        </button>
-                      ) : (
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 ml-auto" />
-                      )}
-                    </td>
-                  </tr>
-                ))
+                filteredDebts.map((debt) => {
+                  const statusStyle = debt.status === 'paid'
+                    ? { bg: 'var(--color-tertiary-fixed)', color: 'var(--color-tertiary)' }
+                    : debt.status === 'partial'
+                    ? { bg: 'var(--color-warning-bg)', color: 'var(--color-warning)' }
+                    : { bg: 'var(--color-error-container)', color: 'var(--color-error)' };
+                  return (
+                    <tr key={debt.id} style={{ borderBottom: '1px solid var(--color-outline-variant)', transition: 'background-color var(--transition-fast)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                    >
+                      <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                        {debt.customer_name}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        {formatDate(debt.created_at)}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        {formatCurrency(debt.amount)}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-body-sm)', color: 'var(--color-warning)' }}>
+                        {formatCurrency(debt.remaining_amount)}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'center' }}>
+                        <div style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)',
+                          fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600',
+                          backgroundColor: statusStyle.bg, color: statusStyle.color,
+                        }}>
+                          {debt.status === 'paid' ? 'Lunas' : debt.status === 'partial' ? 'Dicicil' : 'Belum Bayar'}
+                        </div>
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right' }}>
+                        {debt.status !== 'paid' ? (
+                          <button
+                            onClick={() => handleOpenPayment(debt)}
+                            style={{
+                              padding: 'var(--space-1) var(--space-3)',
+                              backgroundColor: 'var(--color-primary-fixed)',
+                              color: 'var(--color-primary)',
+                              border: 'none', borderRadius: 'var(--radius-lg)',
+                              fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              transition: 'all var(--transition-fast)',
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary)'; e.currentTarget.style.color = 'var(--color-on-primary)'; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-fixed)'; e.currentTarget.style.color = 'var(--color-primary)'; }}
+                          >
+                            Proses Bayar
+                          </button>
+                        ) : (
+                          <CheckCircle2 style={{ width: '1.25rem', height: '1.25rem', color: 'var(--color-tertiary)', marginLeft: 'auto' }} />
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -240,42 +302,99 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
 
       {/* Payment Processing Modal */}
       {isPaying && selectedDebt && (
-        <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-bold text-slate-800">Proses Pembayaran Kasbon</h2>
-              <p className="text-sm text-slate-500 mt-1">Pembayaran dari: <strong className="text-slate-800">{selectedDebt.customer_name}</strong></p>
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(30,27,75,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '28rem',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-overlay)',
+            animation: 'fadeIn 200ms ease',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-on-surface)' }}>Proses Pembayaran Kasbon</h2>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>Pembayaran dari: <strong style={{ color: 'var(--color-on-surface)' }}>{selectedDebt.customer_name}</strong></p>
             </div>
-            
-            <form onSubmit={handleSubmitPayment} className="p-6">
-              <div className="mb-6 p-4 bg-orange-50 rounded-xl flex justify-between items-center border border-orange-100">
-                <span className="text-sm text-orange-800 font-medium">Sisa Utang:</span>
-                <span className="text-xl font-bold text-orange-600">{formatCurrency(selectedDebt.remaining_amount)}</span>
+
+            <form onSubmit={handleSubmitPayment} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+              <div style={{
+                padding: 'var(--space-4)',
+                borderRadius: 'var(--radius-xl)',
+                backgroundColor: 'var(--color-warning-bg)',
+                border: '1px solid var(--color-warning)',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              }}>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-warning)' }}>Sisa Utang:</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-warning)' }}>{formatCurrency(selectedDebt.remaining_amount)}</span>
               </div>
 
-              <div className="space-y-4">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Jumlah Uang Diterima (Rp)</label>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
+                    Jumlah Uang Diterima (Rp)
+                  </label>
                   <input
                     type="number"
                     max={selectedDebt.remaining_amount}
                     required
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full px-4 py-3 text-lg border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-3) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-xl)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+                      transition: 'border-color var(--transition-fast)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                     placeholder="Contoh: 50000"
                   />
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    <button type="button" onClick={() => setPaymentAmount(selectedDebt.remaining_amount.toString())} className="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full hover:bg-orange-200">Lunasi Semua</button>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}>
+                    <button
+                      type="button"
+                      onClick={() => setPaymentAmount(selectedDebt.remaining_amount.toString())}
+                      style={{
+                        padding: '2px var(--space-3)',
+                        backgroundColor: 'var(--color-warning-bg)',
+                        color: 'var(--color-warning)',
+                        border: 'none', borderRadius: 'var(--radius-full)',
+                        fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'background-color var(--transition-fast)',
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-warning)'; e.currentTarget.style.color = '#fff'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-warning-bg)'; e.currentTarget.style.color = 'var(--color-warning)'; }}
+                    >
+                      Lunasi Semua
+                    </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Pilih Metode Pembayaran</label>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
+                    Pilih Metode Pembayaran
+                  </label>
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as any)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-slate-700"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-3) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-xl)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      cursor: 'pointer',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   >
                     <option value="cash">Tunai (Cash)</option>
                     <option value="transfer">Transfer Bank</option>
@@ -283,32 +402,49 @@ export default function DebtsClient({ initialDebts, userRole }: { initialDebts: 
                   </select>
                 </div>
               </div>
-              <div className="mt-8 flex gap-3 flex-row-reverse">
+
+              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', flexDirection: 'row-reverse' }}>
                 <button
                   type="submit"
                   disabled={isSubmitting || !paymentAmount}
-                  className="flex-1 bg-primary text-white px-4 py-3 rounded-xl hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-3) var(--space-4)',
+                    backgroundColor: (isSubmitting || !paymentAmount) ? 'var(--color-surface-container)' : 'var(--color-primary)',
+                    color: (isSubmitting || !paymentAmount) ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none', borderRadius: 'var(--radius-xl)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: (isSubmitting || !paymentAmount) ? 'not-allowed' : 'pointer',
+                  }}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />
                       Memproses...
                     </>
-                  ) : (
-                    'Terima Pembayaran'
-                  )}
+                  ) : 'Terima Pembayaran'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsPaying(false)}
                   disabled={isSubmitting}
-                  className="flex-1 border border-slate-300 text-slate-700 px-4 py-3 rounded-xl hover:bg-slate-50 transition font-medium"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-3) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-xl)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } } @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
         </div>
       )}
     </div>

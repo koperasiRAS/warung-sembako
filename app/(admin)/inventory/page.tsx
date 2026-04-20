@@ -18,7 +18,7 @@ export default async function InventoryPage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   // Ensure only owners have access to this page (or cashier if role defined in layout, but let's check role)

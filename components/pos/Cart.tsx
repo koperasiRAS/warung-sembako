@@ -13,63 +13,58 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-slate-500 py-8">
-        <svg className="w-16 h-16 mb-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--color-outline)', paddingTop: 'var(--space-8)' }}>
+        <svg style={{ width: '4rem', height: '4rem', marginBottom: 'var(--space-3)', color: 'var(--color-outline-variant)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        <p className="text-slate-400">Cart is empty</p>
-        <p className="text-sm text-slate-400 mt-1">Tap products to add</p>
+        <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Cart is empty</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>Tap products to add</p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-        <h3 className="font-semibold text-slate-900">Cart ({items.length})</h3>
-        <Button variant="ghost" size="sm" onClick={onClearCart}>
-          Clear
-        </Button>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 'var(--space-3)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: '600', color: 'var(--color-on-surface)' }}>Cart ({items.length})</h3>
+        <Button variant="ghost" size="sm" onClick={onClearCart}>Clear</Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto py-3 space-y-2">
+      <div style={{ flex: '1', overflowY: 'auto', paddingTop: 'var(--space-3)', paddingBottom: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         {items.map((item) => (
-          <div
-            key={item.product_id}
-            className="flex items-center gap-3 p-2 bg-slate-50 rounded-lg"
-          >
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-slate-900 truncate">
+          <div key={item.product_id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-2)', backgroundColor: 'var(--color-surface-container)', borderRadius: 'var(--radius-lg)' }}>
+            <div style={{ flex: '1', minWidth: '0' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '600', color: 'var(--color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {item.product_name}
               </p>
-              <p className="text-sm text-slate-500">
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)' }}>
                 Rp {Number(item.price).toLocaleString('id-ID')}
               </p>
             </div>
 
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => onUpdateQuantity(item.product_id, item.quantity - 1)}
-                className="w-7 h-7 flex items-center justify-center rounded bg-slate-200 text-slate-600 hover:bg-slate-300 transition-colors"
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
+              <button onClick={() => onUpdateQuantity(item.product_id, item.quantity - 1)} style={{ width: '1.75rem', height: '1.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-surface-container-high)', color: 'var(--color-on-surface-variant)', border: 'none', cursor: 'pointer', transition: 'background-color var(--transition-fast)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-outline-variant)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
               >
                 -
               </button>
-              <span className="w-8 text-center text-sm font-medium">
+              <span style={{ width: '2rem', textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                 {item.quantity}
               </span>
-              <button
-                onClick={() => onUpdateQuantity(item.product_id, item.quantity + 1)}
-                className="w-7 h-7 flex items-center justify-center rounded bg-slate-200 text-slate-600 hover:bg-slate-300 transition-colors"
+              <button onClick={() => onUpdateQuantity(item.product_id, item.quantity + 1)} style={{ width: '1.75rem', height: '1.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-surface-container-high)', color: 'var(--color-on-surface-variant)', border: 'none', cursor: 'pointer', transition: 'background-color var(--transition-fast)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-outline-variant)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
               >
                 +
               </button>
             </div>
 
-            <button
-              onClick={() => onRemoveItem(item.product_id)}
-              className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors"
+            <button onClick={() => onRemoveItem(item.product_id)} style={{ padding: 'var(--space-1)', color: 'var(--color-outline)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer', transition: 'all var(--transition-fast)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-error)'; e.currentTarget.style.backgroundColor = 'var(--color-error-container)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-outline)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg style={{ width: '1rem', height: '1rem' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </button>
@@ -77,10 +72,10 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
         ))}
       </div>
 
-      <div className="pt-3 border-t border-slate-200">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-lg font-semibold text-slate-900">Total</span>
-          <span className="text-xl font-bold text-teal-600">
+      <div style={{ paddingTop: 'var(--space-3)', borderTop: '1px solid var(--color-outline-variant)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>Total</span>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-tertiary)' }}>
             Rp {total.toLocaleString('id-ID')}
           </span>
         </div>

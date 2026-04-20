@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('../styles/tokens.css');
 
 :root {
   --primary: #0D9488;

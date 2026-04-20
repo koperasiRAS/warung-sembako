@@ -133,104 +133,154 @@ export default function InventoryClient({
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Inventaris & Restock</h1>
-          <p className="text-slate-500 mt-1">
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)',
+          }}>
+            Inventaris & Restock
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Catat barang masuk dan riwayat mutasi stok produk Anda
           </p>
         </div>
         <button
           onClick={openModal}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition"
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--color-tertiary)',
+            color: 'var(--color-on-primary)',
+            border: 'none', borderRadius: 'var(--radius-lg)',
+            fontFamily: 'var(--font-label)', fontWeight: '600',
+            cursor: 'pointer',
+          }}
         >
-          <Plus className="w-5 h-5" />
+          <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
           Catat Stok Masuk
         </button>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col lg:flex-row gap-4 mb-6">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row">
+        <div style={{ position: 'relative', flex: 1, maxWidth: '28rem' }}>
+          <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: 'var(--color-outline)' }} />
           <input
             type="text"
             placeholder="Cari transaksi inventaris..."
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+            style={{
+              width: '100%',
+              paddingLeft: '2.5rem',
+              paddingRight: 'var(--space-4)',
+              paddingTop: 'var(--space-2)',
+              paddingBottom: 'var(--space-2)',
+              border: '1.5px solid var(--color-outline-variant)',
+              borderRadius: 'var(--radius-lg)',
+              outline: 'none',
+              backgroundColor: 'var(--color-surface-container-high)',
+              color: 'var(--color-on-surface)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--text-body-md)',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
           />
         </div>
       </div>
 
       {/* Transaction List */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="p-4 font-medium text-slate-600">Tanggal</th>
-                <th className="p-4 font-medium text-slate-600">Produk</th>
-                <th className="p-4 font-medium text-slate-600">Tipe Mutasi</th>
-                <th className="p-4 font-medium text-slate-600 text-right">Jumlah</th>
-                <th className="p-4 font-medium text-slate-600 text-right">Harga Modal Dasar</th>
-                <th className="p-4 font-medium text-slate-600">Catatan/Supplier</th>
+              <tr style={{ backgroundColor: 'var(--color-surface-container)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+                {['Tanggal', 'Produk', 'Tipe Mutasi', 'Jumlah', 'Harga Modal Dasar', 'Catatan/Supplier'].map((header) => (
+                  <th key={header} style={{
+                    padding: 'var(--space-3) var(--space-4)',
+                    fontFamily: 'var(--font-label)',
+                    fontSize: 'var(--text-label-sm)',
+                    fontWeight: '600',
+                    color: 'var(--color-on-surface-variant)',
+                    letterSpacing: 'var(--tracking-wide)',
+                    textAlign: header.includes('Harga') || header.includes('Jumlah') ? 'right' : 'left',
+                  }}>
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-500">
-                    <Store className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                    Belum ada riwayat inventaris yang tercatat.
+                  <td colSpan={6} style={{ padding: 'var(--space-8)', textAlign: 'center' }}>
+                    <Store style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-3)' }} />
+                    <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Belum ada riwayat inventaris yang tercatat.</p>
                   </td>
                 </tr>
               ) : (
                 transactions.map((trx) => (
-                  <tr key={trx.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="p-4">
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <Calendar className="w-4 h-4 text-slate-400" />
+                  <tr key={trx.id} style={{ borderBottom: '1px solid var(--color-outline-variant)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                  >
+                    <td style={{ padding: 'var(--space-3) var(--space-4)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        <Calendar style={{ width: '1rem', height: '1rem', color: 'var(--color-outline)' }} />
                         {formatDate(trx.created_at)}
                       </div>
                     </td>
-                    <td className="p-4 font-medium text-slate-800">
+                    <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontWeight: '600', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface)' }}>
                       {trx.product?.name || 'Produk Dihapus'}
                     </td>
-                    <td className="p-4">
+                    <td style={{ padding: 'var(--space-3) var(--space-4)' }}>
                       {trx.type === 'restock' && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
-                          <PackagePlus className="w-3.5 h-3.5" />
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600', backgroundColor: 'var(--color-tertiary-fixed)', color: 'var(--color-tertiary)' }}>
+                          <PackagePlus style={{ width: '0.875rem', height: '0.875rem' }} />
                           Barang Masuk
                         </span>
                       )}
                       {trx.type === 'adjustment' && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600', backgroundColor: 'var(--color-bank-fixed)', color: 'var(--color-bank)' }}>
                           Penyesuaian
                         </span>
                       )}
                       {trx.type === 'sale' && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                          <PackageMinus className="w-3.5 h-3.5" />
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600', backgroundColor: '#fef3c7', color: '#92400e' }}>
+                          <PackageMinus style={{ width: '0.875rem', height: '0.875rem' }} />
                           Penjualan
                         </span>
                       )}
                     </td>
-                    <td className="p-4 text-right font-medium">
-                      <span className={trx.quantity > 0 ? 'text-emerald-600' : 'text-red-600'}>
-                        {trx.quantity > 0 ? '+' : ''}{trx.quantity}
-                      </span>
+                    <td style={{ padding: 'var(--space-3) var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-body-sm)', color: trx.quantity > 0 ? 'var(--color-tertiary)' : 'var(--color-error)' }}>
+                      {trx.quantity > 0 ? '+' : ''}{trx.quantity}
                     </td>
-                    <td className="p-4 text-right text-slate-600">
+                    <td style={{ padding: 'var(--space-3) var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
                       {formatCurrency(trx.cost_price)}
                     </td>
-                    <td className="p-4 text-slate-600 text-sm">
+                    <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
                       {trx.supplier_name ? (
-                        <p className="font-medium">Dari: {trx.supplier_name}</p>
+                        <p style={{ fontWeight: '600', color: 'var(--color-on-surface)' }}>Dari: {trx.supplier_name}</p>
                       ) : null}
-                      {trx.note && <p className="text-slate-500 truncate max-w-xs">{trx.note}</p>}
+                      {trx.note && <p style={{ color: 'var(--color-outline)', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '12rem', whiteSpace: 'nowrap' }}>{trx.note}</p>}
                     </td>
                   </tr>
                 ))
@@ -242,15 +292,30 @@ export default function InventoryClient({
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 bg-white">
-          <p className="text-sm text-slate-500">
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: 'var(--space-3) var(--space-4)',
+          borderTop: '1px solid var(--color-outline-variant)',
+          backgroundColor: 'var(--color-surface-container-lowest)',
+          borderRadius: '0 0 var(--radius-xl) var(--radius-xl)',
+        }}>
+          <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
             Menampilkan {(pagination.page - 1) * pagination.pageSize + 1}–{Math.min(pagination.page * pagination.pageSize, pagination.total)} dari {pagination.total} transaksi
           </p>
-          <div className="flex items-center gap-1">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
             <button
               onClick={() => handlePageChange(pagination.page - 1)}
               disabled={pagination.page <= 1}
-              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              style={{
+                padding: 'var(--space-1) var(--space-3)',
+                border: '1px solid var(--color-outline-variant)',
+                borderRadius: 'var(--radius-md)',
+                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-on-surface-variant)',
+                backgroundColor: 'transparent',
+                cursor: pagination.page <= 1 ? 'not-allowed' : 'pointer',
+                opacity: pagination.page <= 1 ? '0.4' : '1',
+              }}
             >
               ←
             </button>
@@ -258,15 +323,23 @@ export default function InventoryClient({
               .filter(p => p === 1 || p === pagination.totalPages || Math.abs(p - pagination.page) <= 1)
               .map((p, idx, arr) => {
                 const showEllipsis = idx > 0 && arr[idx - 1] !== p - 1;
-                const btnClass = p === pagination.page
-                  ? 'bg-teal-600 text-white border-teal-600'
-                  : 'border-slate-200 text-slate-600 hover:bg-slate-50';
+                const isActive = p === pagination.page;
                 return (
-                  <span key={p} className="flex items-center">
-                    {showEllipsis ? <span className="px-2 py-1.5 text-sm text-slate-400">...</span> : null}
+                  <span key={p} style={{ display: 'flex', alignItems: 'center' }}>
+                    {showEllipsis ? <span style={{ padding: 'var(--space-1) var(--space-2)', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>...</span> : null}
                     <button
                       onClick={() => handlePageChange(p)}
-                      className={`px-3 py-1.5 text-sm border rounded-lg transition ${btnClass}`}
+                      style={{
+                        padding: 'var(--space-1) var(--space-3)',
+                        border: '1px solid',
+                        borderColor: isActive ? 'var(--color-tertiary)' : 'var(--color-outline-variant)',
+                        borderRadius: 'var(--radius-md)',
+                        fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                        backgroundColor: isActive ? 'var(--color-tertiary)' : 'transparent',
+                        color: isActive ? 'var(--color-on-primary)' : 'var(--color-on-surface-variant)',
+                        cursor: 'pointer',
+                        transition: 'all var(--transition-fast)',
+                      }}
                     >
                       {p}
                     </button>
@@ -276,7 +349,16 @@ export default function InventoryClient({
             <button
               onClick={() => handlePageChange(pagination.page + 1)}
               disabled={pagination.page >= pagination.totalPages}
-              className="px-3 py-1.5 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              style={{
+                padding: 'var(--space-1) var(--space-3)',
+                border: '1px solid var(--color-outline-variant)',
+                borderRadius: 'var(--radius-md)',
+                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-on-surface-variant)',
+                backgroundColor: 'transparent',
+                cursor: pagination.page >= pagination.totalPages ? 'not-allowed' : 'pointer',
+                opacity: pagination.page >= pagination.totalPages ? '0.4' : '1',
+              }}
             >
               →
             </button>
@@ -286,31 +368,49 @@ export default function InventoryClient({
 
       {/* Add Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-slate-100">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-800">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '32rem',
+            maxHeight: '90dvh', overflowY: 'auto',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                   Catat Stok Masuk (Restock)
                 </h2>
-                <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-lg">
-                  <X className="w-5 h-5" />
+                <button onClick={() => setIsModalOpen(false)} style={{ padding: 'var(--space-2)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer', color: 'var(--color-outline)' }}>
+                  <X style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Pilih Produk *
                 </label>
                 <select
                   value={formData.product_id}
                   onChange={(e) => handleProductSelect(e.target.value)}
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    cursor: 'pointer',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   required
                 >
-                  <option value="">-- Pilih Produk yang Di-restock --</option>
+                  <option value="" style={{ color: 'var(--color-outline)' }}>-- Pilih Produk yang Di-restock --</option>
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.name} (Sisa: {p.stock} | Modal Saat Ini: {formatCurrency(p.cost_price || 0)})
@@ -319,82 +419,142 @@ export default function InventoryClient({
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Jumlah Barang Masuk *
                   </label>
                   <input
                     type="number"
                     value={formData.quantity}
                     onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    required
-                    min="1"
-                    placeholder="Misal: 50"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    required min="1" placeholder="Misal: 50"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Harga Modal Pembelian *
                   </label>
                   <input
                     type="number"
                     value={formData.cost_price}
                     onChange={(e) => setFormData({ ...formData, cost_price: e.target.value })}
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    required
-                    min="0"
-                    placeholder="Harga satuan"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    required min="0" placeholder="Harga satuan"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Nama Supplier / Penyuplai (Opsional)
                 </label>
                 <input
                   type="text"
                   value={formData.supplier_name}
                   onChange={(e) => setFormData({ ...formData, supplier_name: e.target.value })}
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600"
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   placeholder="Misal: Agen Berkah, Toko Makmur"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Catatan Tambahan (Opsional)
                 </label>
                 <textarea
                   value={formData.note}
                   onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600"
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    resize: 'none',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-tertiary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   rows={2}
                   placeholder="Nota no. 12345 atau keterangan lainnya"
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', paddingTop: 'var(--space-4)' }}>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    backgroundColor: loading ? 'var(--color-surface-container)' : 'var(--color-tertiary)',
+                    color: loading ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                  }}
                 >
-                  {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {loading && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
                   Simpan Barang Masuk
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
     </div>

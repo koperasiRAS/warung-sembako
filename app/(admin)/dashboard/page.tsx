@@ -4,28 +4,22 @@ import { SalesChart, ResetDataComponent, DashboardRealtime } from '@/components/
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-// Caching configuration — force-dynamic so realtime router.refresh() always hits DB
 export const revalidate = 0;
 
 async function getDailyBalance() {
   const supabase = await createClient();
   const today = new Date().toISOString().split('T')[0];
-
-  // Get today's balance from daily_balances table
   const { data: balance } = await supabase
     .from('daily_balances')
     .select('cash_balance, bank_balance, opening_cash')
     .eq('date', today)
     .single();
-
   return balance || { cash_balance: 0, bank_balance: 0, opening_cash: 0 };
 }
 
 async function getTodayTransactions() {
   const supabase = await createClient();
   const today = new Date().toISOString().split('T')[0];
-
-  // Get today's completed transactions
   const { data: transactions, error } = await supabase
     .from('transactions')
     .select('id, total, payment_method')
@@ -33,103 +27,67 @@ async function getTodayTransactions() {
     .gte('created_at', `${today}T00:00:00`)
     .lt('created_at', `${today}T23:59:59`);
 
-  if (error || !transactions) {
-    console.error('Error fetching transactions:', error);
-    return { todaySales: 0, todayTransactions: 0, todayProfit: 0 };
-  }
+  if (error || !transactions) return { todaySales: 0, todayTransactions: 0, todayProfit: 0 };
 
   const todaySales = transactions.reduce((sum, t) => sum + t.total, 0);
   const todayTransactions = transactions.length;
-
-  // Calculate Profit
   const transactionIds = transactions.map(t => t.id);
-  let todayProfit = todaySales; // Defaults to sales if COGS calculation fails
-  
+  let todayProfit = todaySales;
+
   if (transactionIds.length > 0) {
-    // Get all items in today's transactions
     const { data: items } = await supabase
       .from('transaction_items')
       .select('qty, product:products(cost_price)')
       .in('transaction_id', transactionIds);
-      
     if (items) {
       const totalCOGS = items.reduce((sum, item) => {
-        // @ts-ignore - Supabase nested relationship typing can be tricky
+        // @ts-ignore
         const costPrice = item.product?.cost_price || 0;
         return sum + (item.qty * costPrice);
       }, 0);
       todayProfit = todaySales - totalCOGS;
     }
   }
-
   return { todaySales, todayTransactions, todayProfit };
 }
 
 async function getUnpaidDebts() {
   const supabase = await createClient();
-  const { data: debts, error } = await supabase
+  const { data: debts } = await supabase
     .from('debts')
     .select('remaining_amount')
     .in('status', ['unpaid', 'partial']);
-
-  if (error || !debts) {
-    console.error('Error fetching unpaid debts:', error);
-    return 0;
-  }
-
+  if (!debts) return 0;
   return debts.reduce((sum, debt) => sum + debt.remaining_amount, 0);
 }
 
 async function getLowStockProducts() {
   const supabase = await createClient();
-
-  // Use RPC to get products where stock < low_stock_threshold (or default 10)
-  const { data, error } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
-
-  if (error) {
-    console.error('Error fetching low stock products:', error);
-    return [];
-  }
-
+  const { data } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
   return data || [];
 }
 
 async function getSalesTrend() {
   const supabase = await createClient();
-
-  // Get last 7 days of sales data
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
   const startDate = sevenDaysAgo.toISOString().split('T')[0];
-
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('transactions')
     .select('total, created_at')
     .eq('status', 'completed')
     .gte('created_at', `${startDate}T00:00:00`);
 
-  if (error) {
-    console.error('Error fetching sales trend:', error);
-    return [];
-  }
-
-  // Group by date
   const salesByDate: Record<string, number> = {};
   for (let i = 0; i < 7; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
-    salesByDate[dateStr] = 0;
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    salesByDate[d.toISOString().split('T')[0]] = 0;
   }
-
   data?.forEach(t => {
     const dateStr = t.created_at.split('T')[0];
-    if (salesByDate[dateStr] !== undefined) {
-      salesByDate[dateStr] += t.total;
-    }
+    if (salesByDate[dateStr] !== undefined) salesByDate[dateStr] += t.total;
   });
-
-  // Convert to array format for chart
   return Object.entries(salesByDate)
     .map(([date, value]) => ({ date, value }))
     .sort((a, b) => a.date.localeCompare(b.date));
@@ -138,44 +96,29 @@ async function getSalesTrend() {
 async function getTodayExpenses() {
   const supabase = await createClient();
   const today = new Date().toISOString().split('T')[0];
-
-  const { data: expenses, error } = await supabase
+  const { data: expenses } = await supabase
     .from('expenses')
     .select('amount')
     .gte('created_at', `${today}T00:00:00`)
     .lt('created_at', `${today}T23:59:59`);
-
-  if (error || !expenses) {
-    console.error('Error fetching expenses:', error);
-    return 0;
-  }
-
+  if (!expenses) return 0;
   return expenses.reduce((sum, e) => sum + e.amount, 0);
 }
 
 async function getDashboardStats() {
   const [balance, transactions, lowStock, salesTrend, totalPiutang, todayExpenses] = await Promise.all([
-    getDailyBalance(),
-    getTodayTransactions(),
-    getLowStockProducts(),
-    getSalesTrend(),
-    getUnpaidDebts(),
-    getTodayExpenses(),
+    getDailyBalance(), getTodayTransactions(), getLowStockProducts(),
+    getSalesTrend(), getUnpaidDebts(), getTodayExpenses(),
   ]);
-
-  const todayGrossProfit = transactions.todayProfit;
-  const todayNetProfit = todayGrossProfit - todayExpenses;
-  const totalWarungBalance = balance.cash_balance + balance.bank_balance;
-
   return {
     todaySales: transactions.todaySales,
     todayTransactions: transactions.todayTransactions,
-    todayGrossProfit,
+    todayGrossProfit: transactions.todayProfit,
     todayExpenses,
-    todayNetProfit,
+    todayNetProfit: transactions.todayProfit - todayExpenses,
     cashBalance: balance.cash_balance,
     bankBalance: balance.bank_balance,
-    totalWarungBalance,
+    totalWarungBalance: balance.cash_balance + balance.bank_balance,
     totalPiutang,
     lowStockProducts: lowStock,
     salesTrend,
@@ -184,141 +127,210 @@ async function getDashboardStats() {
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
+    style: 'currency', currency: 'IDR', minimumFractionDigits: 0,
   }).format(amount);
 }
 
-async function StatsCards() {
-  const stats = await getDashboardStats();
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+}
+
+async function StatsGrid() {
+  const s = await getDashboardStats();
+
+  const cardBase: React.CSSProperties = {
+    backgroundColor: 'var(--color-surface-container-lowest)',
+    borderRadius: 'var(--radius-xl)',
+    padding: '1.5rem',
+    boxShadow: 'var(--shadow-sm)',
+    border: 'none',
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: 'var(--font-label)',
+    fontSize: 'var(--text-label-md)',
+    color: 'var(--color-on-surface-variant)',
+    letterSpacing: 'var(--tracking-wide)',
+    textTransform: 'uppercase' as const,
+  };
+
+  const moneyStyle = (color: string): React.CSSProperties => ({
+    fontFamily: 'var(--font-heading)',
+    fontSize: 'var(--text-headline-md)',
+    fontWeight: '700',
+    color,
+    marginTop: '0.25rem',
+    letterSpacing: 'var(--tracking-tight)',
+  });
 
   return (
     <>
-      {/* Row 1 */}
-      {/* Today's Sales */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Omset Hari Ini</p>
-            <p className="text-2xl font-bold text-slate-800 mt-1">
-              {formatCurrency(stats.todaySales)}
-            </p>
-          </div>
-        </div>
+      {/* Row 1 — 4 cards */}
+      {/* Omset */}
+      <div style={cardBase}>
+        <p style={labelStyle}>Omset Hari Ini</p>
+        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.todaySales)}</p>
       </div>
 
-      {/* Transactions */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Transaksi Hari Ini</p>
-            <p className="text-2xl font-bold text-slate-800 mt-1">
-              {stats.todayTransactions}
-            </p>
-          </div>
-        </div>
+      {/* Transaksi */}
+      <div style={cardBase}>
+        <p style={labelStyle}>Transaksi Hari Ini</p>
+        <p style={moneyStyle('var(--color-on-surface)')}>{s.todayTransactions}</p>
       </div>
 
-      {/* Saldo Total Warung */}
-      <div className="bg-indigo-50 rounded-xl p-6 border border-indigo-100 shadow-sm col-span-2 relative overflow-hidden">
-        <div className="flex items-center justify-between relative z-10">
-          <div>
-            <p className="text-sm text-indigo-700 font-medium">Total Saldo Warung (Kas + Bank)</p>
-            <p className="text-3xl font-bold text-indigo-900 mt-2">
-              {formatCurrency(stats.totalWarungBalance)}
-            </p>
-          </div>
-        </div>
+      {/* Saldo Tunai */}
+      <div style={cardBase}>
+        <p style={labelStyle}>Saldo Tunai</p>
+        <p style={moneyStyle('var(--color-primary)')}>{formatCurrency(s.cashBalance)}</p>
       </div>
 
-      {/* Row 2 */}
+      {/* Saldo Bank */}
+      <div style={cardBase}>
+        <p style={labelStyle}>Saldo Bank</p>
+        <p style={moneyStyle('var(--color-primary)')}>{formatCurrency(s.bankBalance)}</p>
+      </div>
+
+      {/* Row 2 — highlighted full-width cards */}
+      {/* Total Warung */}
+      <div style={{
+        ...cardBase,
+        background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%)',
+        gridColumn: 'span 2',
+      }}>
+        <p style={{ ...labelStyle, color: 'rgba(255,255,255,0.7)' }}>Total Saldo Warung</p>
+        <p style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 'var(--text-display-sm)',
+          fontWeight: '800',
+          color: 'var(--color-on-primary)',
+          letterSpacing: 'var(--tracking-tight)',
+          marginTop: '0.25rem',
+        }}>
+          {formatCurrency(s.totalWarungBalance)}
+        </p>
+        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'rgba(255,255,255,0.6)', marginTop: '0.25rem' }}>
+          Kas + Bank
+        </p>
+      </div>
+
       {/* Laba Kotor */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Laba Kotor</p>
-            <p className="text-2xl font-bold text-emerald-600 mt-1">
-              {formatCurrency(stats.todayGrossProfit)}
-            </p>
-          </div>
-        </div>
+      <div style={cardBase}>
+        <p style={labelStyle}>Laba Kotor</p>
+        <p style={moneyStyle('var(--color-tertiary)')}>{formatCurrency(s.todayGrossProfit)}</p>
       </div>
 
       {/* Pengeluaran */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Pengeluaran</p>
-            <p className="text-2xl font-bold text-red-600 mt-1">
-              {formatCurrency(stats.todayExpenses)}
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Cash Balance */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Saldo Tunai</p>
-            <p className="text-xl font-bold text-cash mt-1">
-              {formatCurrency(stats.cashBalance)}
-            </p>
-          </div>
-        </div>
+      <div style={cardBase}>
+        <p style={labelStyle}>Pengeluaran</p>
+        <p style={moneyStyle('var(--color-error)')}>{formatCurrency(s.todayExpenses)}</p>
       </div>
 
-      {/* Bank Balance */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-500">Saldo Bank</p>
-            <p className="text-xl font-bold text-bank mt-1">
-              {formatCurrency(stats.bankBalance)}
-            </p>
-          </div>
-        </div>
+      {/* Row 3 — bottom cards */}
+      {/* Laba Bersih */}
+      <div style={{
+        ...cardBase,
+        backgroundColor: 'var(--color-surface-container)',
+        gridColumn: 'span 2',
+      }}>
+        <p style={labelStyle}>Laba Bersih</p>
+        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.todayNetProfit)}</p>
+        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-on-surface-variant)', marginTop: '0.25rem' }}>
+          Laba Kotor − Pengeluaran
+        </p>
       </div>
 
-      {/* Row 3 */}
-      {/* Net Profit */}
-      <div className="bg-teal-50 rounded-xl p-6 border border-teal-100 shadow-sm col-span-2 relative overflow-hidden">
-        <div className="flex items-center justify-between relative z-10">
-          <div>
-            <p className="text-sm text-teal-800 font-medium">Laba Bersih Sebenarnya (Hari Ini)</p>
-            <p className="text-2xl font-bold text-teal-700 mt-1">
-              {formatCurrency(stats.todayNetProfit)}
-            </p>
-            <p className="text-xs text-teal-600/80 mt-1">Laba Kotor - Pengeluaran</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Unpaid Debts */}
-      <div className="bg-orange-50 rounded-xl p-6 border border-orange-100 shadow-sm col-span-2 relative overflow-hidden">
-        <div className="flex items-center justify-between relative z-10">
-          <div>
-            <p className="text-sm text-orange-800 font-medium">Total Uang di Luar (Piutang)</p>
-            <p className="text-2xl font-bold text-orange-700 mt-1">
-              {formatCurrency(stats.totalPiutang)}
-            </p>
-            <p className="text-xs text-orange-600/80 mt-1">Kasbon pelanggan yang belum lunas</p>
-          </div>
-        </div>
+      {/* Piutang */}
+      <div style={{
+        ...cardBase,
+        backgroundColor: 'var(--color-surface-container)',
+        gridColumn: 'span 2',
+      }}>
+        <p style={labelStyle}>Piutang</p>
+        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.totalPiutang)}</p>
+        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-on-surface-variant)', marginTop: '0.25rem' }}>
+          Kasbon pelanggan belum lunas
+        </p>
       </div>
     </>
   );
 }
 
 async function SalesChartSection() {
-  const stats = await getDashboardStats();
+  const s = await getDashboardStats();
+  return <SalesChart data={s.salesTrend} title="Grafik Penjualan — 7 Hari Terakhir" />;
+}
+
+async function LowStockList() {
+  const supabase = await createClient();
+  const { data } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
+  const lowStock = (data || []) as Array<{ id: string; name: string; stock: number; low_stock_threshold: number; price: number; image_url: string | null; [key: string]: unknown }>;
+
+  if (!lowStock || lowStock.length === 0) {
+    return (
+      <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>
+          Semua produk masih tersedia dengan baik
+        </p>
+      </div>
+    );
+  }
+
+  const rowStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 1.5rem',
+    borderBottom: '1px solid var(--color-outline-variant)',
+    backgroundColor: 'var(--color-surface-container-lowest)',
+  };
 
   return (
-    <SalesChart
-      data={stats.salesTrend}
-      title="Grafik Penjualan (7 Hari Terakhir)"
-    />
+    <div>
+      {lowStock.map((product, i) => (
+        <div key={product.id} style={{
+          ...rowStyle,
+          borderBottom: i === lowStock.length - 1 ? 'none' : '1px solid var(--color-outline-variant)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            {product.image_url ? (
+              <img src={product.image_url} alt={product.name}
+                style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-lg)', objectFit: 'cover', backgroundColor: 'var(--color-surface-dim)' }} />
+            ) : (
+              <div style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-lg)', backgroundColor: 'var(--color-surface-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Package size={24} color="var(--color-outline)" />
+              </div>
+            )}
+            <div>
+              <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface)' }}>{product.name}</p>
+              <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
+                {product.barcode ? `SKU: ${product.barcode}` : 'Tidak ada barcode'}
+              </p>
+            </div>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            {product.stock === 0 ? (
+              <span style={{
+                display: 'inline-block', padding: '2px 8px',
+                backgroundColor: 'var(--color-error-container)', color: 'var(--color-on-error-container)',
+                borderRadius: 'var(--radius-full)', fontSize: 'var(--text-label-sm)', fontWeight: '600',
+              }}>Stok Habis!</span>
+            ) : (
+              <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-tertiary)' }}>
+                Sisa {product.stock}
+              </p>
+            )}
+            <Link href={`/products?edit=${product.id}`}
+              style={{
+                display: 'inline-block', marginTop: '4px',
+                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-primary)', textDecoration: 'none',
+              }}>
+              Isi Ulang
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -327,130 +339,86 @@ export default async function DashboardPage() {
   const profile = user ? await getProfile(user.id) : null;
 
   return (
-    <div className="p-4 lg:p-8">
-      {/* Realtime subscription — silently refreshes dashboard on any data change */}
+    <div style={{ padding: 'var(--space-8)', backgroundColor: 'var(--color-background)', minHeight: '100dvh' }}>
       <DashboardRealtime />
 
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        marginBottom: 'var(--space-8)',
+      }}>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Beranda Admin</h1>
-          <p className="text-slate-500 mt-1">
-            {new Date().toLocaleDateString('id-ID', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-md)',
+            fontWeight: '700', color: 'var(--color-on-background)',
+            letterSpacing: 'var(--tracking-tight)',
+          }}>
+            Beranda Admin
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+            color: 'var(--color-on-surface-variant)', marginTop: '0.25rem',
+          }}>
+            {new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
         </div>
-        <Link
-          href="/pos"
-          className="lg:hidden px-4 py-2 bg-secondary text-white rounded-lg font-medium"
-        >
-          Buka Kasir (POS)
+        <Link href="/pos" style={{
+          display: 'none',
+          fontFamily: 'var(--font-label)', fontWeight: '600',
+          padding: '0.625rem 1.25rem',
+          background: 'var(--gradient-primary)', color: 'var(--color-on-primary)',
+          borderRadius: 'var(--radius-full)', textDecoration: 'none',
+        }} className="mobile-pos-btn">
+          Buka Kasir
         </Link>
+        <style>{`.mobile-pos-btn { display: inline-flex; } @media (min-width: 1024px) { .mobile-pos-btn { display: none; } }`}</style>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
-        <Suspense fallback={<div className="bg-white rounded-xl p-6 animate-pulse h-28 col-span-2 lg:col-span-4" />}>
-          <StatsCards />
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: 'var(--space-4)',
+        marginBottom: 'var(--space-8)',
+      }}>
+        <Suspense fallback={<div style={{ gridColumn: '1/-1', height: '120px', borderRadius: 'var(--radius-xl)', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
+          <StatsGrid />
         </Suspense>
       </div>
 
       {/* Sales Chart */}
-      <div className="mb-8">
-        <Suspense fallback={<div className="bg-white rounded-xl p-6 animate-pulse h-56" />}>
+      <div style={{ marginBottom: 'var(--space-8)' }}>
+        <Suspense fallback={<div style={{ height: '220px', borderRadius: 'var(--radius-xl)', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
           <SalesChartSection />
         </Suspense>
       </div>
 
-      {/* Low Stock Products */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
-        <div className="p-6 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-amber-500" />
-            <h2 className="font-semibold text-slate-800">Stok Produk Menipis</h2>
-          </div>
+      {/* Low Stock */}
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        boxShadow: 'var(--shadow-sm)',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          padding: 'var(--space-6)',
+          borderBottom: '1px solid var(--color-outline-variant)',
+          display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+        }}>
+          <AlertTriangle size={20} color="var(--color-warning)" />
+          <h2 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-md)',
+            fontWeight: '600', color: 'var(--color-on-surface)',
+          }}>
+            Stok Produk Menipis
+          </h2>
         </div>
-        <Suspense
-          fallback={
-            <div className="p-6 space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-12 bg-slate-100 rounded-lg animate-pulse" />
-              ))}
-            </div>
-          }
-        >
+        <Suspense fallback={<div style={{ padding: '1.5rem', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
           <LowStockList />
         </Suspense>
       </div>
 
-      {profile?.role === 'owner' && (
-        <ResetDataComponent />
-      )}
-    </div>
-  );
-}
-
-async function LowStockList() {
-  const supabase = await createClient();
-
-  const { data } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
-  const lowStock = (data || []) as Array<{ id: string; name: string; stock: number; low_stock_threshold: number; price: number; image_url: string | null; [key: string]: unknown }>;
-
-  if (!lowStock || lowStock.length === 0) {
-    return (
-      <div className="p-6 text-center text-slate-500">
-        <p>Semua produk masih tersedia dengan baik</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="divide-y divide-slate-100">
-      {(lowStock ?? []).map((product) => (
-        <div
-          key={product.id}
-          className="p-4 flex items-center justify-between hover:bg-slate-50"
-        >
-          <div className="flex items-center gap-4">
-            {product.image_url ? (
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="w-12 h-12 rounded-lg object-cover"
-              />
-            ) : (
-              <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
-                <Package className="w-6 h-6 text-slate-400" />
-              </div>
-            )}
-            <div>
-              <p className="font-medium text-slate-800">{product.name}</p>
-              <p className="text-sm text-slate-500">
-                {product.barcode ? `SKU: ${product.barcode}` : 'Tidak ada barcode'}
-              </p>
-            </div>
-          </div>
-          <div className="text-right">
-            {product.stock === 0 ? (
-              <span className="inline-block px-2 py-0.5 bg-red-100 text-red-700 rounded text-xs font-bold mb-1">Stok Habis!</span>
-            ) : (
-              <p className="font-semibold text-amber-600">Sisa {product.stock}</p>
-            )}
-            <br />
-            <Link
-              href={`/products?edit=${product.id}`}
-              className="text-sm text-primary hover:underline"
-            >
-              Isi Ulang
-            </Link>
-          </div>
-        </div>
-      ))}
-      
+      {profile?.role === 'owner' && <ResetDataComponent />}
     </div>
   );
 }

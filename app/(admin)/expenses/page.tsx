@@ -34,7 +34,7 @@ export default async function ExpensesPage({
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const profile = await getProfile(user.id);

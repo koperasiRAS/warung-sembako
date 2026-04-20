@@ -9,22 +9,26 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#0D9488",
-          dark: "#0F766E",
-          50: "#F0FDFA",
-          100: "#CCFBF1",
+          DEFAULT: "#35299d",
+          dark: "#4d44b5",
+          50: "#e3dfff",
+          100: "#c5c0ff",
         },
         secondary: {
-          DEFAULT: "#F97316",
-          dark: "#EA580C",
+          DEFAULT: "#a32299",
         },
-        surface: "#FFFFFF",
-        background: "#F8FAFC",
+        tertiary: {
+          DEFAULT: "#004922",
+        },
+        surface: "#fcf8ff",
+        background: "#fcf8ff",
         cash: "#10B981",
         bank: "#3B82F6",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        body: ["Manrope", "system-ui", "sans-serif"],
+        label: ["Inter", "system-ui", "sans-serif"],
       },
     },
   },

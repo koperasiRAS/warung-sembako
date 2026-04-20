@@ -373,42 +373,100 @@ export default function ProductsClient({
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Produk</h1>
-          <p className="text-slate-500 mt-1">
-            Kelola inventaris produk Anda (Total {pagination?.total || products.length})
+          <h1 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700',
+            color: 'var(--color-on-surface)',
+          }}>
+            Produk
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+            color: 'var(--color-outline)',
+            marginTop: 'var(--space-1)',
+          }}>
+            Kelola inventaris produk Anda ({pagination?.total || products.length} item)
           </p>
         </div>
         <button
           onClick={() => openModal()}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--gradient-primary)',
+            color: 'var(--color-on-primary)',
+            border: 'none', borderRadius: 'var(--radius-lg)',
+            fontFamily: 'var(--font-label)', fontWeight: '600',
+            cursor: 'pointer',
+          }}
         >
-          <Plus className="w-5 h-5" />
+          <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
           Tambah Produk
         </button>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col lg:flex-row gap-4 mb-6">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row">
+        <div style={{ position: 'relative', flex: 1 }}>
+          <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: 'var(--color-outline)' }} />
           <input
             type="text"
             placeholder="Cari nama, barcode, atau SKU..."
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+            style={{
+              width: '100%',
+              paddingLeft: '2.5rem',
+              paddingRight: 'var(--space-4)',
+              paddingTop: 'var(--space-2)',
+              paddingBottom: 'var(--space-2)',
+              border: '1.5px solid var(--color-outline-variant)',
+              borderRadius: 'var(--radius-lg)',
+              outline: 'none',
+              backgroundColor: 'var(--color-surface-container-high)',
+              color: 'var(--color-on-surface)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--text-body-md)',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
           />
         </div>
         <select
           value={selectedCategory}
           onChange={(e) => handleCategoryChange(e.target.value)}
-          className="px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+          style={{
+            padding: 'var(--space-2) var(--space-4)',
+            border: '1.5px solid var(--color-outline-variant)',
+            borderRadius: 'var(--radius-lg)',
+            outline: 'none',
+            backgroundColor: 'var(--color-surface-container-high)',
+            color: 'var(--color-on-surface)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+            cursor: 'pointer',
+            minWidth: '10rem',
+          }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; }}
         >
-          <option value="">Semua Kategori</option>
+          <option value="" style={{ color: 'var(--color-outline)' }}>Semua Kategori</option>
           {(categories ?? []).map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -418,67 +476,148 @@ export default function ProductsClient({
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: 'var(--space-4)',
+      }} className="md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {(filteredProducts ?? []).map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition"
+            style={{
+              backgroundColor: 'var(--color-surface-container-lowest)',
+              borderRadius: 'var(--radius-xl)',
+              border: '1px solid var(--color-outline-variant)',
+              overflow: 'hidden',
+              transition: 'box-shadow var(--transition-base)',
+              cursor: 'default',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
           >
-            {/* Image with lazy loading */}
-            <div className="aspect-square bg-slate-100 relative">
+            {/* Image */}
+            <div style={{
+              aspectRatio: '1',
+              backgroundColor: 'var(--color-surface-dim)',
+              position: 'relative',
+            }}>
               {product.image_url ? (
                 <img
                   src={product.image_url}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <Package className="w-12 h-12 text-slate-300" />
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Package style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)' }} />
                 </div>
               )}
               {product.stock < (product.low_stock_threshold || 10) && (
-                <span className="absolute top-2 right-2 px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded">
+                <span style={{
+                  position: 'absolute',
+                  top: 'var(--space-2)',
+                  right: 'var(--space-2)',
+                  padding: '2px var(--space-2)',
+                  backgroundColor: 'var(--color-warning)',
+                  color: 'var(--color-on-secondary)',
+                  fontFamily: 'var(--font-label)',
+                  fontSize: 'var(--text-label-sm)',
+                  fontWeight: '600',
+                  borderRadius: 'var(--radius-full)',
+                }}>
                   Stok Menipis
                 </span>
               )}
             </div>
 
             {/* Info */}
-            <div className="p-3">
-              <h3 className="font-medium text-slate-800 truncate" title={product.name}>
+            <div style={{ padding: 'var(--space-3)' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: '600',
+                color: 'var(--color-on-surface)',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }} title={product.name}>
                 {product.name}
               </h3>
-              <p className="text-lg font-bold text-teal-600 mt-1">
+              <p style={{
+                fontFamily: 'var(--font-heading)',
+                fontWeight: '700',
+                fontSize: 'var(--text-title-lg)',
+                color: 'var(--color-primary)',
+                marginTop: 'var(--space-1)',
+              }}>
                 {formatCurrency(product.price)}
               </p>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-sm text-slate-500">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--space-2)' }}>
+                <span style={{
+                  fontFamily: 'var(--font-label)',
+                  fontSize: 'var(--text-label-sm)',
+                  color: 'var(--color-outline)',
+                }}>
                   Stok: {product.stock}
                 </span>
-                <div className="flex gap-1">
+                <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
                   <button
                     onClick={() => openModal(product)}
-                    className="p-1.5 text-slate-500 hover:text-teal-600 hover:bg-slate-100 rounded"
                     title="Edit"
+                    style={{
+                      padding: 'var(--space-1)',
+                      color: 'var(--color-outline)',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      borderRadius: 'var(--radius-md)',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--color-primary)';
+                      e.currentTarget.style.backgroundColor = 'var(--color-primary-fixed)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--color-outline)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit style={{ width: '1rem', height: '1rem' }} />
                   </button>
                   <button
                     onClick={() => setDeleteConfirm(product.id)}
-                    className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded"
-                    title="Delete"
+                    title="Hapus"
+                    style={{
+                      padding: 'var(--space-1)',
+                      color: 'var(--color-outline)',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      borderRadius: 'var(--radius-md)',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--color-error)';
+                      e.currentTarget.style.backgroundColor = 'var(--color-error-container)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--color-outline)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 style={{ width: '1rem', height: '1rem' }} />
                   </button>
                 </div>
               </div>
               {product.barcode && (
-                <p className="text-xs text-slate-400 mt-1 truncate">
+                <p style={{
+                  fontFamily: 'var(--font-label)',
+                  fontSize: 'var(--text-label-sm)',
+                  color: 'var(--color-outline)',
+                  marginTop: 'var(--space-1)',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}>
                   Barcode: {product.barcode}
                 </p>
               )}
@@ -488,66 +627,116 @@ export default function ProductsClient({
       </div>
 
       {filteredProducts.length === 0 && (
-        <div className="text-center py-12">
-          <Package className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-          <p className="text-slate-500">Produk tidak ditemukan</p>
+        <div style={{ textAlign: 'center', paddingTop: 'var(--space-12)', paddingBottom: 'var(--space-12)' }}>
+          <Package style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-4)' }} />
+          <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Produk tidak ditemukan</p>
         </div>
       )}
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-6">
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          gap: 'var(--space-2)',
+          marginTop: 'var(--space-6)',
+        }}>
           <button
             onClick={() => handlePageChange(pagination.page - 1)}
             disabled={pagination.page <= 1}
-            className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              padding: 'var(--space-2)',
+              borderRadius: 'var(--radius-lg)',
+              border: '1px solid var(--color-outline-variant)',
+              backgroundColor: 'transparent',
+              cursor: pagination.page <= 1 ? 'not-allowed' : 'pointer',
+              opacity: pagination.page <= 1 ? '0.4' : '1',
+              color: 'var(--color-on-surface-variant)',
+            }}
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft style={{ width: '1.25rem', height: '1.25rem' }} />
           </button>
-          <span className="text-sm text-slate-600">
+          <span style={{
+            fontFamily: 'var(--font-label)',
+            fontSize: 'var(--text-label-sm)',
+            color: 'var(--color-on-surface-variant)',
+          }}>
             Halaman {pagination.page} dari {pagination.totalPages}
           </span>
           <button
             onClick={() => handlePageChange(pagination.page + 1)}
             disabled={pagination.page >= pagination.totalPages}
-            className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              padding: 'var(--space-2)',
+              borderRadius: 'var(--radius-lg)',
+              border: '1px solid var(--color-outline-variant)',
+              backgroundColor: 'transparent',
+              cursor: pagination.page >= pagination.totalPages ? 'not-allowed' : 'pointer',
+              opacity: pagination.page >= pagination.totalPages ? '0.4' : '1',
+              color: 'var(--color-on-surface-variant)',
+            }}
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight style={{ width: '1.25rem', height: '1.25rem' }} />
           </button>
         </div>
       )}
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-slate-100">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-800">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '32rem',
+            maxHeight: '90dvh', overflowY: 'auto',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                   {editingProduct ? 'Edit Produk' : 'Tambah Produk'}
                 </h2>
                 <button
                   onClick={closeModal}
-                  className="p-2 hover:bg-slate-100 rounded-lg"
+                  style={{
+                    padding: 'var(--space-2)',
+                    borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    color: 'var(--color-outline)',
+                  }}
                 >
-                  <X className="w-5 h-5" />
+                  <X style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               {/* Image Upload */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Foto Produk
                 </label>
-                <div className="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center hover:border-teal-400 transition cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{
+                    border: '2px dashed var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 'var(--space-4)',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'border-color var(--transition-base)',
+                    backgroundColor: 'var(--color-surface-container)',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; }}
+                >
                   {formData.image_url ? (
-                    <div className="relative inline-block">
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
                       <img
                         src={formData.image_url}
                         alt="Preview"
-                        className="w-32 h-32 object-cover rounded-lg mx-auto"
+                        style={{ width: '8rem', height: '8rem', objectFit: 'cover', borderRadius: 'var(--radius-lg)', margin: '0 auto' }}
                       />
                       <button
                         type="button"
@@ -555,16 +744,26 @@ export default function ProductsClient({
                           e.stopPropagation();
                           setFormData({ ...formData, image_url: '', imageFile: null });
                         }}
-                        className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full"
+                        style={{
+                          position: 'absolute',
+                          top: '-0.5rem',
+                          right: '-0.5rem',
+                          padding: 'var(--space-1)',
+                          backgroundColor: 'var(--color-error)',
+                          color: 'var(--color-on-error)',
+                          border: 'none',
+                          borderRadius: 'var(--radius-full)',
+                          cursor: 'pointer',
+                        }}
                       >
-                        <X className="w-3 h-3" />
+                        <X style={{ width: '0.75rem', height: '0.75rem' }} />
                       </button>
                     </div>
                   ) : (
-                    <div className="py-4">
-                      <Upload className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-                      <p className="text-sm text-slate-500">Klik untuk unggah foto</p>
-                      <p className="text-xs text-slate-400">JPG, PNG, WebP (maks 2MB)</p>
+                    <div style={{ paddingTop: 'var(--space-4)', paddingBottom: 'var(--space-4)' }}>
+                      <Upload style={{ width: '2rem', height: '2rem', color: 'var(--color-outline)', margin: '0 auto var(--space-2)' }} />
+                      <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)' }}>Klik untuk unggah foto</p>
+                      <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>JPG, PNG, WebP (maks 2MB)</p>
                     </div>
                   )}
                 </div>
@@ -573,104 +772,158 @@ export default function ProductsClient({
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
                   onChange={handleImageSelect}
-                  className="hidden"
+                  style={{ display: 'none' }}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Nama Produk *
                 </label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'var(--text-body-md)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--space-4)' }} className="grid-cols-1 md:grid-cols-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Harga Modal *
                   </label>
                   <input
                     type="number"
                     value={formData.cost_price}
-                    onChange={(e) =>
-                      setFormData({ ...formData, cost_price: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    required
-                    min="0"
-                    step="100"
-                    placeholder="0"
+                    onChange={(e) => setFormData({ ...formData, cost_price: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    required min="0" step="100" placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Harga Jual *
                   </label>
                   <input
                     type="number"
                     value={formData.price}
-                    onChange={(e) =>
-                      setFormData({ ...formData, price: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    required
-                    min="0"
-                    step="100"
-                    placeholder="0"
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    required min="0" step="100" placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Stok *
                   </label>
                   <input
                     type="number"
                     value={formData.stock}
-                    onChange={(e) =>
-                      setFormData({ ...formData, stock: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    required
-                    min="0"
-                    placeholder="0"
+                    onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    required min="0" placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Batas Stok Rendah
                   </label>
                   <input
                     type="number"
                     value={formData.low_stock_threshold}
-                    onChange={(e) =>
-                      setFormData({ ...formData, low_stock_threshold: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
-                    min="0"
-                    placeholder="10"
+                    onChange={(e) => setFormData({ ...formData, low_stock_threshold: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
+                    min="0" placeholder="10"
                   />
-                  <p className="text-xs text-slate-400 mt-1">Akan muncul tanda "Stok Menipis" jika stok di bawah angka ini</p>
+                  <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>
+                    Tanda "Stok Menipis" jika di bawah angka ini
+                  </p>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                   Kategori
                 </label>
                 <select
                   value={formData.category_id}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category_id: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                  onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'var(--text-body-md)',
+                    cursor: 'pointer',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; }}
                 >
                   <option value="">Pilih Kategori</option>
                   {(categories ?? []).map((cat) => (
@@ -681,103 +934,183 @@ export default function ProductsClient({
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
                 <div>
-                  <label className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     Barcode
                     <button
                       type="button"
                       onClick={handleGenerateBarcode}
-                      className="p-1 text-teal-600 hover:bg-teal-50 rounded"
                       title="Buat barcode otomatis"
+                      style={{
+                        padding: 'var(--space-1)',
+                        color: 'var(--color-primary)',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: 'var(--radius-md)',
+                        cursor: 'pointer',
+                      }}
                     >
-                      <Barcode className="w-4 h-4" />
+                      <Barcode style={{ width: '1rem', height: '1rem' }} />
                     </button>
                   </label>
                   <input
                     type="text"
                     value={formData.barcode}
-                    onChange={(e) =>
-                      setFormData({ ...formData, barcode: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                    onChange={(e) => setFormData({ ...formData, barcode: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                     placeholder="Ketik atau buat otomatis"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>
                     SKU
                     <button
                       type="button"
                       onClick={handleGenerateSKU}
-                      className="p-1 text-teal-600 hover:bg-teal-50 rounded"
                       title="Buat SKU otomatis"
+                      style={{
+                        padding: 'var(--space-1)',
+                        color: 'var(--color-primary)',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: 'var(--radius-md)',
+                        cursor: 'pointer',
+                      }}
                     >
-                      <Plus className="w-4 h-4" />
+                      <Plus style={{ width: '1rem', height: '1rem' }} />
                     </button>
                   </label>
                   <input
                     type="text"
                     value={formData.sku}
-                    onChange={(e) =>
-                      setFormData({ ...formData, sku: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 outline-none"
+                    onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 'var(--text-body-md)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                     placeholder="Ketik atau buat otomatis"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', paddingTop: 'var(--space-4)' }}>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={loading || uploadingImage}
-                  className="flex-1 px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    backgroundColor: (loading || uploadingImage) ? 'var(--color-surface-container)' : 'var(--color-primary)',
+                    color: (loading || uploadingImage) ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: (loading || uploadingImage) ? 'not-allowed' : 'pointer',
+                  }}
                 >
-                  {(loading || uploadingImage) && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {(loading || uploadingImage) && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
                   {uploadingImage ? 'Mengunggah...' : editingProduct ? 'Simpan' : 'Buat Baru'}
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
 
       {/* Delete Confirmation */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-sm p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-red-100 rounded-full">
-                <Trash2 className="w-5 h-5 text-red-600" />
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '24rem',
+            padding: 'var(--space-6)',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+              <div style={{ padding: 'var(--space-2)', backgroundColor: 'var(--color-error-container)', borderRadius: 'var(--radius-full)' }}>
+                <Trash2 style={{ width: '1.25rem', height: '1.25rem', color: 'var(--color-error)' }} />
               </div>
-              <h3 className="text-lg font-semibold text-slate-800">
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                 Hapus Produk?
               </h3>
             </div>
-            <p className="text-slate-500 mb-6">
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)', color: 'var(--color-outline)', marginBottom: 'var(--space-6)' }}>
               Tindakan ini tidak bisa dibatalkan. Ini akan menghapus data produk secara permanen.
             </p>
-            <div className="flex gap-3">
+            <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  border: '1px solid var(--color-outline-variant)',
+                  color: 'var(--color-on-surface-variant)',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: 'pointer',
+                  backgroundColor: 'transparent',
+                }}
               >
                 Batal
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
                 disabled={loading}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  backgroundColor: loading ? 'var(--color-surface-container)' : 'var(--color-error)',
+                  color: loading ? 'var(--color-outline)' : 'var(--color-on-error)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? '0.5' : '1',
+                }}
               >
-                {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+                {loading && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
                 Hapus
               </button>
             </div>

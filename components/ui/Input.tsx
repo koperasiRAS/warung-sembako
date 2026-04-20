@@ -5,25 +5,57 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 
 export function Input({ label, error, className = '', ...props }: InputProps) {
   return (
-    <div className="w-full">
+    <div style={{ width: '100%' }}>
       {label && (
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
+        <label style={{
+          display: 'block',
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--text-body-sm)',
+          fontWeight: '500',
+          color: 'var(--color-on-surface-variant)',
+          marginBottom: 'var(--space-2)',
+        }}>
           {label}
         </label>
       )}
       <input
-        className={`
-          w-full px-3.5 py-2.5 bg-white border rounded-lg text-slate-900
-          placeholder:text-slate-400
-          focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20
-          disabled:bg-slate-50 disabled:text-slate-500 disabled:cursor-not-allowed
-          ${error ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-slate-300'}
-          ${className}
-        `}
+        className={className}
+        style={{
+          width: '100%',
+          padding: 'var(--input-padding-y) var(--input-padding-x)',
+          backgroundColor: props.disabled
+            ? 'var(--color-surface-container)'
+            : 'var(--color-surface-container-high)',
+          color: props.disabled ? 'var(--color-outline)' : 'var(--color-on-surface)',
+          border: `1.5px solid ${error ? 'var(--color-error)' : 'var(--color-outline-variant)'}`,
+          borderRadius: 'var(--radius-lg)',
+          outline: 'none',
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--text-body-md)',
+          transition: 'border-color var(--transition-fast)',
+          cursor: props.disabled ? 'not-allowed' : 'text',
+        }}
+        onFocus={(e) => {
+          if (!props.disabled) {
+            e.currentTarget.style.borderColor = error ? 'var(--color-error)' : 'var(--color-primary)';
+            e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)';
+          }
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.borderColor = error ? 'var(--color-error)' : 'var(--color-outline-variant)';
+          e.currentTarget.style.backgroundColor = props.disabled ? 'var(--color-surface-container)' : 'var(--color-surface-container-high)';
+        }}
         {...props}
       />
       {error && (
-        <p className="mt-1.5 text-sm text-red-600">{error}</p>
+        <p style={{
+          marginTop: 'var(--space-2)',
+          fontFamily: 'var(--font-label)',
+          fontSize: 'var(--text-label-sm)',
+          color: 'var(--color-error)',
+        }}>
+          {error}
+        </p>
       )}
     </div>
   );

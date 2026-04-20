@@ -1,0 +1,240 @@
+/**
+ * Design Tokens — Modern Sembako POS Redesign
+ * Source: Stitch Project "Modern Sembako POS Redesign"
+ * Project ID: 16617419399244904275
+ * Theme: "The Luminous Pantry" — Premium, airy, tonal-layered
+ */
+
+/* ─── Google Fonts ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* ─── Color Palette ───────────────────────────────────────────────── */
+:root {
+  /* Primary */
+  --color-primary: #35299d;
+  --color-primary-container: #4d44b5;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #c8c4ff;
+  --color-primary-fixed: #e3dfff;
+  --color-primary-fixed-dim: #c5c0ff;
+
+  /* Secondary */
+  --color-secondary: #a32299;
+  --color-secondary-container: #fd74ea;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #73006c;
+  --color-secondary-fixed: #ffd7f3;
+  --color-secondary-fixed-dim: #ffabed;
+
+  /* Tertiary */
+  --color-tertiary: #004922;
+  --color-tertiary-container: #006331;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #4fe587;
+  --color-tertiary-fixed: #6bfe9c;
+  --color-tertiary-fixed-dim: #4ae183;
+
+  /* Semantic / Status */
+  --color-success: #2ecc71;
+  --color-success-container: #006331;
+  --color-on-success: #ffffff;
+  --color-on-success-container: #4fe587;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  /* Surface — Light mode base */
+  --color-background: #fcf8ff;
+  --color-surface: #fcf8ff;
+  --color-surface-bright: #fcf8ff;
+  --color-surface-dim: #dad7f6;
+  --color-surface-tint: #574ebf;
+  --color-surface-variant: #e3dffe;
+  --color-surface-container: #efebff;
+  --color-surface-container-low: #f6f2ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-high: #e9e5ff;
+  --color-surface-container-highest: #e3dffe;
+
+  /* On Surface */
+  --color-on-background: #1a1930;
+  --color-on-surface: #1a1930;
+  --color-on-surface-variant: #474553;
+
+  /* Outline */
+  --color-outline: #787584;
+  --color-outline-variant: #c8c4d5;
+
+  /* Inverse */
+  --color-inverse-surface: #2f2e46;
+  --color-inverse-on-surface: #f2eeff;
+  --color-inverse-primary: #c5c0ff;
+
+  /* Brand Override (accent) */
+  --color-brand: #4d44b5;
+  --color-brand-secondary: #ea64d9;
+  --color-brand-tertiary: #2ecc71;
+  --color-brand-neutral: #0d0c22;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────── */
+:root {
+  /* Font families */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-label: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font sizes — fluid scale */
+  --text-display-lg: clamp(2.5rem, 5vw + 1rem, 4rem);    /* ~64px */
+  --text-display-md: clamp(2rem, 4vw + 0.5rem, 3rem);    /* ~48px */
+  --text-display-sm: clamp(1.5rem, 3vw, 2.25rem);        /* ~36px */
+  --text-headline-lg: clamp(1.75rem, 3vw + 0.5rem, 2.5rem); /* ~40px */
+  --text-headline-md: clamp(1.25rem, 2vw + 0.25rem, 1.75rem); /* ~28px */
+  --text-headline-sm: 1.25rem;                           /* 20px */
+  --text-title-lg: 1.125rem;                             /* 18px */
+  --text-title-md: 1rem;                                  /* 16px */
+  --text-title-sm: 0.875rem;                              /* 14px */
+  --text-body-lg: 1rem;                                    /* 16px */
+  --text-body-md: 0.875rem;                               /* 14px */
+  --text-body-sm: 0.8125rem;                              /* 13px */
+  --text-label-lg: 0.875rem;                              /* 14px */
+  --text-label-md: 0.75rem;                               /* 12px */
+  --text-label-sm: 0.6875rem;                             /* 11px */
+
+  /* Line heights */
+  --leading-display: 1.1;
+  --leading-heading: 1.2;
+  --leading-title: 1.35;
+  --leading-body: 1.5;
+  --leading-label: 1.4;
+
+  /* Letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.06em;
+  --tracking-widest: 0.1em;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+}
+
+/* ─── Spacing Scale (base 4px, scale: x2) ───────────────────────── */
+:root {
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+}
+
+/* ─── Border Radius (roundness: ROUND_FULL) ──────────────────────── */
+:root {
+  --radius-none: 0;
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.75rem;     /* 12px */
+  --radius-lg: 1rem;        /* 16px */
+  --radius-xl: 1.5rem;      /* 24px */
+  --radius-2xl: 2rem;       /* 32px */
+  --radius-3xl: 3rem;       /* 48px */
+  --radius-full: 9999px;
+}
+
+/* ─── Shadows / Elevation ────────────────────────────────────────── */
+:root {
+  /* Ambient tinted shadows — use on_surface tint, not pure black */
+  --shadow-xs: 0 1px 2px rgba(26, 25, 48, 0.04);
+  --shadow-sm: 0 2px 4px rgba(26, 25, 48, 0.05);
+  --shadow-md: 0 4px 8px rgba(26, 25, 48, 0.05), 0 1px 2px rgba(26, 25, 48, 0.04);
+  --shadow-lg: 0 8px 16px rgba(26, 25, 48, 0.05), 0 2px 4px rgba(26, 25, 48, 0.04);
+  --shadow-xl: 0 16px 32px rgba(26, 25, 48, 0.06), 0 4px 8px rgba(26, 25, 48, 0.04);
+  --shadow-2xl: 0 24px 48px rgba(26, 25, 48, 0.06), 0 8px 16px rgba(26, 25, 48, 0.04);
+  --shadow-inner: inset 0 1px 2px rgba(26, 25, 48, 0.06);
+
+  /* Floating / Glassmorphic */
+  --shadow-glass: 0 8px 32px rgba(26, 25, 48, 0.08), 0 2px 8px rgba(26, 25, 48, 0.04);
+  --shadow-overlay: 0 24px 64px rgba(26, 25, 48, 0.12), 0 8px 24px rgba(26, 25, 48, 0.08);
+}
+
+/* ─── Transitions ─────────────────────────────────────────────────── */
+:root {
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Z-Index Scale ───────────────────────────────────────────────── */
+:root {
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+/* ─── Component Tokens ────────────────────────────────────────────── */
+
+/* Buttons */
+:root {
+  --btn-font-family: var(--font-label);
+  --btn-font-weight: var(--font-weight-semibold);
+  --btn-letter-spacing: var(--tracking-wide);
+  --btn-radius: var(--radius-full);
+  --btn-padding-y: 0.625rem;   /* 10px */
+  --btn-padding-x: 1.25rem;    /* 20px */
+  --btn-padding-sm: 0.5rem 1rem;
+  --btn-padding-lg: 0.875rem 1.75rem;
+
+  /* Primary button gradient */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+  --gradient-primary-hover: linear-gradient(135deg, var(--color-primary-container) 0%, var(--color-primary) 100%);
+}
+
+/* Cards */
+:root {
+  --card-radius: var(--radius-xl);
+  --card-padding: var(--space-6);
+  --card-bg: var(--color-surface-container-lowest);
+  --card-shadow: var(--shadow-sm);
+}
+
+/* Inputs */
+:root {
+  --input-radius: var(--radius-lg);
+  --input-padding-y: 0.625rem;
+  --input-padding-x: 0.875rem;
+  --input-bg: var(--color-surface-container-high);
+  --input-focus-bg: var(--color-surface-container-lowest);
+  --input-border: transparent;
+  --input-focus-border: rgba(53, 41, 157, 0.2); /* primary at 20% */
+  --input-border-width: 1.5px;
+}
+
+/* ─── Dark Mode (if needed later) ─────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Reserved for dark mode tokens */
+  }
+}

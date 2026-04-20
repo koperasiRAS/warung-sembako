@@ -65,93 +65,142 @@ export default function TransactionsClient({
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Transaksi</h1>
-          <p className="text-slate-500 mt-1">
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)',
+          }}>
+            Transaksi
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Lihat dan kelola riwayat transaksi
           </p>
         </div>
       </div>
 
       {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+      <div style={{ position: 'relative', marginBottom: 'var(--space-6)' }}>
+        <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: 'var(--color-outline)' }} />
         <input
           type="text"
           placeholder="Cari berdasarkan ID Transaksi..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+          style={{
+            width: '100%',
+            paddingLeft: '2.5rem',
+            paddingRight: 'var(--space-4)',
+            paddingTop: 'var(--space-2)',
+            paddingBottom: 'var(--space-2)',
+            border: '1.5px solid var(--color-outline-variant)',
+            borderRadius: 'var(--radius-lg)',
+            outline: 'none',
+            backgroundColor: 'var(--color-surface-container-high)',
+            color: 'var(--color-on-surface)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+          }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
         />
       </div>
 
       {/* Summary */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
-        <p className="text-sm text-slate-500">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        padding: 'var(--space-4)',
+        border: '1px solid var(--color-outline-variant)',
+        marginBottom: 'var(--space-6)',
+      }}>
+        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
           Menampilkan {transactions.length} dari {total} transaksi
         </p>
       </div>
 
       {/* Transactions List */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%' }}>
+            <thead style={{ backgroundColor: 'var(--color-surface-container)', borderBottom: '1px solid var(--color-outline-variant)' }}>
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Tanggal
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  ID Transaksi
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Kasir
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Total
-                </th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-slate-600">
-                  Pembayaran
-                </th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-slate-600">
-                  Aksi
-                </th>
+                {['Tanggal', 'ID Transaksi', 'Kasir', 'Total', 'Pembayaran', 'Aksi'].map((header) => (
+                  <th key={header} style={{
+                    padding: 'var(--space-3) var(--space-4)',
+                    textAlign: 'left',
+                    fontFamily: 'var(--font-label)',
+                    fontSize: 'var(--text-label-sm)',
+                    fontWeight: '600',
+                    color: 'var(--color-on-surface-variant)',
+                    letterSpacing: 'var(--tracking-wide)',
+                  }}>
+                    {header}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody>
               {(filteredTransactions ?? []).map((transaction) => (
                 <tr
                   key={transaction.id}
-                  className="hover:bg-slate-50"
+                  style={{ borderBottom: '1px solid var(--color-outline-variant)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
                 >
-                  <td className="px-4 py-3 text-sm text-slate-600">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
                     {formatDate(transaction.created_at)}
                   </td>
-                  <td className="px-4 py-3 text-sm font-mono text-slate-800">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-mono)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface)' }}>
                     {transaction.id.slice(0, 8)}...
                   </td>
-                  <td className="px-4 py-3 text-sm text-slate-800">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface)' }}>
                     {transaction.cashier?.full_name || 'Tidak diketahui'}
                   </td>
-                  <td className="px-4 py-3 text-sm font-semibold text-slate-800">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface)' }}>
                     {formatCurrency(transaction.total)}
                   </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`px-2 py-1 text-xs font-medium rounded ${getPaymentMethodColor(
-                        transaction.payment_method
-                      )}`}
-                    >
+                  <td style={{ padding: 'var(--space-3) var(--space-4)' }}>
+                    <span style={{
+                      padding: 'var(--space-1) var(--space-2)',
+                      borderRadius: 'var(--radius-full)',
+                      fontFamily: 'var(--font-label)',
+                      fontSize: 'var(--text-label-sm)',
+                      fontWeight: '600',
+                      backgroundColor: transaction.payment_method === 'cash' ? 'var(--color-tertiary-fixed)' : (transaction.payment_method === 'qris' ? 'var(--color-bank-fixed)' : 'var(--color-secondary-fixed)'),
+                      color: transaction.payment_method === 'cash' ? 'var(--color-tertiary)' : (transaction.payment_method === 'qris' ? 'var(--color-bank)' : 'var(--color-secondary)'),
+                    }}>
                       {getPaymentMethodLabel(transaction.payment_method)}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td style={{ padding: 'var(--space-3) var(--space-4)', textAlign: 'right' }}>
                     <Link
                       href={`/transactions/${transaction.id}`}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-primary hover:bg-primary/10 rounded-lg transition"
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)',
+                        padding: 'var(--space-1) var(--space-3)',
+                        fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                        fontWeight: '600',
+                        color: 'var(--color-primary)',
+                        backgroundColor: 'transparent',
+                        borderRadius: 'var(--radius-lg)',
+                        transition: 'background-color var(--transition-fast)',
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-fixed)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
                     >
                       <Eye className="w-4 h-4" />
                       Detail
@@ -164,34 +213,55 @@ export default function TransactionsClient({
         </div>
 
         {filteredTransactions.length === 0 && (
-          <div className="p-12 text-center">
-            <Receipt className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-500">Transaksi tidak ditemukan</p>
+          <div style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+            <Receipt style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-4)' }} />
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Transaksi tidak ditemukan</p>
           </div>
         )}
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-6">
-          <p className="text-sm text-slate-500">
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          marginTop: 'var(--space-6)',
+        }}>
+          <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
             Halaman {currentPage} dari {totalPages}
           </p>
-          <div className="flex gap-2">
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             {currentPage > 1 && (
               <Link
                 href={`/transactions?page=${currentPage - 1}`}
-                className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition"
+                style={{
+                  display: 'flex', alignItems: 'center',
+                  padding: 'var(--space-2) var(--space-3)',
+                  border: '1px solid var(--color-outline-variant)',
+                  borderRadius: 'var(--radius-md)',
+                  fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                  color: 'var(--color-on-surface-variant)',
+                  backgroundColor: 'transparent',
+                  transition: 'background-color var(--transition-fast)',
+                }}
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft style={{ width: '1rem', height: '1rem' }} />
               </Link>
             )}
             {currentPage < totalPages && (
               <Link
                 href={`/transactions?page=${currentPage + 1}`}
-                className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition"
+                style={{
+                  display: 'flex', alignItems: 'center',
+                  padding: 'var(--space-2) var(--space-3)',
+                  border: '1px solid var(--color-outline-variant)',
+                  borderRadius: 'var(--radius-md)',
+                  fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                  color: 'var(--color-on-surface-variant)',
+                  backgroundColor: 'transparent',
+                  transition: 'background-color var(--transition-fast)',
+                }}
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight style={{ width: '1rem', height: '1rem' }} />
               </Link>
             )}
           </div>

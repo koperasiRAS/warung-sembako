@@ -11,16 +11,16 @@ export default async function POSLayout({
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const profile = await getProfile(user.id);
 
   return (
     <Providers>
-      <div className="min-h-screen bg-slate-50 flex">
+      <div style={{ minHeight: '100dvh', display: 'flex', backgroundColor: 'var(--color-background)' }}>
         <Sidebar role={profile?.role} />
-        <main className="flex-1 lg:ml-64 min-h-screen w-full">
+        <main style={{ flex: 1, marginLeft: '0', minHeight: '100dvh', width: '100%' }} className="lg:ml-64">
           {children}
         </main>
       </div>

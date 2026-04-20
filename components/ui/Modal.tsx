@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { X } from 'lucide-react';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -9,6 +10,12 @@ export interface ModalProps {
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
 }
+
+const sizeMap = {
+  sm: '24rem',
+  md: '28rem',
+  lg: '32rem',
+};
 
 export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
   useEffect(() => {
@@ -24,37 +31,68 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
 
   if (!isOpen) return null;
 
-  const sizeStyles = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg'
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div style={{ position: 'fixed', inset: '0', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        style={{
+          position: 'absolute',
+          inset: '0',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(4px)',
+        }}
         onClick={onClose}
       />
-      <div className={`
-        relative w-full ${sizeStyles[size]} bg-white rounded-xl shadow-xl
-        animate-in fade-in zoom-in-95 duration-200
-      `}>
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        maxWidth: sizeMap[size],
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        boxShadow: 'var(--shadow-overlay)',
+        overflow: 'hidden',
+        animation: 'fadeIn 200ms ease',
+      }}>
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: 'var(--space-4) var(--space-6)',
+            borderBottom: '1px solid var(--color-outline-variant)',
+          }}>
+            <h3 style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'var(--text-title-lg)',
+              fontWeight: '600',
+              color: 'var(--color-on-surface)',
+            }}>
+              {title}
+            </h3>
             <button
               onClick={onClose}
-              className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+              style={{
+                padding: 'var(--space-1)',
+                color: 'var(--color-outline)',
+                backgroundColor: 'transparent',
+                border: 'none',
+                borderRadius: 'var(--radius-md)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-fast)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--color-surface-container)';
+                e.currentTarget.style.color = 'var(--color-on-surface-variant)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = 'var(--color-outline)';
+              }}
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <X style={{ width: '1.25rem', height: '1.25rem' }} />
             </button>
           </div>
         )}
-        <div className="p-6">{children}</div>
+        <div style={{ padding: 'var(--space-6)' }}>{children}</div>
       </div>
+      <style>{`@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
     </div>
   );
 }

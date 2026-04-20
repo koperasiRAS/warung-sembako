@@ -86,86 +86,116 @@ export default function CashiersClient({ initialCashiers }: { initialCashiers: a
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+      }} className="sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800">Manajemen Kasir</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)', letterSpacing: 'var(--tracking-tight)',
+          }}>
+            Manajemen Kasir
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Kelola akun kasir melalui Supabase Dashboard untuk akses ke sistem POS
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', fontSize: 'var(--text-body-sm)' }}>
+            <thead style={{
+              fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)',
+              fontWeight: '600', textTransform: 'uppercase',
+              color: 'var(--color-on-surface-variant)',
+              backgroundColor: 'var(--color-surface-container)',
+              borderBottom: '1px solid var(--color-outline-variant)',
+            }}>
               <tr>
-                <th className="px-6 py-4 font-medium">Nama Kasir</th>
-                <th className="px-6 py-4 font-medium">Email / Login</th>
-                <th className="px-6 py-4 font-medium">Status Akun</th>
-                <th className="px-6 py-4 font-medium">Bergabung Pada</th>
-                <th className="px-6 py-4 font-medium text-right">Aksi</th>
+                {['Nama Kasir', 'Email / Login', 'Status Akun', 'Bergabung Pada', 'Aksi'].map((h) => (
+                  <th key={h} style={{
+                    padding: 'var(--space-4)',
+                    textAlign: h.includes('Aksi') ? 'right' : 'left',
+                  }}>
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody>
               {cashiers.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
-                    <Users className="w-12 h-12 mx-auto mb-3 text-slate-300" />
-                    <p className="font-medium text-slate-600">Belum ada kasir</p>
-                    <p className="text-sm mt-1">Tambahkan akun kasir melalui dashboard otentikasi Supabase.</p>
+                  <td colSpan={5} style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+                    <Users style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-3)' }} />
+                    <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface-variant)' }}>Belum ada kasir</p>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>Tambahkan akun kasir melalui dashboard otentikasi Supabase.</p>
                   </td>
                 </tr>
               ) : (
                 cashiers.map((cashier) => (
-                  <tr key={cashier.id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold">
+                  <tr key={cashier.id} style={{ borderBottom: '1px solid var(--color-outline-variant)', transition: 'background-color var(--transition-fast)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                  >
+                    <td style={{ padding: 'var(--space-4)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                        <div style={{
+                          width: '2rem', height: '2rem', borderRadius: 'var(--radius-full)',
+                          backgroundColor: 'var(--color-tertiary-fixed)', color: 'var(--color-tertiary)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontFamily: 'var(--font-heading)', fontWeight: '700',
+                          fontSize: 'var(--text-body-sm)',
+                        }}>
                           {(cashier.full_name || 'K')[0].toUpperCase()}
                         </div>
-                        <span className="font-medium text-slate-800">
+                        <span style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                           {cashier.full_name || cashier.email.split('@')[0]}
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <Mail className="w-4 h-4" />
+                    <td style={{ padding: 'var(--space-4)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        <Mail style={{ width: '1rem', height: '1rem' }} />
                         {cashier.email}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-                         <BadgeCheck className="w-3.5 h-3.5" /> Aktif
-                       </span>
+                    <td style={{ padding: 'var(--space-4)' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)', fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600', backgroundColor: 'var(--color-tertiary-fixed)', color: 'var(--color-tertiary)' }}>
+                        <BadgeCheck style={{ width: '0.875rem', height: '0.875rem' }} /> Aktif
+                      </span>
                     </td>
-                    <td className="px-6 py-4 text-slate-500">
+                    <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)' }}>
                       {formatDate(cashier.created_at)}
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td style={{ padding: 'var(--space-4)', textAlign: 'right' }}>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--space-1)' }}>
                         <button
-                          onClick={() => {
-                            setIsEditing(cashier);
-                            setEditFormData({ fullName: cashier.full_name || '', password: '' });
-                            setError('');
-                          }}
-                          className="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition"
+                          onClick={() => { setIsEditing(cashier); setEditFormData({ fullName: cashier.full_name || '', password: '' }); setError(''); }}
                           title="Edit Kasir"
+                          style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer', transition: 'all var(--transition-fast)' }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-primary-fixed)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-outline)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
                         >
-                          <Pencil className="w-4 h-4" />
+                          <Pencil style={{ width: '1rem', height: '1rem' }} />
                         </button>
                         <button
-                          onClick={() => {
-                            setIsDeleting(cashier);
-                            setError('');
-                          }}
-                          className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                          onClick={() => { setIsDeleting(cashier); setError(''); }}
                           title="Hapus Kasir"
+                          style={{ padding: 'var(--space-2)', color: 'var(--color-outline)', backgroundColor: 'transparent', border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer', transition: 'all var(--transition-fast)' }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-error)'; e.currentTarget.style.backgroundColor = 'var(--color-error-container)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-outline)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 style={{ width: '1rem', height: '1rem' }} />
                         </button>
                       </div>
                     </td>
@@ -179,105 +209,183 @@ export default function CashiersClient({ initialCashiers }: { initialCashiers: a
 
       {/* Edit Cashier Modal */}
       {isEditing && (
-        <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-              <h2 className="text-lg font-bold text-slate-800">Edit Akun Kasir</h2>
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(30,27,75,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '28rem',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-overlay)',
+            animation: 'fadeIn 200ms ease',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-on-surface)' }}>Edit Akun Kasir</h2>
             </div>
-            
-            <form onSubmit={handleEditCashier} className="p-6">
+
+            <form onSubmit={handleEditCashier} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               {error && (
-                <div className="mb-6 p-3 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm flex items-center gap-2">
-                  <ShieldAlert className="w-4 h-4" />
+                <div style={{ padding: 'var(--space-3)', backgroundColor: 'var(--color-error-container)', color: 'var(--color-error)', border: '1px solid var(--color-error)', borderRadius: 'var(--radius-lg)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <ShieldAlert style={{ width: '1rem', height: '1rem' }} />
                   {error}
                 </div>
               )}
 
-              <div className="space-y-4">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>Nama Lengkap</label>
                   <input
                     type="text"
                     required
                     value={editFormData.fullName}
                     onChange={(e) => setEditFormData({...editFormData, fullName: e.target.value})}
-                    className="w-full px-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-sm)',
+                      transition: 'border-color var(--transition-fast)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Password Baru (Opsional)</label>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', fontWeight: '500', color: 'var(--color-on-surface-variant)', marginBottom: 'var(--space-2)' }}>Password Baru (Opsional)</label>
                   <input
                     type="password"
                     minLength={6}
                     value={editFormData.password}
                     onChange={(e) => setEditFormData({...editFormData, password: e.target.value})}
-                    className="w-full px-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-2) var(--space-4)',
+                      border: '1.5px solid var(--color-outline-variant)',
+                      borderRadius: 'var(--radius-lg)',
+                      outline: 'none',
+                      backgroundColor: 'var(--color-surface-container-high)',
+                      color: 'var(--color-on-surface)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 'var(--text-body-sm)',
+                      transition: 'border-color var(--transition-fast)',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                     placeholder="Kosongkan jika tidak ingin mengubah password"
                   />
                 </div>
               </div>
 
-              <div className="mt-8 flex gap-3 flex-row-reverse">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-6)', flexDirection: 'row-reverse' }}>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-primary text-white px-4 py-2.5 rounded-lg hover:bg-primary-dark transition font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+                  style={{
+                    flex: 1,
+                    padding: 'calc(var(--space-2) + 2px) var(--space-4)',
+                    backgroundColor: isSubmitting ? 'var(--color-surface-container)' : 'var(--color-primary)',
+                    color: isSubmitting ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  }}
                 >
-                  {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Simpan Perubahan'}
+                  {isSubmitting && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
+                  Simpan Perubahan
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsEditing(null)}
                   disabled={isSubmitting}
-                  className="flex-1 border border-slate-300 text-slate-700 px-4 py-2.5 rounded-lg hover:bg-slate-50 transition font-medium"
+                  style={{
+                    flex: 1,
+                    padding: 'calc(var(--space-2) + 2px) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } } @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
         </div>
       )}
 
       {/* Delete Confirmation Modal */}
       {isDeleting && (
-        <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="p-6 text-center">
-              <div className="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Trash2 className="w-8 h-8" />
-              </div>
-              <h2 className="text-xl font-bold text-slate-800 mb-2">Hapus Kasir?</h2>
-              <p className="text-sm text-slate-600 mb-6">
-                Anda yakin ingin menghapus akun kasir <span className="font-semibold text-slate-800">{isDeleting.full_name || isDeleting.email}</span>? Data tidak dapat dikembalikan.
-              </p>
-              
-              {error && (
-                <div className="mb-6 mx-auto p-3 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm flex items-center gap-2 text-left">
-                  <ShieldAlert className="w-4 h-4 shrink-0" />
-                  {error}
-                </div>
-              )}
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(30,27,75,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '24rem',
+            padding: 'var(--space-6)',
+            boxShadow: 'var(--shadow-overlay)',
+            animation: 'fadeIn 200ms ease',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '4rem', height: '4rem', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--color-error-container)', margin: '0 auto var(--space-4)' }}>
+              <Trash2 style={{ width: '2rem', height: '2rem', color: 'var(--color-error)' }} />
+            </div>
+            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-on-surface)', textAlign: 'center', marginBottom: 'var(--space-2)' }}>Hapus Kasir?</h2>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)', textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+              Anda yakin ingin menghapus akun kasir <span style={{ fontWeight: '600', color: 'var(--color-on-surface)' }}>{isDeleting.full_name || isDeleting.email}</span>? Data tidak dapat dikembalikan.
+            </p>
 
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setIsDeleting(null)}
-                  disabled={isSubmitting}
-                  className="flex-1 border border-slate-300 text-slate-700 px-4 py-2.5 rounded-lg hover:bg-slate-50 transition font-medium"
-                >
-                  Batal
-                </button>
-                <button
-                  onClick={handleDeleteCashier}
-                  disabled={isSubmitting}
-                  className="flex-1 bg-rose-600 text-white px-4 py-2.5 rounded-lg hover:bg-rose-700 transition font-medium flex items-center justify-center gap-2 disabled:opacity-50"
-                >
-                  {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Ya, Hapus'}
-                </button>
+            {error && (
+              <div style={{ padding: 'var(--space-3)', marginBottom: 'var(--space-6)', backgroundColor: 'var(--color-error-container)', color: 'var(--color-error)', border: '1px solid var(--color-error)', borderRadius: 'var(--radius-lg)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', display: 'flex', alignItems: 'flex-start', gap: 'var(--space-2)' }}>
+                <ShieldAlert style={{ width: '1rem', height: '1rem', flexShrink: '0', marginTop: '1px' }} />
+                {error}
               </div>
+            )}
+
+            <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+              <button
+                onClick={() => setIsDeleting(null)}
+                disabled={isSubmitting}
+                style={{
+                  flex: 1,
+                  padding: 'calc(var(--space-2) + 2px) var(--space-4)',
+                  border: '1px solid var(--color-outline-variant)',
+                  color: 'var(--color-on-surface-variant)',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: 'pointer', backgroundColor: 'transparent',
+                }}
+              >
+                Batal
+              </button>
+              <button
+                onClick={handleDeleteCashier}
+                disabled={isSubmitting}
+                style={{
+                  flex: 1,
+                  padding: 'calc(var(--space-2) + 2px) var(--space-4)',
+                  backgroundColor: isSubmitting ? 'var(--color-surface-container)' : 'var(--color-error)',
+                  color: 'var(--color-on-error)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {isSubmitting && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
+                Ya, Hapus
+              </button>
             </div>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } } @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
         </div>
       )}
     </div>

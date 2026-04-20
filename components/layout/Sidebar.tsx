@@ -101,7 +101,7 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.replace('/login');
+    router.replace('/pin');
   };
 
   return (
@@ -109,7 +109,20 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
       {/* Mobile menu button */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md"
+        style={{
+          display: 'none',
+          position: 'fixed',
+          top: 'var(--space-4)',
+          left: 'var(--space-4)',
+          zIndex: 'var(--z-sticky)',
+          padding: 'var(--space-2)',
+          backgroundColor: 'var(--color-surface-container-lowest)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+        className="lg:hidden"
       >
         {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
@@ -117,7 +130,16 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
       {/* Backdrop */}
       {mobileOpen && (
         <button
-          className="lg:hidden fixed inset-0 bg-black/50 z-40 cursor-default"
+          style={{
+            display: 'none',
+            position: 'fixed',
+            inset: '0',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 'var(--z-raised)',
+            cursor: 'default',
+            border: 'none',
+          }}
+          className="lg:hidden"
           onClick={() => setMobileOpen(false)}
           aria-label="Close menu"
         />
@@ -125,30 +147,65 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
 
       {/* Sidebar */}
       <aside
+        style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          height: '100dvh',
+          width: '16rem',
+          backgroundColor: 'var(--color-surface-container-lowest)',
+          borderRight: '1px solid var(--color-outline-variant)',
+          zIndex: 'var(--z-sticky)',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
         className={`
-          fixed top-0 left-0 h-[100dvh] w-64 bg-white border-r border-slate-200 z-50
           transform transition-transform duration-150 ease-out
           lg:translate-x-0
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        <div className="flex flex-col h-full overflow-hidden">
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
           {/* Logo + Clock */}
-          <div className="p-6 border-b border-slate-100 flex flex-col items-center justify-center">
+          <div style={{
+            padding: 'var(--space-6)',
+            borderBottom: '1px solid var(--color-outline-variant)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 'var(--space-2)',
+          }}>
             <img
               src="/logo-ras.png"
               alt="Warung Sembako by RAS"
-              className="h-14 sm:h-16 w-auto object-contain"
+              style={{ height: '3.5rem', width: 'auto', objectFit: 'contain' }}
             />
             {currentTime && (
-              <p className="text-center text-xs text-slate-400 mt-2 font-mono leading-relaxed">
+              <p style={{
+                textAlign: 'center',
+                fontSize: 'var(--text-label-sm)',
+                color: 'var(--color-outline)',
+                fontFamily: 'var(--font-mono)',
+                lineHeight: 'var(--leading-relaxed)',
+                marginTop: 'var(--space-2)',
+              }}>
                 {currentTime}
               </p>
             )}
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto p-4 space-y-1 pb-24">
+          <nav style={{
+            flex: '1',
+            overflowY: 'auto',
+            padding: 'var(--space-4)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-1)',
+            paddingBottom: '6rem',
+          }}>
             {navItems
               .filter(item => item.roles.includes(role))
               .map((item) => {
@@ -158,30 +215,78 @@ export default function Sidebar({ role = 'owner' }: { role?: string }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`
-                    flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150
-                    ${isActive
-                      ? 'bg-primary text-white'
-                      : 'text-slate-600 hover:bg-slate-100 active:scale-[0.98]'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-3)',
+                    padding: 'var(--space-3) var(--space-4)',
+                    borderRadius: 'var(--radius-lg)',
+                    transition: 'all var(--transition-base)',
+                    backgroundColor: isActive ? 'var(--color-primary)' : 'transparent',
+                    color: isActive ? 'var(--color-on-primary)' : 'var(--color-on-surface-variant)',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: '500',
+                    fontSize: 'var(--text-body-md)',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = 'var(--color-surface-container)';
+                      e.currentTarget.style.transform = 'scale(0.98)';
                     }
-                  `}
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.transform = 'scale(1)';
+                    }
+                  }}
                   prefetch={true}
                 >
-                  <item.icon className="w-5 h-5" />
-                  <span className="font-medium">{item.label}</span>
+                  <item.icon style={{ width: '1.25rem', height: '1.25rem' }} />
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
           {/* Logout - fixed at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100 bg-white">
+          <div style={{
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            right: '0',
+            padding: 'var(--space-4)',
+            borderTop: '1px solid var(--color-outline-variant)',
+            backgroundColor: 'var(--color-surface-container-lowest)',
+          }}>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition active:scale-[0.98]"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-3)',
+                padding: 'var(--space-3) var(--space-4)',
+                width: '100%',
+                color: 'var(--color-error)',
+                backgroundColor: 'transparent',
+                border: 'none',
+                borderRadius: 'var(--radius-lg)',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                fontWeight: '500',
+                fontSize: 'var(--text-body-md)',
+                transition: 'all var(--transition-base)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--color-error-container)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
-              <LogOut className="w-5 h-5" />
-              <span className="font-medium">Keluar</span>
+              <LogOut style={{ width: '1.25rem', height: '1.25rem' }} />
+              <span>Keluar</span>
             </button>
           </div>
         </div>

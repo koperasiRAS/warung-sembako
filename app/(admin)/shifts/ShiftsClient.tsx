@@ -66,87 +66,109 @@ export default function ShiftsClient({ initialShifts }: { initialShifts: Shift[]
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }} className="sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800">Laporan Shift Kasir</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)', letterSpacing: 'var(--tracking-tight)',
+          }}>
+            Laporan Shift Kasir
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
             Pantau riwayat tutup kasir, saldo laci, dan selisih (variance) setiap shift.
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', fontSize: 'var(--text-body-sm)' }}>
+            <thead style={{
+              fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)',
+              fontWeight: '600', textTransform: 'uppercase',
+              color: 'var(--color-on-surface-variant)',
+              backgroundColor: 'var(--color-surface-container)',
+              borderBottom: '1px solid var(--color-outline-variant)',
+            }}>
               <tr>
-                <th className="px-6 py-4 font-medium">Kasir</th>
-                <th className="px-6 py-4 font-medium">Waktu Tutup Shift</th>
-                <th className="px-6 py-4 font-medium text-right">Saldo Tunai</th>
-                <th className="px-6 py-4 font-medium text-right">Saldo Bank</th>
-                <th className="px-6 py-4 font-medium text-right">Profit</th>
-                <th className="px-6 py-4 font-medium text-right">Selisih (Variance)</th>
+                {['Kasir', 'Waktu Tutup Shift', 'Saldo Tunai', 'Saldo Bank', 'Profit', 'Selisih (Variance)'].map((h) => (
+                  <th key={h} style={{
+                    padding: 'var(--space-4)',
+                    textAlign: h.includes('Saldo') || h.includes('Profit') || h.includes('Selisih') ? 'right' : 'left',
+                  }}>
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody>
               {shifts.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
-                    <FileText className="w-12 h-12 mx-auto mb-3 text-slate-300" />
-                    <p className="font-medium text-slate-600">Belum ada data shift</p>
-                    <p className="text-sm mt-1">Laporan akan muncul setelah kasir melakukan "Tutup Kasir".</p>
+                  <td colSpan={6} style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+                    <FileText style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-3)' }} />
+                    <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface-variant)' }}>Belum ada data shift</p>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-1)' }}>Laporan akan muncul setelah kasir melakukan "Tutup Kasir".</p>
                   </td>
                 </tr>
               ) : (
-                shifts.map((shift) => (
-                  <tr key={shift.id} className="hover:bg-slate-50/50 transition">
-                    <td className="px-6 py-4">
-                      <div className="font-medium text-slate-800">{shift.cashierName}</div>
-                      <div className="text-xs text-slate-500 mt-0.5">{shift.status}</div>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-slate-400" />
-                        {formatDateTime(shift.end_time || shift.created_at)}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-right font-medium text-slate-700">
-                      {formatCurrency(shift.cash_balance || 0)}
-                    </td>
-                    <td className="px-6 py-4 text-right font-medium text-slate-700">
-                      {formatCurrency(shift.bank_balance || 0)}
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <span className={`font-bold ${
-                        (shift.total_profit || 0) >= 0 ? 'text-emerald-600' : 'text-red-600'
-                      }`}>
+                shifts.map((shift) => {
+                  const profitColor = (shift.total_profit || 0) >= 0 ? 'var(--color-tertiary)' : 'var(--color-error)';
+                  const varianceStyle = shift.variance === 0
+                    ? { bg: 'var(--color-tertiary-fixed)', color: 'var(--color-tertiary)' }
+                    : shift.variance > 0
+                    ? { bg: 'var(--color-warning-bg)', color: 'var(--color-warning)' }
+                    : { bg: 'var(--color-error-container)', color: 'var(--color-error)' };
+                  return (
+                    <tr key={shift.id} style={{ borderBottom: '1px solid var(--color-outline-variant)', transition: 'background-color var(--transition-fast)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                    >
+                      <td style={{ padding: 'var(--space-4)' }}>
+                        <div style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface)' }}>{shift.cashierName}</div>
+                        <div style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', color: 'var(--color-outline)', marginTop: '2px' }}>{shift.status}</div>
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                          <Clock style={{ width: '1rem', height: '1rem', color: 'var(--color-outline)' }} />
+                          {formatDateTime(shift.end_time || shift.created_at)}
+                        </div>
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '600', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        {formatCurrency(shift.cash_balance || 0)}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '600', fontSize: 'var(--text-body-sm)', color: 'var(--color-on-surface-variant)' }}>
+                        {formatCurrency(shift.bank_balance || 0)}
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right', fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: 'var(--text-body-sm)', color: profitColor }}>
                         {(shift.total_profit || 0) >= 0 ? '+' : ''}{formatCurrency(shift.total_profit || 0)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className={`inline-flex items-center justify-end gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium w-full
-                        ${shift.variance === 0 
-                          ? 'bg-emerald-50 text-emerald-700' 
-                          : shift.variance > 0 
-                            ? 'bg-amber-50 text-amber-700' 
-                            : 'bg-rose-50 text-rose-700'
-                        }`}
-                      >
-                        {shift.variance === 0 ? (
-                          <>
-                            <CheckCircle2 className="w-3.5 h-3.5" /> Klop
-                          </>
-                        ) : (
-                          <>
-                            <AlertTriangle className="w-3.5 h-3.5" />
-                            {shift.variance > 0 ? '+' : ''}{formatCurrency(shift.variance)}
-                          </>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                      <td style={{ padding: 'var(--space-4)', textAlign: 'right' }}>
+                        <div style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'flex-end',
+                          gap: 'var(--space-1)', padding: '2px var(--space-2)', borderRadius: 'var(--radius-full)',
+                          fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', fontWeight: '600',
+                          backgroundColor: varianceStyle.bg, color: varianceStyle.color,
+                          width: '100%',
+                        }}>
+                          {shift.variance === 0 ? (
+                            <><CheckCircle2 style={{ width: '0.875rem', height: '0.875rem' }} /> Klop</>
+                          ) : (
+                            <><AlertTriangle style={{ width: '0.875rem', height: '0.875rem' }} />{shift.variance > 0 ? '+' : ''}{formatCurrency(shift.variance)}</>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

@@ -35,7 +35,7 @@ export default async function POSPage() {
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const [products, categories] = await Promise.all([

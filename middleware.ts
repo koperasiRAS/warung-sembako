@@ -66,11 +66,11 @@ export async function middleware(request: NextRequest) {
   // Get user session
   const { data: { session }, error } = await supabase.auth.getSession();
 
-  // If no session and route is protected, redirect to login
+  // If no session and route is protected, redirect to pin login
   if (!session) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
-    return NextResponse.redirect(loginUrl);
+    const pinUrl = new URL('/pin', request.url);
+    pinUrl.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(pinUrl);
   }
 
   // For owner-only routes, check if user is owner
@@ -102,6 +102,6 @@ export const config = {
      * - login page
      * - api routes (we handle auth in API routes themselves)
      */
-    '/((?!_next/static|_next/image|favicon.ico|public|login|api).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public|login|pin|api).*)',
   ],
 };

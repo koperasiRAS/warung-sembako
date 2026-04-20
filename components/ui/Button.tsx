@@ -4,6 +4,39 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   isLoading?: boolean;
 }
 
+const variantStyles = {
+  primary: {
+    backgroundColor: 'var(--color-primary)',
+    color: 'var(--color-on-primary)',
+    hoverBg: 'var(--color-primary-container)',
+    focusRing: 'var(--color-primary)',
+  },
+  secondary: {
+    backgroundColor: 'var(--color-surface-container)',
+    color: 'var(--color-on-surface)',
+    hoverBg: 'var(--color-surface-dim)',
+    focusRing: 'var(--color-primary)',
+  },
+  danger: {
+    backgroundColor: 'var(--color-error-container)',
+    color: 'var(--color-error)',
+    hoverBg: 'var(--color-error)',
+    focusRing: 'var(--color-error)',
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+    color: 'var(--color-on-surface-variant)',
+    hoverBg: 'var(--color-surface-container)',
+    focusRing: 'var(--color-primary)',
+  },
+};
+
+const sizeStyles = {
+  sm: { padding: 'var(--space-1) var(--space-3)', fontSize: 'var(--text-body-sm)' },
+  md: { padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--text-body-md)' },
+  lg: { padding: 'var(--space-3) var(--space-6)', fontSize: 'var(--text-body-lg)' },
+};
+
 export function Button({
   children,
   variant = 'primary',
@@ -13,34 +46,53 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
-
-  const variants = {
-    primary: 'bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500',
-    secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200 focus:ring-slate-400',
-    danger: 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-400',
-    ghost: 'bg-transparent text-slate-600 hover:bg-slate-100 focus:ring-slate-400'
-  };
-
-  const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base'
-  };
+  const v = variantStyles[variant];
+  const s = sizeStyles[size];
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-      disabled={disabled || isLoading}
       {...props}
+      disabled={disabled || isLoading}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'var(--font-label)',
+        fontWeight: '600',
+        borderRadius: 'var(--radius-lg)',
+        border: 'none',
+        cursor: (disabled || isLoading) ? 'not-allowed' : 'pointer',
+        opacity: (disabled || isLoading) ? '0.5' : '1',
+        transition: 'background-color var(--transition-fast)',
+        backgroundColor: v.backgroundColor,
+        color: v.color,
+        padding: `${s.padding}`,
+        fontSize: s.fontSize,
+        letterSpacing: 'var(--tracking-wide)',
+        ...(props.style || {}),
+      }}
+      onMouseEnter={(e) => {
+        if (!disabled && !isLoading) {
+          e.currentTarget.style.backgroundColor = v.hoverBg;
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = v.backgroundColor;
+      }}
+      className={className}
     >
       {isLoading && (
-        <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        <svg
+          style={{ width: '1rem', height: '1rem', marginRight: '0.5rem', animation: 'spin 0.6s linear infinite' }}
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle style={{ opacity: '0.25' }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path style={{ opacity: '0.75' }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
         </svg>
       )}
       {children}
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </button>
   );
 }

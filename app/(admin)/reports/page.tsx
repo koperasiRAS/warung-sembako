@@ -106,7 +106,7 @@ export default async function ReportsPage() {
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const profile = await getProfile(user.id);
@@ -126,128 +126,166 @@ export default async function ReportsPage() {
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-800">Laporan Keuangan</h1>
-        <p className="text-slate-500 mt-1">Ringkasan statistik penjualan bulanan dan harian</p>
+      <div style={{ marginBottom: 'var(--space-8)' }}>
+        <h1 style={{
+          fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+          fontWeight: '700', color: 'var(--color-on-surface)',
+        }}>
+          Laporan Keuangan
+        </h1>
+        <p style={{
+          fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+          color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+        }}>
+          Ringkasan statistik penjualan bulanan dan harian
+        </p>
       </div>
 
       {/* Today's Summary */}
-      <div className="mb-8">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <Calendar className="w-5 h-5" />
+      <div style={{ marginBottom: 'var(--space-8)' }}>
+        <h2 style={{
+          fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+          fontWeight: '600', color: 'var(--color-on-surface)',
+          display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          <Calendar style={{ width: '1.25rem', height: '1.25rem' }} />
           Ringkasan Hari Ini
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-slate-500">Total Penjualan</p>
-                <p className="text-2xl font-bold text-slate-800 mt-1">
-                  {formatCurrency(report.today.sales)}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }} className="lg:grid-cols-4">
+          {[
+            { label: 'Total Penjualan', value: report.today.sales, count: report.today.count, color: 'var(--color-on-surface)', countColor: 'var(--color-tertiary)' },
+            { label: 'Tunai (Cash)', value: report.today.cash, color: 'var(--color-cash)' },
+            { label: 'Non-Tunai', value: report.today.nonCash, color: 'var(--color-bank)' },
+            { label: 'Piutang Belum Lunas', value: report.today.outstandingHutang, color: 'var(--color-warning)' },
+          ].map((card) => (
+            <div key={card.label} style={{
+              backgroundColor: 'var(--color-surface-container-lowest)',
+              borderRadius: 'var(--radius-xl)',
+              padding: 'var(--space-6)',
+              border: '1px solid var(--color-outline-variant)',
+            }}>
+              <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
+                {card.label}
+              </p>
+              <p style={{
+                fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+                fontWeight: '700', color: card.color, marginTop: 'var(--space-1)',
+              }}>
+                {formatCurrency(card.value)}
+              </p>
+              {card.count !== undefined && (
+                <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: card.countColor, marginTop: 'var(--space-2)' }}>
+                  {card.count} transaksi
                 </p>
-              </div>
+              )}
             </div>
-            <p className="text-sm text-green-600 mt-2">
-              {report.today.count} transaksi
+          ))}
+
+          {/* Rata-rata transaksi */}
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-outline-variant)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
+              Rata-rata Transaksi
             </p>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-slate-500">Tunai (Cash)</p>
-                <p className="text-2xl font-bold text-cash mt-1">
-                  {formatCurrency(report.today.cash)}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-slate-500">Non-Tunai</p>
-                <p className="text-2xl font-bold text-bank mt-1">
-                  {formatCurrency(report.today.nonCash)}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-slate-500">Piutang Belum Lunas</p>
-                <p className="text-2xl font-bold text-orange-600 mt-1">
-                  {formatCurrency(report.today.outstandingHutang)}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-slate-500">Rata-rata Transaksi</p>
-                <p className="text-2xl font-bold text-slate-800 mt-1">
-                  {report.today.count > 0
-                    ? formatCurrency(report.today.sales / report.today.count)
-                    : formatCurrency(0)}
-                </p>
-              </div>
-            </div>
+            <p style={{
+              fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+              fontWeight: '700', color: 'var(--color-on-surface)', marginTop: 'var(--space-1)',
+            }}>
+              {report.today.count > 0 ? formatCurrency(report.today.sales / report.today.count) : formatCurrency(0)}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Monthly Summary */}
       <div>
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5" />
+        <h2 style={{
+          fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)',
+          fontWeight: '600', color: 'var(--color-on-surface)',
+          display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
+          marginBottom: 'var(--space-4)',
+        }}>
+          <TrendingUp style={{ width: '1.25rem', height: '1.25rem' }} />
           Bulan Ini
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <p className="text-sm text-slate-500">Penjualan Kotor (Omzet)</p>
-            <p className="text-2xl font-bold text-primary mt-1">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }} className="lg:grid-cols-4">
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-outline-variant)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>Penjualan Kotor (Omzet)</p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-primary)', marginTop: 'var(--space-1)' }}>
               {formatCurrency(report.month.sales)}
             </p>
-            <p className="text-sm text-slate-500 mt-2">
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', marginTop: 'var(--space-2)' }}>
               {report.month.count} transaksi
             </p>
           </div>
 
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <p className="text-sm text-slate-500">Harga Pokok Penjualan (HPP)</p>
-            <p className="text-2xl font-bold text-slate-600 mt-1">
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-outline-variant)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>Harga Pokok Penjualan (HPP)</p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-on-surface-variant)', marginTop: 'var(--space-1)' }}>
               {formatCurrency(report.month.cogs)}
             </p>
-            <p className="text-sm text-slate-500 mt-2">
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-tertiary)', marginTop: 'var(--space-2)' }}>
               Laba Kotor: {formatCurrency(report.month.grossProfit)}
             </p>
           </div>
 
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
-            <p className="text-sm text-slate-500">Total Pengeluaran / Biaya</p>
-            <p className="text-2xl font-bold text-red-600 mt-1">
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-outline-variant)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>Total Pengeluaran / Biaya</p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-error)', marginTop: 'var(--space-1)' }}>
               {formatCurrency(report.month.expenses)}
             </p>
           </div>
 
-          <div className="rounded-xl p-6 border border-orange-200 bg-orange-50">
-            <p className="text-sm text-orange-800 font-medium">Piutang Belum Lunas (Bulan Ini)</p>
-            <p className="text-2xl font-bold text-orange-600 mt-1">
+          <div style={{
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-warning-bg)',
+            backgroundColor: 'var(--color-warning-bg)',
+          }}>
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', fontWeight: '500', color: 'var(--color-warning)', marginBottom: 'var(--space-1)' }}>
+              Piutang Belum Lunas (Bulan Ini)
+            </p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-warning)', marginTop: 'var(--space-1)' }}>
               {formatCurrency(report.month.outstandingHutang)}
             </p>
-            <p className="text-xs text-orange-700 mt-1">
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-xs)', color: 'var(--color-warning)', marginTop: 'var(--space-1)' }}>
               Sisa utang pelanggan yang belum dibayar lunas
             </p>
           </div>
 
-          <div className="rounded-xl p-6 border border-teal-100 bg-teal-50 col-span-2 lg:col-span-1">
-            <p className="text-sm text-teal-800 font-medium">Laba Bersih (Net Profit)</p>
-            <p className="text-2xl font-bold text-teal-600 mt-1">
+          <div style={{
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            border: '1px solid var(--color-tertiary-fixed)',
+            backgroundColor: 'var(--color-tertiary-fixed)',
+            gridColumn: 'span 2',
+          }} className="lg:grid-cols-1">
+            <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', fontWeight: '500', color: 'var(--color-tertiary)', marginBottom: 'var(--space-1)' }}>
+              Laba Bersih (Net Profit)
+            </p>
+            <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '700', color: 'var(--color-tertiary)', marginTop: 'var(--space-1)' }}>
               {formatCurrency(report.month.netProfit)}
             </p>
           </div>

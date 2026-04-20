@@ -7,8 +7,11 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Profiles table (extends auth.users)
 CREATE TABLE IF NOT EXISTS profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  -- email: deprecated — used only by auth.users; kept for reference, no longer used in app UI
   email TEXT NOT NULL,
   full_name TEXT,
+  -- pin_hash: primary login method for cashiers (set via /api/pin)
+  pin_hash VARCHAR(255),
   role TEXT NOT NULL CHECK (role IN ('owner', 'cashier')) DEFAULT 'cashier',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );

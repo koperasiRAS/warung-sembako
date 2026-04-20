@@ -9,7 +9,7 @@ export default async function DebtsPage() {
   const user = await getUser();
 
   if (!user) {
-    redirect('/login');
+    redirect('/pin');
   }
 
   const profile = await getProfile(user.id);

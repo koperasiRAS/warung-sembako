@@ -120,65 +120,156 @@ export default function CategoriesClient({
   };
 
   return (
-    <div className="p-4 lg:p-8">
+    <div style={{ padding: 'var(--space-4)' }} className="lg:p-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+        marginBottom: 'var(--space-6)',
+      }} className="lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Kategori</h1>
-          <p className="text-slate-500 mt-1">Kelola kategori produk Anda</p>
+          <h1 style={{
+            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-sm)',
+            fontWeight: '700', color: 'var(--color-on-surface)',
+          }}>
+            Kategori
+          </h1>
+          <p style={{
+            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
+            color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+          }}>
+            Kelola kategori produk Anda
+          </p>
         </div>
         <button
           onClick={() => openModal()}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition"
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--gradient-primary)',
+            color: 'var(--color-on-primary)',
+            border: 'none', borderRadius: 'var(--radius-lg)',
+            fontFamily: 'var(--font-label)', fontWeight: '600',
+            cursor: 'pointer',
+          }}
         >
-          <Plus className="w-5 h-5" />
+          <Plus style={{ width: '1.25rem', height: '1.25rem' }} />
           Tambah Kategori
         </button>
       </div>
 
       {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+      <div style={{ position: 'relative', marginBottom: 'var(--space-6)' }}>
+        <Search style={{ position: 'absolute', left: 'var(--space-3)', top: '50%', transform: 'translateY(-50%)', width: '1.25rem', height: '1.25rem', color: 'var(--color-outline)' }} />
         <input
           type="text"
           placeholder="Cari kategori..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+          style={{
+            width: '100%',
+            paddingLeft: '2.5rem',
+            paddingRight: 'var(--space-4)',
+            paddingTop: 'var(--space-2)',
+            paddingBottom: 'var(--space-2)',
+            border: '1.5px solid var(--color-outline-variant)',
+            borderRadius: 'var(--radius-lg)',
+            outline: 'none',
+            backgroundColor: 'var(--color-surface-container-high)',
+            color: 'var(--color-on-surface)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-md)',
+          }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
         />
       </div>
 
       {/* Categories List */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <div className="divide-y divide-slate-100">
-          {(filteredCategories ?? []).map((category) => (
+      <div style={{
+        backgroundColor: 'var(--color-surface-container-lowest)',
+        borderRadius: 'var(--radius-xl)',
+        border: '1px solid var(--color-outline-variant)',
+        overflow: 'hidden',
+      }}>
+        <div>
+          {(filteredCategories ?? []).map((category, idx, arr) => (
             <div
               key={category.id}
-              className="p-4 flex items-center justify-between hover:bg-slate-50"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: 'var(--space-4)',
+                borderBottom: idx < arr.length - 1 ? '1px solid var(--color-outline-variant)' : 'none',
+                transition: 'background-color var(--transition-fast)',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-surface-container)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Tags className="w-6 h-6 text-primary" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+                <div style={{
+                  width: '3rem', height: '3rem',
+                  backgroundColor: 'var(--color-primary-fixed)',
+                  borderRadius: 'var(--radius-lg)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <Tags style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-primary)' }} />
                 </div>
                 <div>
-                  <h3 className="font-medium text-slate-800">{category.name}</h3>
-                  <p className="text-sm text-slate-500">
+                  <h3 style={{
+                    fontFamily: 'var(--font-body)', fontWeight: '600',
+                    fontSize: 'var(--text-body-md)', color: 'var(--color-on-surface)',
+                  }}>
+                    {category.name}
+                  </h3>
+                  <p style={{
+                    fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
+                    color: 'var(--color-outline)', marginTop: 'var(--space-1)',
+                  }}>
                     {category.productCount} produk
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
                 <button
                   onClick={() => openModal(category)}
-                  className="p-2 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-lg transition"
+                  style={{
+                    padding: 'var(--space-2)',
+                    color: 'var(--color-outline)',
+                    backgroundColor: 'transparent',
+                    border: 'none', borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer',
+                    transition: 'all var(--transition-fast)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--color-primary)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-primary-fixed)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--color-outline)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
-                  <Edit className="w-5 h-5" />
+                  <Edit style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
                 <button
                   onClick={() => setDeleteConfirm(category.id)}
-                  className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
+                  style={{
+                    padding: 'var(--space-2)',
+                    color: 'var(--color-outline)',
+                    backgroundColor: 'transparent',
+                    border: 'none', borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer',
+                    transition: 'all var(--transition-fast)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--color-error)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-error-container)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--color-outline)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
-                  <Trash2 className="w-5 h-5" />
+                  <Trash2 style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
               </div>
             </div>
@@ -186,105 +277,187 @@ export default function CategoriesClient({
         </div>
 
         {filteredCategories.length === 0 && (
-          <div className="p-12 text-center">
-            <Tags className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-500">Kategori tidak ditemukan</p>
+          <div style={{ padding: 'var(--space-12)', textAlign: 'center' }}>
+            <Tags style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)', margin: '0 auto var(--space-4)' }} />
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>Kategori tidak ditemukan</p>
           </div>
         )}
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-md">
-            <div className="p-6 border-b border-slate-100">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-slate-800">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '28rem',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <div style={{ padding: 'var(--space-6)', borderBottom: '1px solid var(--color-outline-variant)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)' }}>
                   {editingCategory ? 'Edit Kategori' : 'Tambah Kategori'}
                 </h2>
                 <button
                   onClick={closeModal}
-                  className="p-2 hover:bg-slate-100 rounded-lg"
+                  style={{
+                    padding: 'var(--space-2)',
+                    backgroundColor: 'transparent',
+                    border: 'none', borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer', color: 'var(--color-outline)',
+                  }}
                 >
-                  <X className="w-5 h-5" />
+                  <X style={{ width: '1.25rem', height: '1.25rem' }} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{
+                  display: 'block',
+                  fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+                  fontWeight: '500', color: 'var(--color-on-surface-variant)',
+                  marginBottom: 'var(--space-2)',
+                }}>
                   Nama Kategori *
                 </label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label style={{
+                  display: 'block',
+                  fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-sm)',
+                  fontWeight: '500', color: 'var(--color-on-surface-variant)',
+                  marginBottom: 'var(--space-2)',
+                }}>
                   Deskripsi
                 </label>
                 <textarea
                   value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none"
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1.5px solid var(--color-outline-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    outline: 'none',
+                    backgroundColor: 'var(--color-surface-container-high)',
+                    color: 'var(--color-on-surface)',
+                    fontFamily: 'var(--font-body)',
+                    resize: 'none',
+                  }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-lowest)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--color-outline-variant)'; e.currentTarget.style.backgroundColor = 'var(--color-surface-container-high)'; }}
                   rows={3}
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div style={{ display: 'flex', gap: 'var(--space-3)', paddingTop: 'var(--space-4)' }}>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    border: '1px solid var(--color-outline-variant)',
+                    color: 'var(--color-on-surface-variant)',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    cursor: 'pointer', backgroundColor: 'transparent',
+                  }}
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{
+                    flex: 1,
+                    padding: 'var(--space-2) var(--space-4)',
+                    backgroundColor: loading ? 'var(--color-surface-container)' : 'var(--color-primary)',
+                    color: loading ? 'var(--color-outline)' : 'var(--color-on-primary)',
+                    border: 'none',
+                    borderRadius: 'var(--radius-lg)',
+                    fontFamily: 'var(--font-label)', fontWeight: '600',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                  }}
                 >
-                  {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {loading && <Loader2 style={{ width: '1rem', height: '1rem', animation: 'spin 0.6s linear infinite' }} />}
                   {editingCategory ? 'Simpan' : 'Buat Baru'}
                 </button>
               </div>
             </form>
           </div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
 
       {/* Delete Confirmation */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-sm p-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-2">
+        <div style={{ position: 'fixed', inset: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-4)' }}>
+          <div style={{
+            backgroundColor: 'var(--color-surface-container-lowest)',
+            borderRadius: 'var(--radius-xl)',
+            width: '100%', maxWidth: '24rem',
+            padding: 'var(--space-6)',
+            boxShadow: 'var(--shadow-overlay)',
+          }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-lg)', fontWeight: '600', color: 'var(--color-on-surface)', marginBottom: 'var(--space-2)' }}>
               Hapus Kategori?
             </h3>
-            <p className="text-slate-500 mb-6">
-              Ini akan menghapus kategori. Produk-produk yang menggunakan kategori ini akan
-              kehilangan kategorinya.
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)', color: 'var(--color-outline)', marginBottom: 'var(--space-6)' }}>
+              Ini akan menghapus kategori. Produk-produk yang menggunakan kategori ini akan kehilangan kategorinya.
             </p>
-            <div className="flex gap-3">
+            <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  border: '1px solid var(--color-outline-variant)',
+                  color: 'var(--color-on-surface-variant)',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: 'pointer', backgroundColor: 'transparent',
+                }}
               >
                 Batal
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
                 disabled={loading}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition disabled:opacity-50"
+                style={{
+                  flex: 1,
+                  padding: 'var(--space-2) var(--space-4)',
+                  backgroundColor: 'var(--color-error)',
+                  color: 'var(--color-on-error)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-lg)',
+                  fontFamily: 'var(--font-label)', fontWeight: '600',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? '0.5' : '1',
+                }}
               >
                 Hapus
               </button>
