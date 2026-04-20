@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 export interface StatsCardProps {
   title: string;
@@ -13,63 +13,38 @@ export interface StatsCardProps {
 }
 
 const variantValueColors = {
-  default: 'var(--color-on-surface)',
-  success: 'var(--color-tertiary)',
-  warning: 'var(--color-warning)',
-  error: 'var(--color-error)',
+  default: 'text-on-surface',
+  success: 'text-tertiary',
+  warning: 'text-warning',
+  error: 'text-error',
 };
 
 export function StatsCard({ title, value, subtitle, icon, trend, variant = 'default' }: StatsCardProps) {
   return (
-    <Card style={{
-      backgroundColor: 'var(--color-surface-container-lowest)',
-      borderRadius: 'var(--radius-xl)',
-      padding: '1.5rem',
-      boxShadow: 'var(--shadow-sm)',
-      border: 'none',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-        <div style={{ flex: 1 }}>
-          <p style={{
-            fontFamily: 'var(--font-label)',
-            fontSize: 'var(--text-label-md)',
-            color: 'var(--color-on-surface-variant)',
-            letterSpacing: 'var(--tracking-wide)',
-            textTransform: 'uppercase',
-          }}>
+    <div className="bg-surface-container-lowest rounded-2xl p-6 flex flex-col justify-between ambient-shadow">
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <p className="text-[13px] font-medium font-label text-on-surface-variant uppercase tracking-wide">
             {title}
           </p>
-          <p style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'var(--text-headline-md)',
-            fontWeight: '700',
-            color: variantValueColors[variant],
-            marginTop: '0.25rem',
-            letterSpacing: 'var(--tracking-tight)',
-          }}>
+          <p className={cn(
+            'mt-1 font-headline text-2xl font-bold tracking-tight',
+            variantValueColors[variant]
+          )}>
             {value}
           </p>
           {subtitle && (
-            <p style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'var(--text-body-sm)',
-              color: 'var(--color-outline)',
-              marginTop: '0.25rem',
-            }}>
-              {subtitle}
-            </p>
+            <p className="mt-1 font-body text-sm text-outline">{subtitle}</p>
           )}
           {trend && (
-            <div style={{
-              display: 'flex', alignItems: 'center', marginTop: '0.5rem',
-              color: trend.isPositive ? 'var(--color-tertiary)' : 'var(--color-error)',
-              fontFamily: 'var(--font-label)',
-              fontSize: 'var(--text-label-sm)',
-            }}>
+            <div className={cn(
+              'mt-2 flex items-center font-label text-sm',
+              trend.isPositive ? 'text-tertiary' : 'text-error'
+            )}>
               <svg
                 width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                style={{ transform: trend.isPositive ? 'rotate(0deg)' : 'rotate(180deg)', marginRight: '4px' }}
+                className={cn('mr-1', !trend.isPositive && 'rotate-180')}
               >
                 <polyline points="18 15 12 9 6 15" />
               </svg>
@@ -78,15 +53,11 @@ export function StatsCard({ title, value, subtitle, icon, trend, variant = 'defa
           )}
         </div>
         {icon && (
-          <div style={{
-            padding: '0.75rem',
-            backgroundColor: 'var(--color-surface-container)',
-            borderRadius: 'var(--radius-lg)',
-          }}>
+          <div className="p-3 bg-surface-container rounded-2xl">
             {icon}
           </div>
         )}
       </div>
-    </Card>
+    </div>
   );
 }

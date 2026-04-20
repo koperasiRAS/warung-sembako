@@ -1,6 +1,7 @@
 import { createClient, getProfile, getUser } from '@/lib/supabase/server';
-import { AlertTriangle, Package } from 'lucide-react';
+import { AlertTriangle, Package, TrendingUp, Wallet, CreditCard, Banknote, Coins } from 'lucide-react';
 import { SalesChart, ResetDataComponent, DashboardRealtime } from '@/components/dashboard';
+import StatCard from '@/components/ui/StatCard';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -131,125 +132,84 @@ function formatCurrency(amount: number) {
   }).format(amount);
 }
 
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-}
-
 async function StatsGrid() {
   const s = await getDashboardStats();
-
-  const cardBase: React.CSSProperties = {
-    backgroundColor: 'var(--color-surface-container-lowest)',
-    borderRadius: 'var(--radius-xl)',
-    padding: '1.5rem',
-    boxShadow: 'var(--shadow-sm)',
-    border: 'none',
-  };
-
-  const labelStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-label)',
-    fontSize: 'var(--text-label-md)',
-    color: 'var(--color-on-surface-variant)',
-    letterSpacing: 'var(--tracking-wide)',
-    textTransform: 'uppercase' as const,
-  };
-
-  const moneyStyle = (color: string): React.CSSProperties => ({
-    fontFamily: 'var(--font-heading)',
-    fontSize: 'var(--text-headline-md)',
-    fontWeight: '700',
-    color,
-    marginTop: '0.25rem',
-    letterSpacing: 'var(--tracking-tight)',
-  });
 
   return (
     <>
       {/* Row 1 — 4 cards */}
-      {/* Omset */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Omset Hari Ini</p>
-        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.todaySales)}</p>
-      </div>
+      <StatCard label="Omset Hari Ini" value={formatCurrency(s.todaySales)} />
+      <StatCard label="Transaksi" value={s.todayTransactions} />
+      <StatCard
+        label="Saldo Tunai"
+        value={formatCurrency(s.cashBalance)}
+        icon={Banknote}
+        iconBg="bg-primary-fixed"
+        iconColor="text-primary"
+      />
+      <StatCard
+        label="Saldo Bank"
+        value={formatCurrency(s.bankBalance)}
+        icon={CreditCard}
+        iconBg="bg-primary-fixed"
+        iconColor="text-primary"
+      />
 
-      {/* Transaksi */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Transaksi Hari Ini</p>
-        <p style={moneyStyle('var(--color-on-surface)')}>{s.todayTransactions}</p>
-      </div>
-
-      {/* Saldo Tunai */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Saldo Tunai</p>
-        <p style={moneyStyle('var(--color-primary)')}>{formatCurrency(s.cashBalance)}</p>
-      </div>
-
-      {/* Saldo Bank */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Saldo Bank</p>
-        <p style={moneyStyle('var(--color-primary)')}>{formatCurrency(s.bankBalance)}</p>
-      </div>
-
-      {/* Row 2 — highlighted full-width cards */}
-      {/* Total Warung */}
-      <div style={{
-        ...cardBase,
-        background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%)',
-        gridColumn: 'span 2',
-      }}>
-        <p style={{ ...labelStyle, color: 'rgba(255,255,255,0.7)' }}>Total Saldo Warung</p>
-        <p style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'var(--text-display-sm)',
-          fontWeight: '800',
-          color: 'var(--color-on-primary)',
-          letterSpacing: 'var(--tracking-tight)',
-          marginTop: '0.25rem',
-        }}>
-          {formatCurrency(s.totalWarungBalance)}
-        </p>
-        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'rgba(255,255,255,0.6)', marginTop: '0.25rem' }}>
-          Kas + Bank
-        </p>
+      {/* Row 2 — Total Warung (full-width gradient) */}
+      <div
+        className="col-span-2 bg-gradient-to-br from-primary to-primary-container rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden ambient-shadow"
+        style={{ gridColumn: 'span 2' }}
+      >
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-xl" />
+        <p className="text-[13px] font-medium font-body text-white/70">Total Saldo Warung</p>
+        <div className="relative z-10">
+          <h3 className="text-3xl font-extrabold font-headline text-white mb-1">
+            {formatCurrency(s.totalWarungBalance)}
+          </h3>
+          <p className="text-sm font-medium font-body text-white/60">Kas + Bank</p>
+        </div>
       </div>
 
       {/* Laba Kotor */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Laba Kotor</p>
-        <p style={moneyStyle('var(--color-tertiary)')}>{formatCurrency(s.todayGrossProfit)}</p>
-      </div>
+      <StatCard
+        label="Laba Kotor"
+        value={formatCurrency(s.todayGrossProfit)}
+        icon={TrendingUp}
+        iconBg="bg-tertiary/10"
+        iconColor="text-tertiary"
+      />
 
       {/* Pengeluaran */}
-      <div style={cardBase}>
-        <p style={labelStyle}>Pengeluaran</p>
-        <p style={moneyStyle('var(--color-error)')}>{formatCurrency(s.todayExpenses)}</p>
+      <StatCard
+        label="Pengeluaran"
+        value={formatCurrency(s.todayExpenses)}
+        icon={Wallet}
+        iconBg="bg-error-container"
+        iconColor="text-error"
+        variant="alert"
+      />
+
+      {/* Row 3 — Laba Bersih + Piutang */}
+      <div
+        className="col-span-2 bg-surface-container rounded-2xl p-6 flex flex-col justify-between ambient-shadow"
+        style={{ gridColumn: 'span 2' }}
+      >
+        <p className="text-[13px] font-medium font-body text-on-surface-variant">Laba Bersih</p>
+        <h3 className="text-3xl font-extrabold font-headline text-on-surface mb-1">
+          {formatCurrency(s.todayNetProfit)}
+        </h3>
+        <p className="text-sm font-medium font-body text-outline">Laba Kotor − Pengeluaran</p>
       </div>
 
-      {/* Row 3 — bottom cards */}
-      {/* Laba Bersih */}
-      <div style={{
-        ...cardBase,
-        backgroundColor: 'var(--color-surface-container)',
-        gridColumn: 'span 2',
-      }}>
-        <p style={labelStyle}>Laba Bersih</p>
-        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.todayNetProfit)}</p>
-        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-on-surface-variant)', marginTop: '0.25rem' }}>
-          Laba Kotor − Pengeluaran
-        </p>
-      </div>
-
-      {/* Piutang */}
-      <div style={{
-        ...cardBase,
-        backgroundColor: 'var(--color-surface-container)',
-        gridColumn: 'span 2',
-      }}>
-        <p style={labelStyle}>Piutang</p>
-        <p style={moneyStyle('var(--color-on-surface)')}>{formatCurrency(s.totalPiutang)}</p>
-        <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-on-surface-variant)', marginTop: '0.25rem' }}>
-          Kasbon pelanggan belum lunas
-        </p>
+      <div
+        className="col-span-2 bg-surface-container rounded-2xl p-6 flex flex-col justify-between ambient-shadow"
+        style={{ gridColumn: 'span 2' }}
+      >
+        <p className="text-[13px] font-medium font-body text-on-surface-variant">Piutang</p>
+        <h3 className="text-3xl font-extrabold font-headline text-on-surface mb-1">
+          {formatCurrency(s.totalPiutang)}
+        </h3>
+        <p className="text-sm font-medium font-body text-outline">Kasbon pelanggan belum lunas</p>
       </div>
     </>
   );
@@ -263,68 +223,60 @@ async function SalesChartSection() {
 async function LowStockList() {
   const supabase = await createClient();
   const { data } = await supabase.rpc('get_low_stock_products', { limit_count: 5 });
-  const lowStock = (data || []) as Array<{ id: string; name: string; stock: number; low_stock_threshold: number; price: number; image_url: string | null; [key: string]: unknown }>;
+  const lowStock = (data || []) as Array<{ id: string; name: string; stock: number; low_stock_threshold: number; price: number; barcode: string | null; image_url: string | null; [key: string]: unknown }>;
 
   if (!lowStock || lowStock.length === 0) {
     return (
-      <div style={{ padding: '1.5rem', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-outline)' }}>
-          Semua produk masih tersedia dengan baik
-        </p>
+      <div className="p-6 text-center">
+        <p className="font-body text-sm text-outline">Semua produk masih tersedia dengan baik</p>
       </div>
     );
   }
 
-  const rowStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '1rem 1.5rem',
-    borderBottom: '1px solid var(--color-outline-variant)',
-    backgroundColor: 'var(--color-surface-container-lowest)',
-  };
-
   return (
     <div>
       {lowStock.map((product, i) => (
-        <div key={product.id} style={{
-          ...rowStyle,
-          borderBottom: i === lowStock.length - 1 ? 'none' : '1px solid var(--color-outline-variant)',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div
+          key={product.id}
+          className={`
+            flex items-center justify-between px-6 py-4
+            bg-surface-container-lowest
+            ${i !== lowStock.length - 1 ? 'border-b border-outline-variant/15' : ''}
+          `}
+        >
+          <div className="flex items-center gap-4">
             {product.image_url ? (
-              <img src={product.image_url} alt={product.name}
-                style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-lg)', objectFit: 'cover', backgroundColor: 'var(--color-surface-dim)' }} />
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="w-12 h-12 rounded-2xl object-cover bg-surface-dim"
+              />
             ) : (
-              <div style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-lg)', backgroundColor: 'var(--color-surface-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Package size={24} color="var(--color-outline)" />
+              <div className="w-12 h-12 rounded-2xl bg-surface-dim flex items-center justify-center">
+                <Package size={20} className="text-outline" />
               </div>
             )}
             <div>
-              <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-on-surface)' }}>{product.name}</p>
-              <p style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)' }}>
+              <p className="font-body text-sm font-semibold text-on-surface">{product.name}</p>
+              <p className="font-label text-[12px] text-outline mt-0.5">
                 {product.barcode ? `SKU: ${product.barcode}` : 'Tidak ada barcode'}
               </p>
             </div>
           </div>
-          <div style={{ textAlign: 'right' }}>
+          <div className="text-right">
             {product.stock === 0 ? (
-              <span style={{
-                display: 'inline-block', padding: '2px 8px',
-                backgroundColor: 'var(--color-error-container)', color: 'var(--color-on-error-container)',
-                borderRadius: 'var(--radius-full)', fontSize: 'var(--text-label-sm)', fontWeight: '600',
-              }}>Stok Habis!</span>
+              <span className="inline-block px-2 py-0.5 bg-error-container text-on-error-container rounded-full font-label text-xs font-semibold">
+                Stok Habis!
+              </span>
             ) : (
-              <p style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: 'var(--color-tertiary)' }}>
+              <p className="font-body text-sm font-semibold text-tertiary">
                 Sisa {product.stock}
               </p>
             )}
-            <Link href={`/products?edit=${product.id}`}
-              style={{
-                display: 'inline-block', marginTop: '4px',
-                fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)',
-                color: 'var(--color-primary)', textDecoration: 'none',
-              }}>
+            <Link
+              href={`/products?edit=${product.id}`}
+              className="block font-label text-[12px] text-primary mt-1 hover:underline"
+            >
               Isi Ulang
             </Link>
           </div>
@@ -339,81 +291,56 @@ export default async function DashboardPage() {
   const profile = user ? await getProfile(user.id) : null;
 
   return (
-    <div style={{ padding: 'var(--space-8)', backgroundColor: 'var(--color-background)', minHeight: '100dvh' }}>
+    <div className="min-h-dvh bg-background p-6 lg:p-8">
       <DashboardRealtime />
 
       {/* Header */}
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        marginBottom: 'var(--space-8)',
-      }}>
+      <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 style={{
-            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-headline-md)',
-            fontWeight: '700', color: 'var(--color-on-background)',
-            letterSpacing: 'var(--tracking-tight)',
-          }}>
+          <h1 className="text-2xl font-bold font-headline text-on-surface tracking-tight">
             Beranda Admin
           </h1>
-          <p style={{
-            fontFamily: 'var(--font-body)', fontSize: 'var(--text-body-md)',
-            color: 'var(--color-on-surface-variant)', marginTop: '0.25rem',
-          }}>
-            {new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          <p className="font-body text-sm text-on-surface-variant mt-0.5">
+            {new Date().toLocaleDateString('id-ID', {
+              weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+            })}
           </p>
         </div>
-        <Link href="/pos" style={{
-          display: 'none',
-          fontFamily: 'var(--font-label)', fontWeight: '600',
-          padding: '0.625rem 1.25rem',
-          background: 'var(--gradient-primary)', color: 'var(--color-on-primary)',
-          borderRadius: 'var(--radius-full)', textDecoration: 'none',
-        }} className="mobile-pos-btn">
+        <Link
+          href="/pos"
+          className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-label text-sm font-semibold shadow-ambient hover:opacity-90 transition-opacity"
+        >
           Buka Kasir
         </Link>
-        <style>{`.mobile-pos-btn { display: inline-flex; } @media (min-width: 1024px) { .mobile-pos-btn { display: none; } }`}</style>
       </div>
 
       {/* Stats Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 'var(--space-4)',
-        marginBottom: 'var(--space-8)',
-      }}>
-        <Suspense fallback={<div style={{ gridColumn: '1/-1', height: '120px', borderRadius: 'var(--radius-xl)', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <Suspense fallback={
+          <div className="col-span-full h-32 rounded-2xl bg-surface-container-lowest animate-pulse" />
+        }>
           <StatsGrid />
         </Suspense>
       </div>
 
       {/* Sales Chart */}
-      <div style={{ marginBottom: 'var(--space-8)' }}>
-        <Suspense fallback={<div style={{ height: '220px', borderRadius: 'var(--radius-xl)', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
+      <div className="mb-8">
+        <Suspense fallback={
+          <div className="h-56 rounded-2xl bg-surface-container-lowest animate-pulse" />
+        }>
           <SalesChartSection />
         </Suspense>
       </div>
 
-      {/* Low Stock */}
-      <div style={{
-        backgroundColor: 'var(--color-surface-container-lowest)',
-        borderRadius: 'var(--radius-xl)',
-        boxShadow: 'var(--shadow-sm)',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          padding: 'var(--space-6)',
-          borderBottom: '1px solid var(--color-outline-variant)',
-          display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
-        }}>
-          <AlertTriangle size={20} color="var(--color-warning)" />
-          <h2 style={{
-            fontFamily: 'var(--font-heading)', fontSize: 'var(--text-title-md)',
-            fontWeight: '600', color: 'var(--color-on-surface)',
-          }}>
+      {/* Low Stock Alert */}
+      <div className="bg-surface-container-lowest rounded-2xl ambient-shadow overflow-hidden mb-8">
+        <div className="px-6 py-5 border-b border-outline-variant/15 flex items-center gap-2">
+          <AlertTriangle size={18} className="text-warning" />
+          <h2 className="font-headline text-base font-semibold text-on-surface">
             Stok Produk Menipis
           </h2>
         </div>
-        <Suspense fallback={<div style={{ padding: '1.5rem', backgroundColor: 'var(--color-surface-container-lowest)' }} />}>
+        <Suspense fallback={<div className="p-6" />}>
           <LowStockList />
         </Suspense>
       </div>

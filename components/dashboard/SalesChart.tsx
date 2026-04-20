@@ -1,6 +1,7 @@
 'use client';
 
-import { Card } from '@/components/ui';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface SalesData {
   date: string;
@@ -27,100 +28,50 @@ export function SalesChart({ data, title = 'Grafik Penjualan' }: SalesChartProps
   const midValue = Math.round(maxValue / 2);
 
   return (
-    <div style={{
-      backgroundColor: 'var(--color-surface-container-lowest)',
-      borderRadius: 'var(--radius-xl)',
-      padding: '1.5rem',
-      boxShadow: 'var(--shadow-sm)',
-    }}>
-      <h3 style={{
-        fontFamily: 'var(--font-heading)',
-        fontSize: 'var(--text-title-md)',
-        fontWeight: '600',
-        color: 'var(--color-on-surface)',
-        marginBottom: '1.5rem',
-      }}>
+    <div className="bg-surface-container-lowest rounded-2xl p-6 ambient-shadow">
+      <h3 className="font-headline text-base font-semibold text-on-surface mb-6">
         {title}
       </h3>
 
-      {/* Y-axis labels */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '4rem 1fr',
-        alignItems: 'flex-end',
-        gap: '0.5rem',
-        height: '160px',
-        marginBottom: '0.5rem',
-      }}>
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: '4rem 1fr', height: '160px', marginBottom: '0.5rem' }}
+      >
         {/* Y-axis */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingBottom: '1.5rem' }}>
-          <span style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', textAlign: 'right' }}>
+        <div className="flex flex-col justify-between h-full pb-10">
+          <span className="font-label text-xs text-outline text-right">
             {formatCurrency(maxValue)}
           </span>
-          <span style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', textAlign: 'right' }}>
+          <span className="font-label text-xs text-outline text-right">
             {formatCurrency(midValue)}
           </span>
-          <span style={{ fontFamily: 'var(--font-label)', fontSize: 'var(--text-label-sm)', color: 'var(--color-outline)', textAlign: 'right' }}>
-            Rp 0
-          </span>
+          <span className="font-label text-xs text-outline text-right">Rp 0</span>
         </div>
 
         {/* Bars */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '0.5rem', height: '100%', paddingBottom: '1.5rem', position: 'relative' }}>
-          {/* Grid line at top */}
-          <div style={{ position: 'absolute', top: '0', left: '0', right: '0', height: '1px', backgroundColor: 'var(--color-outline-variant)' }} />
-          {/* Grid line at mid */}
-          <div style={{ position: 'absolute', top: '50%', left: '0', right: '0', height: '1px', backgroundColor: 'var(--color-outline-variant)', opacity: '0.5' }} />
-          {/* Grid line at bottom */}
-          <div style={{ position: 'absolute', bottom: '1.5rem', left: '0', right: '0', height: '1px', backgroundColor: 'var(--color-outline-variant)', opacity: '0.3' }} />
+        <div
+          className="relative flex items-end justify-between gap-2 h-full pb-10"
+        >
+          {/* Grid lines */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-outline-variant" />
+          <div className="absolute top-1/2 left-0 right-0 h-px bg-outline-variant opacity-50" />
+          <div className="absolute bottom-10 left-0 right-0 h-px bg-outline-variant opacity-30" />
 
           {data.map((item, index) => {
             const height = (item.value / maxValue) * 100;
             return (
-              <div key={index} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', position: 'relative' }}>
-                {/* Tooltip */}
+              <div
+                key={index}
+                className="flex-1 flex flex-col items-center h-full relative group"
+              >
                 {item.value > 0 && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '0',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'var(--color-on-primary)',
-                    padding: '4px 8px',
-                    borderRadius: 'var(--radius-sm)',
-                    fontFamily: 'var(--font-label)',
-                    fontSize: 'var(--text-label-sm)',
-                    fontWeight: '600',
-                    whiteSpace: 'nowrap',
-                    opacity: '0',
-                    transition: 'opacity 150ms ease',
-                    cursor: 'default',
-                    zIndex: 10,
-                  }} className={`chart-tooltip-${index}`}>
+                  <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-2 py-1 rounded-lg font-label text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10">
                     {formatCurrency(item.value)}
-                  </div>
+                  </span>
                 )}
-                {/* Bar */}
                 <div
-                  style={{
-                    width: '100%',
-                    height: `${height}%`,
-                    minHeight: item.value > 0 ? '4px' : '0',
-                    background: 'linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-container) 100%)',
-                    borderRadius: 'var(--radius-sm) var(--radius-sm) 0 0',
-                    marginTop: 'auto',
-                    transition: 'height 400ms ease',
-                    cursor: 'pointer',
-                  }}
-                  onMouseEnter={(e) => {
-                    const tip = document.querySelector(`.chart-tooltip-${index}`) as HTMLElement;
-                    if (tip) tip.style.opacity = '1';
-                  }}
-                  onMouseLeave={(e) => {
-                    const tip = document.querySelector(`.chart-tooltip-${index}`) as HTMLElement;
-                    if (tip) tip.style.opacity = '0';
-                  }}
+                  className="w-full bg-gradient-to-t from-primary to-primary-container rounded-t-md transition-all duration-400 cursor-pointer hover:opacity-80"
+                  style={{ height: `${height}%`, minHeight: item.value > 0 ? '4px' : '0' }}
                 />
               </div>
             );
@@ -129,15 +80,12 @@ export function SalesChart({ data, title = 'Grafik Penjualan' }: SalesChartProps
       </div>
 
       {/* X-axis labels */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '4rem', gap: '0.5rem' }}>
+      <div className="flex justify-between pl-16 gap-2">
         {data.map((item, index) => (
-          <span key={index} style={{
-            flex: 1,
-            textAlign: 'center',
-            fontFamily: 'var(--font-label)',
-            fontSize: 'var(--text-label-sm)',
-            color: 'var(--color-outline)',
-          }}>
+          <span
+            key={index}
+            className="flex-1 text-center font-label text-xs text-outline"
+          >
             {formatDay(item.date)}
           </span>
         ))}
