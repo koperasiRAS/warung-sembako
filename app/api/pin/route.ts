@@ -13,9 +13,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'PIN harus 6 digit angka' }, { status: 400 });
     }
 
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json(
+        { error: 'Konfigurasi server tidak lengkap. Hubungi administrator.' },
+        { status: 500 }
+      );
+    }
+
     const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
     // Cari kasir atau admin yang punya pin_hash
