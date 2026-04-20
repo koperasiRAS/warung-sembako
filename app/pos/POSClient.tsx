@@ -459,7 +459,7 @@ export default function POSClient({
   };
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-background)' }}>
+    <div className="flex h-screen w-full bg-background flex-row">
       {/* Main Content - Products */}
       <div className="print-hide" style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: '0', overflow: 'hidden' }}>
         {/* Header */}
