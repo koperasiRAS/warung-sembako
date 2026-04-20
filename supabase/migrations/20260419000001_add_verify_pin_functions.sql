@@ -19,7 +19,6 @@ BEGIN
   SELECT p.*
   FROM profiles p
   WHERE p.pin_hash IS NOT NULL
-    AND p.role = 'cashier'
     AND crypt(pin_input, p.pin_hash) = p.pin_hash;
 END;
 $$;

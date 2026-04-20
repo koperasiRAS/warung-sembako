@@ -18,11 +18,10 @@ export async function POST(request: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Cari kasir yang punya pin_hash
+    // Cari kasir atau admin yang punya pin_hash
     const { data: kasirs, error: kasirError } = await supabaseAdmin
       .from('profiles')
       .select('id, email, full_name, role')
-      .eq('role', 'cashier')
       .not('pin_hash', 'is', null);
 
     if (kasirError) {
