@@ -32,14 +32,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'PIN salah' }, { status: 401 });
     }
 
-    // Bandingkan PIN dengan pin_hash menggunakan pgcrypto
-    const { data: matchResult } = await supabaseAdmin.rpc('verify_pin', {
+    const { data: matchResult, error: rpcError } = await supabaseAdmin.rpc('verify_pin', {
       pin_input: pin,
     });
 
-    // Fallback: compare satu-per-satu jika RPC belum ada
     let matchedKasir = null;
-    if (matchResult === null) {
+    
+    if (!rpcError && matchResult && matchResult.length > 0) {
+      matchedKasir = matchResult[0];
+    } else if (rpcError) {
+      // Fallback: compare satu-per-satu jika RPC belum ada/error
       for (const kasir of kasirs) {
         const { data } = await supabaseAdmin
           .from('profiles')
@@ -60,8 +62,6 @@ export async function POST(request: Request) {
           break;
         }
       }
-    } else {
-      matchedKasir = matchResult;
     }
 
     if (!matchedKasir) {
