@@ -139,7 +139,7 @@ async function StatsGrid() {
     <>
       {/* Row 1 — 4 cards */}
       <StatCard label="Omset Hari Ini" value={formatCurrency(s.todaySales)} />
-      <StatCard label="Transaksi" value={s.todayTransactions} />
+      <StatCard label="Transaksi" value={s.todayTransactions.toString()} />
       <StatCard
         label="Saldo Tunai"
         value={formatCurrency(s.cashBalance)}

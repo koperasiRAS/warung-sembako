@@ -57,6 +57,7 @@ const config: Config = {
         "on-error-container": "#93000a",
 
         background: "#f9f9fa",
+        foreground: "var(--foreground)",
         surface: "#f9f9fa",
         "surface-bright": "#f9f9fa",
         "surface-dim": "#dadadb",
