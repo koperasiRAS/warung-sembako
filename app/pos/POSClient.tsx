@@ -651,7 +651,7 @@ export default function POSClient({
 
         {/* Products Grid */}
         <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--space-3)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-2)' }} className="sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5">
+          <div style={{ gap: 'var(--space-2)' }} className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5">
             {filteredProducts.map((product) => (
               <button
                 key={product.id}

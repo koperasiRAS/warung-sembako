@@ -39,7 +39,9 @@ export async function POST(request: Request) {
     let matchedKasir = null;
     
     if (!rpcError && matchResult && matchResult.length > 0) {
-      matchedKasir = matchResult[0];
+      // Prioritaskan akun owner jika ada beberapa profil dengan PIN yang sama
+      const ownerProfile = matchResult.find((p: any) => p.role === 'owner');
+      matchedKasir = ownerProfile || matchResult[0];
     } else if (rpcError) {
       // Fallback: compare satu-per-satu jika RPC belum ada/error
       for (const kasir of kasirs) {
