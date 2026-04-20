@@ -14,7 +14,7 @@ import {
   Wallet,
   TrendingUp,
   Users,
-  PointOfSale,
+  ShoppingCart,
   Settings,
   LogOut,
   Menu,
@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
   { href: '/expenses', label: 'Expenses', icon: Wallet, roles: ['owner'] },
   { href: '/reports', label: 'Reports', icon: TrendingUp, roles: ['owner', 'cashier'] },
   { href: '/cashiers', label: 'Cashiers', icon: Users, roles: ['owner'] },
-  { href: '/pos', label: 'POS', icon: PointOfSale, roles: ['owner', 'cashier'] },
+  { href: '/pos', label: 'POS', icon: ShoppingCart, roles: ['owner', 'cashier'] },
 ];
 
 interface SidebarProps {
