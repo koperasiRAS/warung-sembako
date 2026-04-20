@@ -15,7 +15,11 @@ async function getDailyBalance() {
     .select('cash_balance, bank_balance, opening_cash')
     .eq('date', today)
     .single();
-  return balance || { cash_balance: 0, bank_balance: 0, opening_cash: 0 };
+  return {
+    cash_balance: balance?.cash_balance || 0,
+    bank_balance: balance?.bank_balance || 0,
+    opening_cash: balance?.opening_cash || 0
+  };
 }
 
 async function getTodayTransactions() {
@@ -30,9 +34,9 @@ async function getTodayTransactions() {
 
   if (error || !transactions) return { todaySales: 0, todayTransactions: 0, todayProfit: 0 };
 
-  const todaySales = transactions.reduce((sum, t) => sum + t.total, 0);
+  const todaySales = transactions.reduce((sum, t) => sum + (t.total || 0), 0);
   const todayTransactions = transactions.length;
-  const transactionIds = transactions.map(t => t.id);
+  const transactionIds = transactions.map(t => t.id).filter(Boolean);
   let todayProfit = todaySales;
 
   if (transactionIds.length > 0) {
@@ -44,7 +48,7 @@ async function getTodayTransactions() {
       const totalCOGS = items.reduce((sum, item) => {
         // @ts-ignore
         const costPrice = item.product?.cost_price || 0;
-        return sum + (item.qty * costPrice);
+        return sum + ((item.qty || 0) * costPrice);
       }, 0);
       todayProfit = todaySales - totalCOGS;
     }
@@ -59,7 +63,7 @@ async function getUnpaidDebts() {
     .select('remaining_amount')
     .in('status', ['unpaid', 'partial']);
   if (!debts) return 0;
-  return debts.reduce((sum, debt) => sum + debt.remaining_amount, 0);
+  return debts.reduce((sum, debt) => sum + (debt.remaining_amount || 0), 0);
 }
 
 async function getLowStockProducts() {
@@ -86,8 +90,9 @@ async function getSalesTrend() {
     salesByDate[d.toISOString().split('T')[0]] = 0;
   }
   data?.forEach(t => {
+    if (!t.created_at) return;
     const dateStr = t.created_at.split('T')[0];
-    if (salesByDate[dateStr] !== undefined) salesByDate[dateStr] += t.total;
+    if (salesByDate[dateStr] !== undefined) salesByDate[dateStr] += (t.total || 0);
   });
   return Object.entries(salesByDate)
     .map(([date, value]) => ({ date, value }))
@@ -103,7 +108,7 @@ async function getTodayExpenses() {
     .gte('created_at', `${today}T00:00:00`)
     .lt('created_at', `${today}T23:59:59`);
   if (!expenses) return 0;
-  return expenses.reduce((sum, e) => sum + e.amount, 0);
+  return expenses.reduce((sum, e) => sum + (e.amount || 0), 0);
 }
 
 async function getDashboardStats() {
@@ -112,17 +117,17 @@ async function getDashboardStats() {
     getSalesTrend(), getUnpaidDebts(), getTodayExpenses(),
   ]);
   return {
-    todaySales: transactions.todaySales,
-    todayTransactions: transactions.todayTransactions,
-    todayGrossProfit: transactions.todayProfit,
-    todayExpenses,
-    todayNetProfit: transactions.todayProfit - todayExpenses,
-    cashBalance: balance.cash_balance,
-    bankBalance: balance.bank_balance,
-    totalWarungBalance: balance.cash_balance + balance.bank_balance,
-    totalPiutang,
-    lowStockProducts: lowStock,
-    salesTrend,
+    todaySales: transactions.todaySales || 0,
+    todayTransactions: transactions.todayTransactions || 0,
+    todayGrossProfit: transactions.todayProfit || 0,
+    todayExpenses: todayExpenses || 0,
+    todayNetProfit: (transactions.todayProfit || 0) - (todayExpenses || 0),
+    cashBalance: balance.cash_balance || 0,
+    bankBalance: balance.bank_balance || 0,
+    totalWarungBalance: (balance.cash_balance || 0) + (balance.bank_balance || 0),
+    totalPiutang: totalPiutang || 0,
+    lowStockProducts: lowStock || [],
+    salesTrend: salesTrend || [],
   };
 }
 
