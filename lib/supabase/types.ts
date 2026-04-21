@@ -27,6 +27,7 @@ export interface Product {
   barcode: string | null;
   sku: string | null;
   image_url: string | null;
+  is_active: boolean;
   created_at: string;
   updated_at: string;
   category?: Category;
@@ -38,6 +39,7 @@ export interface Transaction {
   payment_method: 'cash' | 'qris' | 'transfer' | 'hutang';
   cashier_id: string;
   status: 'completed' | 'voided';
+  debt_id?: string | null;
   created_at: string;
   cashier?: Profile;
   items?: TransactionItem[];

@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
 import type { Product, Category } from '@/lib/supabase/types';
 import { useDebounce } from '@/hooks/useDebounce';
+import { sanitizeImageUrl } from '@/lib/utils';
 import { ThermalReceipt } from '@/components/pos/ThermalReceipt';
 import {
   Search,
@@ -684,8 +685,8 @@ export default function POSClient({
                 }}
               >
                 <div style={{ aspectRatio: '1', width: '100%', backgroundColor: 'var(--color-surface-dim)', borderRadius: 'var(--radius-md)', marginBottom: 'var(--space-2)', overflow: 'hidden', position: 'relative', flexShrink: '0' }}>
-                  {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                  {sanitizeImageUrl(product.image_url) ? (
+                    <img src={sanitizeImageUrl(product.image_url)!} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                   ) : (
                     <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Package style={{ width: '1.5rem', height: '1.5rem', color: 'var(--color-outline-variant)' }} />

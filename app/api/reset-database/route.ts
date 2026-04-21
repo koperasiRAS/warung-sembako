@@ -40,7 +40,8 @@ export async function DELETE() {
     ];
 
     for (const table of tablesToClean) {
-      const { error } = await supabaseAdmin.from(table).delete().neq('id', '00000000-0000-0000-0000-000000000000'); // Dummy condition to delete all rows securely
+      // More readable pattern: delete all rows explicitly
+      const { error } = await supabaseAdmin.from(table).delete().not('id', 'is', 'id');
       if (error) {
         console.error(`Error deleting table ${table}:`, error);
         return NextResponse.json({ error: `Failed to clean table: ${table}. ${error.message}` }, { status: 500 });
@@ -59,17 +60,29 @@ export async function DELETE() {
        return NextResponse.json({ error: 'Failed to locate cashier profiles.' }, { status: 500 });
     }
 
-    // Attempt to delete auth user for every cashier account. The profiles record cascades automatically.
+    // Delete all cashier auth accounts
     for (const cashier of cashiers || []) {
       const { error: deleteAuthError } = await supabaseAdmin.auth.admin.deleteUser(cashier.id);
       if (deleteAuthError) {
-         console.error(`Failed to delete cashier auth ${cashier.id}:`, deleteAuthError);
-         // Continue loop regardless if one fails
+        console.error(`Failed to delete cashier auth ${cashier.id}:`, deleteAuthError);
+        // If auth deletion fails, profile orphan is acceptable — continue
       }
     }
-    
-    // As a final backup, hard delete profiles too if cascade didn't catch them
-    await supabaseAdmin.from('profiles').delete().eq('role', 'cashier');
+
+    // Hard delete cashier profiles (even if auth deletion failed,
+    // to prevent orphaned records blocking new registrations)
+    const { error: deleteProfilesError } = await supabaseAdmin
+      .from('profiles')
+      .delete()
+      .eq('role', 'cashier');
+
+    if (deleteProfilesError) {
+      console.error('Failed to delete cashier profiles:', deleteProfilesError);
+      return NextResponse.json(
+        { error: `Gagal menghapus profil kasir. ${deleteProfilesError.message}` },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ message: 'System database successfully formatted.' }, { status: 200 });
 

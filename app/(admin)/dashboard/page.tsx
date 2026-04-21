@@ -1,4 +1,5 @@
 import { createClient, getProfile, getUser } from '@/lib/supabase/server';
+import { sanitizeImageUrl } from '@/lib/utils';
 import { AlertTriangle, Package } from 'lucide-react';
 import { SalesChart, ResetDataComponent, DashboardRealtime, StatsGridClient } from '@/components/dashboard';
 import Link from 'next/link';
@@ -208,9 +209,9 @@ async function LowStockList() {
           `}
         >
           <div className="flex items-center gap-4">
-            {product.image_url ? (
+            {sanitizeImageUrl(product.image_url) ? (
               <img
-                src={product.image_url}
+                src={sanitizeImageUrl(product.image_url)!}
                 alt={product.name}
                 className="w-12 h-12 rounded-2xl object-cover bg-surface-dim"
               />

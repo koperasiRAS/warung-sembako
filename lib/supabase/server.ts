@@ -39,8 +39,17 @@ export async function getSession() {
 }
 
 export async function getUser() {
-  const session = await getSession();
-  return session?.user ?? null;
+  const supabase = await createClient();
+  // getUser() hits the Supabase Auth server to validate the session token,
+  // preventing spoofed cookies that getSession() would accept blindly
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error('Error validating user:', error);
+    return null;
+  }
+
+  return user;
 }
 
 export async function getProfile(userId: string) {

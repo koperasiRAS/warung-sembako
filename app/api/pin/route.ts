@@ -1,7 +1,60 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { timingSafeEqual } from 'crypto';
+
+// ─── Rate Limiting (in-memory, per IP) ─────────────────────────────────────
+const attemptsPerIP = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = attemptsPerIP.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    attemptsPerIP.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX) {
+    return false;
+  }
+
+  entry.count += 1;
+  return true;
+}
+
+// ─── Timing-safe PIN comparison ──────────────────────────────────────────────
+function timingSafeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  try {
+    return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+  } catch {
+    return false;
+  }
+}
+
+function hashPin(pin: string): string {
+  // Simple SHA-256 hash — stored as pin_hash in profiles table
+  // Use Node.js built-in crypto
+  const { createHash } = require('crypto');
+  return createHash('sha256').update(pin).digest('hex');
+}
 
 export async function POST(request: Request) {
+  // ── Rate Limit Check ──────────────────────────────────────────────────────
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    request.headers.get('x-real-ip') ||
+    'unknown';
+
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json(
+      { error: 'Terlalu banyak percobaan. Coba lagi dalam 15 menit.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const { pin } = await request.json();
 
@@ -25,10 +78,10 @@ export async function POST(request: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    // Cari kasir atau admin yang punya pin_hash
+    // Fetch all profiles that have a pin_hash set
     const { data: kasirs, error: kasirError } = await supabaseAdmin
       .from('profiles')
-      .select('id, email, full_name, role')
+      .select('id, email, full_name, role, pin_hash')
       .not('pin_hash', 'is', null);
 
     if (kasirError) {
@@ -39,43 +92,39 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'PIN salah' }, { status: 401 });
     }
 
-    const { data: matchResult, error: rpcError } = await supabaseAdmin.rpc('verify_pin', {
-      pin_input: pin,
-    });
-
+    // ── Try RPC first (server-side hashed comparison) ──────────────────────
     let matchedKasir = null;
-    
-    if (!rpcError && matchResult && matchResult.length > 0) {
-      // Prioritaskan akun owner jika ada beberapa profil dengan PIN yang sama
-      const ownerProfile = matchResult.find((p: any) => p.role === 'owner');
-      matchedKasir = ownerProfile || matchResult[0];
-    } else if (rpcError || (!matchResult && kasirs.length > 0)) {
-      // Fallback: compare secara paralel jika RPC belum ada/error
-      const kasirDetails = await Promise.all(
-        kasirs.map((k) => 
-          supabaseAdmin.from('profiles').select('id, email, full_name, role, pin_hash').eq('id', k.id).single()
-        )
-      );
 
-      const matchPromises = kasirDetails.map(async ({ data }) => {
-        if (!data?.pin_hash) return null;
-        const { data: cryptResult } = await supabaseAdmin.rpc('verify_pin_plain', {
-          plain: pin,
-          hash: data.pin_hash,
-        });
-        return cryptResult === true ? data : null;
+    try {
+      const { data: rpcResult } = await supabaseAdmin.rpc('verify_pin', {
+        pin_input: pin,
       });
 
-      const results = await Promise.all(matchPromises);
-      matchedKasir = results.find(r => r !== null);
+      if (rpcResult && Array.isArray(rpcResult) && rpcResult.length > 0) {
+        // RPC exists and returned a match
+        const ownerProfile = rpcResult.find((p: any) => p.role === 'owner');
+        matchedKasir = ownerProfile || rpcResult[0];
+      }
+    } catch {
+      // RPC not available — fall through to fallback
+    }
+
+    // ── Fallback: direct hash comparison (no RPC needed) ───────────────────
+    if (!matchedKasir) {
+      const pinHash = hashPin(pin);
+      for (const kasir of kasirs) {
+        if (kasir.pin_hash && timingSafeCompare(pinHash, kasir.pin_hash)) {
+          matchedKasir = kasir;
+          break;
+        }
+      }
     }
 
     if (!matchedKasir) {
       return NextResponse.json({ error: 'PIN salah' }, { status: 401 });
     }
 
-    // Gunakan password deterministik untuk menghindari update password di setiap login (yang sangat lambat)
-    // Cukup gunakan ID profil ditambah kombinasi unik agar aman
+    // Deterministic password per user ID — no need to update on every login
     const deterministicPassword = `${matchedKasir.id}-POS-Auth!1`;
 
     const { cookies } = await import('next/headers');
@@ -99,13 +148,13 @@ export async function POST(request: Request) {
       }
     );
 
-    // Coba langsung login (tanpa update)
+    // Try login with existing deterministic password
     let { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
       email: matchedKasir.email,
       password: deterministicPassword,
     });
 
-    // Jika gagal login, berarti password deterministik belum di-set. Lakukan update 1x saja.
+    // If password not set yet, set it once
     if (sessionError || !sessionData.session) {
       const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
         matchedKasir.id,
@@ -113,10 +162,12 @@ export async function POST(request: Request) {
       );
 
       if (updateError) {
-        return NextResponse.json({ error: 'Gagal menyiapkan sesi autentikasi' }, { status: 500 });
+        return NextResponse.json(
+          { error: 'Gagal menyiapkan sesi autentikasi' },
+          { status: 500 }
+        );
       }
 
-      // Coba login lagi setelah update
       const retryAuth = await supabase.auth.signInWithPassword({
         email: matchedKasir.email,
         password: deterministicPassword,

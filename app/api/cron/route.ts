@@ -5,7 +5,10 @@ import { createClient } from '@supabase/supabase-js';
 // Daily health check — ensures daily_balances record exists for today
 // (shift auto-close has been removed; daily rollover is handled by /api/cron-midnight)
 export async function GET(request: Request) {
-  if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+  const cronSecret = process.env.CRON_SECRET;
+  const authHeader = request.headers.get('authorization');
+
+  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
