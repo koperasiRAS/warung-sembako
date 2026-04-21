@@ -497,23 +497,35 @@ export default function ProductsClient({
           >
             {/* Image */}
             <div style={{
-              aspectRatio: '1',
-              backgroundColor: 'var(--color-surface-dim)',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              paddingTop: 'var(--space-4)',
               position: 'relative',
             }}>
-              {product.image_url ? (
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  loading="lazy"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                />
-              ) : (
-                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Package style={{ width: '3rem', height: '3rem', color: 'var(--color-outline-variant)' }} />
-                </div>
-              )}
+              <div style={{
+                width: '120px',
+                height: '120px',
+                backgroundColor: 'var(--color-surface-dim)',
+                position: 'relative',
+                borderRadius: 'var(--radius-lg)',
+                overflow: 'hidden',
+                border: '1px solid var(--color-outline-variant)',
+              }}>
+                {product.image_url ? (
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--color-surface-container-lowest)' }}>
+                    <Package style={{ width: '2.5rem', height: '2.5rem', color: 'var(--color-outline-variant)' }} />
+                  </div>
+                )}
+              </div>
               {product.stock < (product.low_stock_threshold || 10) && (
                 <span style={{
                   position: 'absolute',
@@ -526,6 +538,7 @@ export default function ProductsClient({
                   fontSize: 'var(--text-label-sm)',
                   fontWeight: '600',
                   borderRadius: 'var(--radius-full)',
+                  zIndex: 1,
                 }}>
                   Stok Menipis
                 </span>
